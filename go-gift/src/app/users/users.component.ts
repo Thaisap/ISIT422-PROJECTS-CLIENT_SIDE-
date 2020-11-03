@@ -1,23 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import {User} from '../user';
+import { UserService } from '../user.service';
+
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
+
 export class UsersComponent implements OnInit {
 
-  // hero property
-user: User = {
-  id: 1,
-  name: 'Thais'
-};
 
+  user: User;
 
-  constructor() { }
+  constructor(private userService: UserService) {  }
 
-  ngOnInit(): void {
+  ngOnInit() {
+
+    this.getUserInfo();
+ 
+  }
+  
+
+  getUserInfo(): void{
+    this.userService.getUserInfo()
+    .subscribe(users => this.user = users);
   }
 
 }
