@@ -49,11 +49,49 @@ body{
     border: 3px solid #ed5d92;
 }
 
-.test{
+.link-panel{
     position:absolute; 
     width:100%;
     height:100%;
     top:0;
     left: 0;
     z-index: 1;
+}
+
+.section{
+    border-bottom: 5px solid black;
+    font-size: 1.8em;
+    padding: 35px;
+}
+
+.tag{
+    background-color: black; 
+    border-radius: 50px; 
+    height: 70px; 
+    line-height: 5px; 
+    padding: 35px; 
+    margin-bottom: 20px;
+    margin-left: 35px;
+    font-family: 'Josefin Sans', sans-serif; 
+    font-weight: 700; 
+    font-size: 1.6em; 
+    color: white;
+    text-align: center;
+}
+
+.button{
+    width: 30%;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
+    border: 5px solid black;
+}
+
+.button:hover{
+    background-color: #ed5d92;
+    color: white;
+    border: 5px solid #8f8f8f;
 }

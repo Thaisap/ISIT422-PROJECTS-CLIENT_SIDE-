@@ -3,11 +3,11 @@ import {User} from '../user';
 import {UserService} from '../user.service';
 
 @Component({
-  selector: 'app-friend',
-  templateUrl: './friend.component.html',
-  styleUrls: ['./friend.component.css']
+  selector: 'app-find-friends-page',
+  templateUrl: './find-friends-page.component.html',
+  styleUrls: ['./find-friends-page.component.css']
 })
-export class FriendComponent implements OnInit {
+export class FindFriendsPageComponent implements OnInit {
 
 
   friend: User[];
