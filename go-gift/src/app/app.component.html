@@ -1,4 +1,4 @@
-<h1>{{title}}</h1>
+<!-- <h1>{{title}}</h1>
 
 <img src="../assets/GoGiftLogo.png" alt="GoGigtLogo" width="200" height="200">
 
@@ -12,8 +12,25 @@
     <br>
 
 
+</div> -->
+<div class="container-fluid p-0">
+    <div class="row">
+        <div class="col-lg-4 d-lg-flex p-0 justify-content-center align-items-center main-left">
+            <div style="width: 100%">
+                <img src="../assets/gogift-navbar.png" style="width: 500px" alt="go-gift logo">
+                <img src="../assets/white-seahorse-profile.png" style="margin-left: 30%; width: 252px;" alt="white seahorse user profile image">
+                <h2 class="main-font bold" style="color: white; text-align: center; margin-top: 50px; font-size: 3.6em">White Seahorse</h2>
+                <div class="nav-item">Profile<a routerLink="/user"><span class="test"></span></a></div>
+                <div class="nav-item">Find Friends<a routerLink="/friend"><span class="test"></span></a></div>
+                <div class="nav-item">Search Gift Ideas<a routerLink="/user"><span class="test"></span></a></div>
+                <div class="nav-item">See My Wishlist<a routerLink="/user"><span class="test"></span></a></div>
+            </div>
+        </div>
+        <div class="col-lg-8 p-0 main-right">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
 </div>
 
-<router-outlet></router-outlet>
-
-<app-messages></app-messages>
+<!-- <app-navigation><app-navigation> -->
+<!-- <app-messages></app-messages> -->

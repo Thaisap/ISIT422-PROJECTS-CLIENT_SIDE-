@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { HttpClientModule } from '@angular/common/http';
 import {UserService} from './user.service';
 import { FriendComponent } from './friend/friend.component';
+import { NavigationComponent } from './navigation/navigation.component';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { FriendComponent } from './friend/friend.component';
     MessagesComponent,
     DashboardComponent,
     FriendComponent,
+    NavigationComponent,
     
   ],
   
