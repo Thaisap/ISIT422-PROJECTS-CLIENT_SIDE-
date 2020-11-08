@@ -5,6 +5,9 @@ import {catchError, map, tap} from 'rxjs/operators';
 
 import {User} from './user';
 import {MessageService} from './message.service';
+import { Profile } from './Profile';
+import {tag} from './tag';
+import {allTags} from './allTags';
 
 
 @Injectable({
@@ -21,7 +24,19 @@ export class UserService {
 
   constructor( private http: HttpClient, private messageService: MessageService) { }
 
+/*  CreateProfile(body:Profile) : Observable<Profile> {
+    return this.http.post<Profile> ('http://localhost:3000/profile' { title: 'Angular POST Request Example' }).subscribe(data => {
+      this.AccountId = data.id;);
+  }
+  */
 // Get users from the server
+CreateTag(body:tag) : Observable<tag> {
+  return this.http.post<tag> ('http://localhost:3000/tag',body);
+}
+GetallTags() : Observable<allTags> {
+  return this.http.get<allTags> ('http://localhost:3000/allTags');
+}
+
 
 getUserInfo() : Observable<User> {
   return this.http.get<User> ('http://localhost:3000/getUserInfo');
