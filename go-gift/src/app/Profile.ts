@@ -6,7 +6,7 @@ export interface Profile {
     bio: string;
     profileImg:string;
     tag: string [];
-     wishlist: string [];
-      friend: string [];
+    wishlist: string [];
+    friend: string [];
 }
 

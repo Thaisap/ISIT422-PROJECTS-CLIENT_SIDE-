@@ -80,7 +80,6 @@ body{
 }
 
 .button{
-    width: 30%;
     height: 80px;
     line-height: 80px;
     text-align: center;
@@ -90,8 +89,3 @@ body{
     border: 5px solid black;
 }
 
-.button:hover{
-    background-color: #ed5d92;
-    color: white;
-    border: 5px solid #8f8f8f;
-}

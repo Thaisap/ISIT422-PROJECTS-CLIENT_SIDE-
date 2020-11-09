@@ -13,6 +13,8 @@ import { FindFriendsPageComponent } from './find-friends-page/find-friends-page.
 import { SearchGiftPageComponent } from './search-gift-page/search-gift-page.component';
 import { DisplayWishlistPageComponent } from './display-wishlist-page/display-wishlist-page.component';
 import { HeaderEditComponent } from './header-edit/header-edit.component';
+import { ModalComponent } from './modal/modal.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -21,6 +23,7 @@ import { HeaderEditComponent } from './header-edit/header-edit.component';
     FormsModule,
     AppRoutingModule,
     HttpClientModule,
+    NgbModule,
   ],
   
   declarations: [
@@ -32,7 +35,8 @@ import { HeaderEditComponent } from './header-edit/header-edit.component';
     FindFriendsPageComponent,
     SearchGiftPageComponent,
     DisplayWishlistPageComponent,
-    HeaderEditComponent,  
+    HeaderEditComponent,
+    ModalComponent,  
   ],
   
   bootstrap: [AppComponent]

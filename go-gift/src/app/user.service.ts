@@ -19,7 +19,7 @@ export class UserService {
 
 //private usersUrl = 'api/users'; //ULR to web api
 
-  httpOptions = {headers: new HttpHeaders ({'Content-Type': 'application/jason'})
+  httpOptions = {headers: new HttpHeaders ({'Content-Type': 'application/json'})
 };
 
   constructor( private http: HttpClient, private messageService: MessageService) { }
@@ -30,11 +30,22 @@ export class UserService {
   }
   */
 // Get users from the server
-CreateTag(body:tag) : Observable<tag> {
+/* CreateTag(body:tag) : Observable<tag> {
   return this.http.post<tag> ('http://localhost:3000/tag',body);
 }
-GetallTags() : Observable<allTags> {
+ */GetallTags() : Observable<allTags> {
   return this.http.get<allTags> ('http://localhost:3000/allTags');
+}
+
+// Profile Page: used to populate data
+getCurrentUser(id: string): Observable<Profile>{
+  return this.http.get<Profile>(`http://localhost:3000/profile/${id}`);
+}
+
+// Profile Page: used to update profile
+updateCurrentUser(id: string, body: Profile): Observable<Profile>{
+  console.log(body);
+  return this.http.patch<Profile>(`http://localhost:3000/profile/${id}`, body, this.httpOptions);
 }
 
 
