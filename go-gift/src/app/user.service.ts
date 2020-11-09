@@ -24,17 +24,18 @@ export class UserService {
 
   constructor( private http: HttpClient, private messageService: MessageService) { }
 
-/*  CreateProfile(body:Profile) : Observable<Profile> {
-    return this.http.post<Profile> ('http://localhost:3000/profile' { title: 'Angular POST Request Example' }).subscribe(data => {
-      this.AccountId = data.id;);
-  }
-  */
-// Get users from the server
-/* CreateTag(body:tag) : Observable<tag> {
-  return this.http.post<tag> ('http://localhost:3000/tag',body);
+CreateProfile(body:Profile) : Observable<Profile> {
+  return this.http.post<Profile> ('http://localhost:3000/profile', body, this.httpOptions);
 }
- */GetallTags() : Observable<allTags> {
+
+//Create Account Page: used to check all the tags currently in the tags collection
+getAllTags() : Observable<allTags> {
   return this.http.get<allTags> ('http://localhost:3000/allTags');
+}
+
+//Create Account Page: used to create a new tag doc in the tag collection
+CreateTag(body:tag) : Observable<tag> {
+  return this.http.post<tag> ('http://localhost:3000/tag', body, this.httpOptions);
 }
 
 // Profile Page: used to populate data
@@ -48,7 +49,20 @@ updateCurrentUser(id: string, body: Profile): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/${id}`, body, this.httpOptions);
 }
 
+//Find Friends Page: used to get friend info based on email address
+getFriendByEmail(email: string): Observable<User>{
+  return this.http.get<User>(`http://localhost:3000/friend/${email}`);
+}
 
+//Find Friends Page: used to get a list of user's friends (id is user's id)
+getFriendListById(id: string):Observable<User[]>{
+  return this.http.get<User[]>(`http://localhost:3000/friends/${id}`);
+}
+
+
+////////////////////////////////////////////////////////////
+
+// Get users from the server
 getUserInfo() : Observable<User> {
   return this.http.get<User> ('http://localhost:3000/getUserInfo');
 }
