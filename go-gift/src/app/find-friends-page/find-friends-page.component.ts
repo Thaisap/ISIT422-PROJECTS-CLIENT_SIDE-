@@ -11,8 +11,8 @@ export class FindFriendsPageComponent implements OnInit {
 
 
   friend: User[];
-
-  constructor(private userService: UserService) { }
+  email:string;
+  constructor(private userService: UserService) { this.email = ''; }
 
   ngOnInit(): void {
 
@@ -23,5 +23,5 @@ export class FindFriendsPageComponent implements OnInit {
     this.userService.getFriendInfo()
     .subscribe(users => this.friend = users);
   }
-
+  onSearch(value: string) { this.email = value; }
 }
