@@ -1,28 +1,27 @@
-<form [formGroup]="accountForm" (submit)="onSubmit()">
+
   
 	<label>
 	  First Name:
-	  <input type="text"formControlName="firstName">
+	  <input type="text" [(ngModel)]="account.firstName">
 	</label>
   
 	<label>
 	  Last Name:
-	  <input type="text"formControlName="lastName">
+	  <input type="text" [(ngModel)]="account.lastName">
 	</label>
 
 
 	<label>
 		EmailAddress:
-		<input type="text"formControlName="EmailAddress">
+		<input type="text" [(ngModel)]="account.email">
 	  </label>
 
 
 	<label>
 		Tags:
-		<input type="text"formControlName="tags">
+		<input type="text"[(ngModel)]="account.tag">
 	  </label>
   
-  </form>
 
-  <button type="submit">Submit</button>
+  <button type="submit"(click)="onSubmit()">Submit</button>
 
