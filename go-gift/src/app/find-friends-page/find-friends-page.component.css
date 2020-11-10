@@ -1,4 +1,43 @@
 /* HeroesComponent's private CSS styles */
+#container{
+  margin: 0 auto;
+  width: 75%;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+h1 {
+  font-weight: bold;
+  margin: 2rem 0;
+}
+#inputBox{
+  text-align: center;
+  line-height: 2;
+  font-size: 2rem;
+}
+img{
+  float:right;
+  height: 5rem;
+  width: 5rem;
+}
+input{
+  border-width: 0.5rem;
+  border-color: black;
+  width: 100%;
+  line-height: 4;
+  margin-bottom: 2rem;
+}
+hr{
+  border-top: 0.25rem solid;
+  border-color: black;
+}
+button{
+  background-color: black;
+  color: white;
+  font-weight: bold;
+  font-size: 1.75rem;
+  padding: 0.5rem 2rem;
+  margin-bottom: 1rem;
+}
 .users {
     margin: 0 0 2em 0;
     list-style-type: none;

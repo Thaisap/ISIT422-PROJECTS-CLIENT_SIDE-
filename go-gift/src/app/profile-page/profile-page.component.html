@@ -1,0 +1,28 @@
+<div style="padding: 35px;">
+    <div class="section d-lg-flex justify-content-center">
+        <!-- <app-modal style="width: 500px;" buttonName="See Personal Info" modalTitle="My Information"></app-modal> -->
+        <div style="width: 100%;">
+            <div class="button" style="width: 500px;" (click)="openProfile()">See Personal Info</div>
+        </div>
+        <div style="width: 100%;" [hidden]="hideProfile">
+            <app-header-edit title="My Personal Information" (clickFun)="editProfile()"></app-header-edit>
+            <div class="sub-font bold" [hidden]="!hideEditProfile">{{userProfile.firstName}} {{userProfile.lastName}}</div>
+            <div class="sub-font" [hidden]="!hideEditProfile">Email: {{userProfile.email}}</div>
+            <label [hidden]="hideEditProfile">First Name: </label><input type="text" class="sub-font" [hidden]="hideEditProfile" [(ngModel)]="userProfile.firstName"><br />
+            <label [hidden]="hideEditProfile">Last Name: </label><input type="text" class="sub-font" [hidden]="hideEditProfile" [(ngModel)]="userProfile.lastName"><br />
+            <label [hidden]="hideEditProfile">Email: </label><input type="text" class="sub-font" [hidden]="hideEditProfile" [(ngModel)]="userProfile.email">
+            <div class="button" (click)="updateProfile()" style="margin-top: 25px;">Update</div>
+        </div>        
+    </div>
+    <app-header-edit title="My Gift Bio" (clickFun)="editBio()"></app-header-edit>
+    <div [hidden]="hideDisplay" class="sub-font section">{{userProfile.bio}}</div>
+    <div [hidden]="!hideDisplay" class="sub-font section">
+        <textarea id="bio" name="bio" rows="4" cols="60" [(ngModel)]="userProfile.bio"></textarea>
+        <div class="button" (click)="updateBio()" style="margin-top: 25px;">Update</div>
+    </div>    
+    <app-header-edit title="My Tags" (clickFun)="editTags()"></app-header-edit>
+    <div class="d-lg-flex justify-content-start">
+        <div class="tag" *ngFor="let tag of userProfile.tag">{{tag.name}}</div>
+    </div>
+</div>
+

@@ -1,0 +1,48 @@
+
+ <section class="login-block">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12">
+                <form class="md-float-material form-material" action="#" method="POST">
+                    <div class="auth-box card">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3 class="text-center heading">Welcome to GOGift!</h3>
+                                </div>
+                            </div>
+                          <div class="form-group form-primary"> <input type="text" class="form-control" name="email" value="" placeholder="Email" id="email"> </div>
+                            <div class="form-group form-primary"> <input type="password" class="form-control" name="password" placeholder="Password" value="" id="password"> </div>
+                                                       <div class="row">
+                                <div class="col-md-12"> <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" name="submit" value="Signup Now">
+        
+                                </div>
+                            </div>
+                            <div class="or-container">
+                                <div class="line-separator"></div>
+                                <div class="or-label">or</div>
+                                <div class="line-separator"></div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"> <button (click) = "signInWithGoogle()" class="btn btn-lg btn-google btn-block text-uppercase btn-outline"> <img src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign In Using Google</button> </div>
+                            </div> <br>
+                            <p class="text-inverse text-center"><a href="create-account" data-abc="true">SignUp</a></p>
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+<div *ngIf="user"> </div>
+<h4> {{user.name}}</h4>
+<p> {{user.email}}</p>
+<div><img src="{{user.photoUrl}}"> </div>
+<br> 
+
+<button (click) = "signOut()"> Sign out</button> 
+
