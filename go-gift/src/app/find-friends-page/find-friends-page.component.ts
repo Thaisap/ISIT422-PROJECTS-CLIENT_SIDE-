@@ -12,16 +12,21 @@ export class FindFriendsPageComponent implements OnInit {
 
   friend: User[];
   email:string;
-  constructor(private userService: UserService) { this.email = ''; }
+  oFriends: User[];
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-
     this.getFriendInfo();
   }
 
   getFriendInfo(): void {
-    this.userService.getFriendInfo()
-    .subscribe(users => this.friend = users);
+    this.userService.getFriendInfo().subscribe(users => {
+      this.oFriends = users;
+      this.friend = this.oFriends;
+    });
   }
-  onSearch(value: string) { this.email = value; }
+
+  onSearch(value: string) { 
+    this.friend = this.oFriends.filter(user => user.email.includes(value));
+  }
 }
