@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms'; // <--NgModel lives here
+import {FormsModule} from '@angular/forms'
+import {ReactiveFormsModule} from '@angular/forms'; // <--NgModel lives here
 import { AppComponent } from './app.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,7 @@ import { DisplayWishlistPageComponent } from './display-wishlist-page/display-wi
 import { HeaderEditComponent } from './header-edit/header-edit.component';
 import { ModalComponent } from './modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CreateAccountComponent } from './create-account/create-account.component';
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    ReactiveFormsModule
   ],
   
   declarations: [
@@ -36,7 +39,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     SearchGiftPageComponent,
     DisplayWishlistPageComponent,
     HeaderEditComponent,
-    ModalComponent,  
+    ModalComponent,
+    CreateAccountComponent,  
   ],
   
   bootstrap: [AppComponent]

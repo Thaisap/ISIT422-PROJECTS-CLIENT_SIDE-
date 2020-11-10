@@ -1,0 +1,28 @@
+<form [formGroup]="accountForm" (submit)="onSubmit()">
+  
+	<label>
+	  First Name:
+	  <input type="text"formControlName="firstName">
+	</label>
+  
+	<label>
+	  Last Name:
+	  <input type="text"formControlName="lastName">
+	</label>
+
+
+	<label>
+		EmailAddress:
+		<input type="text"formControlName="EmailAddress">
+	  </label>
+
+
+	<label>
+		Tags:
+		<input type="text"formControlName="tags">
+	  </label>
+  
+  </form>
+
+  <button type="submit">Submit</button>
+
