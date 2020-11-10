@@ -31,9 +31,9 @@ onSubmit(): void {
   console.log(this.account);
   //getting user input and comparing to the tags collection
 //  this.account.tag;
- const L = this.account.tag[0].split(',');
- let dbTags =this.getTags.tags;
- let dbTIds =this.getTags.tagIds;
+// const L = this.account.tag[0].split(',');
+// let dbTags =this.getTags.tags;
+// let dbTIds =this.getTags.tagIds;
 }
 
 
