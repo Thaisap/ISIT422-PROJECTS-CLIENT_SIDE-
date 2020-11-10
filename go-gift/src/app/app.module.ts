@@ -17,6 +17,8 @@ import { HeaderEditComponent } from './header-edit/header-edit.component';
 import { ModalComponent } from './modal/modal.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { LoginComponent } from './login/login.component';
+import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocialLoginModule
+    
   ],
   
   declarations: [
@@ -40,7 +44,21 @@ import { CreateAccountComponent } from './create-account/create-account.componen
     DisplayWishlistPageComponent,
     HeaderEditComponent,
     ModalComponent,
-    CreateAccountComponent,  
+    CreateAccountComponent,
+    LoginComponent,  
+  ],
+  providers:[{
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+      {
+        id: GoogleLoginProvider.PROVIDER_ID,
+        provider: new GoogleLoginProvider('467762279715-j6qchnra4oj167h21u08vnnbmidhlq14.apps.googleusercontent.com')
+      }
+    ]
+    } as SocialAuthServiceConfig,
+  }
   ],
   
   bootstrap: [AppComponent]
