@@ -12,6 +12,7 @@ h1 {
 #inputBox{
   text-align: center;
   line-height: 2;
+  font-size: 2rem;
 }
 img{
   float:right;
