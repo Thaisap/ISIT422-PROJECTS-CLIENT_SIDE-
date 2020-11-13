@@ -3,6 +3,9 @@ import {User} from '../user';
 import { UserService } from '../user.service';
 import {allTags} from '../allTags';
 import { Profile } from '../Profile';
+import { AddTagsModalComponent } from '../add-tags-modal/add-tags-modal.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-profile-page',
@@ -20,7 +23,7 @@ export class ProfilePageComponent implements OnInit {
   //user: User;
   //allTags: allTags;
 
-  constructor(private userService: UserService) {  }
+  constructor(private userService: UserService, private modalService: NgbModal) {  }
 
   ngOnInit() {
     this.getProfile('5f9725288c008df2d8d1c241');
@@ -68,11 +71,10 @@ export class ProfilePageComponent implements OnInit {
     console.log("EDIT Tags");
   }
 
-//OldCode 
- /*  getUserInfo(): void{
-    this.userService.getUserInfo()
-    .subscribe(users => this.user = users);
-  } */
+  openAddTagsModal() {
+    const modalRef = this.modalService.open(AddTagsModalComponent);
+    modalRef.result.then((result) => console.log(result), (reason) => console.log(reason));
+  }
 
 /* getallTags(): void{
     this.userService.GetallTags()

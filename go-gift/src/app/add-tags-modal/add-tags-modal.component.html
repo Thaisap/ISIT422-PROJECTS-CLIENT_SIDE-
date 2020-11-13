@@ -1,11 +1,11 @@
 <div class="modal-header">
-    {{modalTitle}}
+    <h3>Add Tags</h3>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <div class="modal-body">
-    <ng-content></ng-content>
+    <app-tags-autocomplete></app-tags-autocomplete>
 </div>
 <div class="modal-footer">
     <div type="button" class="button" (click)="activeModal.close('Hello World!! TESTING.')">Close</div>

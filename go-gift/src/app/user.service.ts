@@ -8,6 +8,7 @@ import {MessageService} from './message.service';
 import { Profile } from './Profile';
 import {tag} from './tag';
 import {allTags} from './allTags';
+import { Item } from './item';
 
 
 @Injectable({
@@ -57,6 +58,11 @@ getFriendByEmail(email: string): Observable<User>{
 //Find Friends Page: used to get a list of user's friends (id is user's id)
 getFriendListById(id: string):Observable<User[]>{
   return this.http.get<User[]>(`http://localhost:3000/friends/${id}`);
+}
+
+//Search Gifts Page: used to get a list of items based on tag name
+getItemListByTagName(tagName: string): Observable<Item[]>{
+  return this.http.get<Item[]>(`http://localhost:3000/itemsByTag/${tagName}`);
 }
 
 

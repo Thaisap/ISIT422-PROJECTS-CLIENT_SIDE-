@@ -7,14 +7,14 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 })
 export class HeaderEditComponent implements OnInit {
   @Input() title: string;
-  @Output() clickFun = new EventEmitter();
+  @Output() clickFunc = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
   }
   buttonClick(){
-    this.clickFun.emit();
+    this.clickFunc.emit();
   }
 
 }
