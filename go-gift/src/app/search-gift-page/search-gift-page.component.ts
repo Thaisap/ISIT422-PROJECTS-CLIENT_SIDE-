@@ -12,18 +12,39 @@ export class SearchGiftPageComponent implements OnInit {
   itemList: Item[];
   hideSearchResults: boolean = true;
   message: string;
+  allTagNames: string[];
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getAllTags();
   }
 
-  searchItems($event): void{
+  getAllTags(): void{
+    this.userService.getAllTags()
+    .subscribe(allTags => this.allTagNames = allTags.tags);
+  }
+
+  checkTagName($event): void{
+    this.hideSearchResults = true;
+    this.itemList = [];
     this.tagName = $event;
     this.message = '';
-    //console.log("Calling from parent: " + this.tagName);
+    //should check whether tag name is in database
+    let tagNameInDB = this.allTagNames.includes(this.tagName);
+    if(tagNameInDB){
+      //call db
+      this.searchItems();
+    }else{
+      this.message = "No Results Found.";
+      this.hideSearchResults = false;
+    }  
+  }
+
+  searchItems(): void{
     this.userService.getItemListByTagName(this.tagName)
       .subscribe((items) => {
+        console.log(items);
         if(items.length === 0){
           this.message = "No Results Found.";
         }
@@ -31,6 +52,4 @@ export class SearchGiftPageComponent implements OnInit {
       });
     this.hideSearchResults = false;
   }
-
-
 }

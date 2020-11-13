@@ -120,6 +120,17 @@ body{
     border: 5px solid black;
 }
 
+.rev-button{
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    font-size: 1.2em;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: bold;
+    background-color: black;
+    color: white;
+}
+
 .search{
     background-color:black;
     color: white;
@@ -129,6 +140,11 @@ body{
     height: 70px;
     padding: 35px;
     font-size: 1.6em;
+}
+
+.new-line{
+    -moz-white-space: pre-line;
+    white-space: pre-line;
 }
 
 

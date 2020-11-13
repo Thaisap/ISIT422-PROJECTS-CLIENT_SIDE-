@@ -1,6 +1,6 @@
 <div style="padding: 35px;">
     <h1 class="main-font"> Search Gift Ideas</h1>
-    <app-tags-autocomplete buttonName="Search" (enterFunc)="searchItems($event)" (clickFunc)="searchItems($event)"></app-tags-autocomplete>
+    <app-tags-autocomplete buttonName="Search" (enterFunc)="checkTagName($event)" (clickFunc)="checkTagName($event)"></app-tags-autocomplete>
 
 
     <div [hidden]="hideSearchResults" style="margin-top: 35px;">
@@ -9,8 +9,7 @@
         </div>
         <div *ngIf="itemList">
             <ul *ngFor="let item of itemList">
-                <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor"></app-item-card>
-                <li>{{item.url}}</li>
+                <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [description]="item.description" [url]="item.url"></app-item-card>
             </ul>
         </div>
     </div>
