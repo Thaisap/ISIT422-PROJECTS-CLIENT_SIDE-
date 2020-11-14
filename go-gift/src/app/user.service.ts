@@ -75,6 +75,11 @@ addItemToTag(tagId: string, itemId: string): Observable<tag>{
   return this.http.patch<tag>(`http://localhost:3000/tag/${tagId}`, [itemId], this.httpOptions)
 }
 
+//Create Wishlist Item Page: used to add newly created item to user collection
+addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
+  return this.http.patch<Profile>(`http://localhost:3000/profile/item/${userId}`, [itemId], this.httpOptions)
+}
+
 
 ////////////////////////////////////////////////////////////
 

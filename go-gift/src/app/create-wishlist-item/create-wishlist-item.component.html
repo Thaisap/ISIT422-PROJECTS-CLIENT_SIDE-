@@ -42,7 +42,7 @@
 
         <div class="form-group">
             <label for="tags">Give Tags to the Item</label>
-            <input type="text" class="form-control" id="tags" placeholder="postage stamps, Christmas" required [(ngModel)]="tagInput">
+            <input type="text" class="form-control" id="tags" placeholder="postage stamps, Christmas" required [(ngModel)]="tagInput" (keydown.enter)="createWishlistItem()">
         </div>
     </div>
     <!-- <div class="row justify-content-start">
