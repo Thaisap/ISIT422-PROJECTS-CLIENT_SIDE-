@@ -23,11 +23,12 @@ export class CreateWishlistItemComponent implements OnInit {
   tags: string[];
   tagInput: string = '';
   priceAsNum: number = 0.00;
-  startingPrice: boolean = false;
+  startingPrice: string = "false";
   //allTagsInfo: allTags;
   allTagNames: string[];
   allTagIds: string[];
   tagDoc: WriteTagDoc;
+  recordedItem: WriteItemDoc;
 
 
   constructor(private userService: UserService, private modalService: NgbModal) { }
@@ -45,25 +46,42 @@ export class CreateWishlistItemComponent implements OnInit {
   }
 
   createWishlistItem(): void{
-    console.log(this.createdItem);
+    this.recordedItem = this.createdItem;
+    this.createdItem = {
+      itemName: '',
+      vendor: '',
+      price: '',
+      image: '',
+      url: '',
+      tag: []
+    };
+    console.log(this.recordedItem);
     console.log(this.allTagNames);
     console.log(this.allTagIds);
     //get the price value
     console.log(Number(this.priceAsNum).toFixed(2));
-    if(this.startingPrice){
-      this.createdItem.price = Number(this.priceAsNum).toFixed(2).toString() + "+";
+    console.log(this.startingPrice);
+    if(this.startingPrice === "true"){
+      this.recordedItem.price = Number(this.priceAsNum).toFixed(2).toString() + "+";
+      this.priceAsNum = 0.00;
+      this.startingPrice = "false";
+    }else if(this.startingPrice === "false"){
+      this.recordedItem.price = Number(this.priceAsNum).toFixed(2).toString();
+      this.priceAsNum = 0.00;
     }else{
-      this.createdItem.price = Number(this.priceAsNum).toFixed(2).toString();
+      this.priceAsNum = 0.00;
+      this.startingPrice = "false";
     }
     //check the tags and find the ids
     this.tags = this.tagInput.split(",");
+    this.tagInput = "";
     this.tags.map((tag) => {
       tag = tag.trim();
       let index = this.allTagNames.indexOf(tag);
       //in db, get tag object id to write as a reference to item collection
       if(index !== -1){
         console.log(this.allTagIds[index]);
-        this.createdItem.tag.push(this.allTagIds[index]);
+        this.recordedItem.tag.push(this.allTagIds[index]);
       }else{
         //create new tag in tag collection and get object id
         console.log("No tag found");
@@ -74,15 +92,15 @@ export class CreateWishlistItemComponent implements OnInit {
         console.log(this.tagDoc);
         this.userService.CreateTag(this.tagDoc).subscribe(tagId => {
           console.log(tagId);
-          this.createdItem.tag.push(tagId);
+          this.recordedItem.tag.push(tagId);
         });
       }
-      //console.log(this.createdItem.tag);
+      //console.log(this.recordedItem.tag);
     });
     //need to add the item to the tag collection
-    this.userService.createItem(this.createdItem).subscribe(itemId => {
+    this.userService.createItem(this.recordedItem).subscribe(itemId => {
       console.log(itemId);
-      this.createdItem.tag.map((tagId) => {
+      this.recordedItem.tag.map((tagId) => {
         this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
       });
       this.userService.addItemToUserWishlist('5f9725288c008df2d8d1c241', itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
