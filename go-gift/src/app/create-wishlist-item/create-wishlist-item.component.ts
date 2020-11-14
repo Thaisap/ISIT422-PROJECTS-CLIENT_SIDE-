@@ -82,7 +82,9 @@ export class CreateWishlistItemComponent implements OnInit {
     //need to add the item to the tag collection
     this.userService.createItem(this.createdItem).subscribe(itemId => {
       console.log(itemId);
-      //this.
+      this.createdItem.tag.map((tagId) => {
+        this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
+      });
     });
   }
 

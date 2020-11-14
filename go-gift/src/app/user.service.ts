@@ -71,9 +71,9 @@ createItem(body: WriteItemDoc) : Observable<string> {
 }
 
 //Create Wishlist Item Page: used to add newly created item to tag collection
-/* addItemToTag(body: string[]): Observable{
-  return this.http.post<>
-} */
+addItemToTag(tagId: string, itemId: string): Observable<tag>{
+  return this.http.patch<tag>(`http://localhost:3000/tag/${tagId}`, [itemId], this.httpOptions)
+}
 
 
 ////////////////////////////////////////////////////////////

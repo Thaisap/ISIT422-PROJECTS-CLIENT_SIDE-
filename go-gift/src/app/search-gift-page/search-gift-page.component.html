@@ -3,14 +3,19 @@
     <app-tags-autocomplete buttonName="Search" (enterFunc)="checkTagName($event)" (clickFunc)="checkTagName($event)"></app-tags-autocomplete>
 </div>
 
-<div [hidden]="hideSearchResults" style="margin-top: 35px;" class="row">
-    <div class="col-12"><h1 class="main-font bold" style="padding-left: 45px;">Search Results for #{{tagName}}</h1></div>
-    <div class="col-12"><p *ngIf="message" class="sub-font" style="display: block; padding-left: 45px; font-size: 1.6em;">
+<div [hidden]="hideSearchResults" style="margin-top: 35px;" >
+    <h1 class="main-font bold" style="padding-left: 45px;">Search Results for #{{tagName}}</h1>
+    <p *ngIf="message" class="sub-font" style="display: block; padding-left: 45px; font-size: 1.6em;">
         {{message}}
-    </p></div>
-    <div *ngIf="itemList" class="col-6 col-sm-12 col-xs-12 d-flex p-0 justify-content-around">
-        <ul *ngFor="let item of itemList">
-            <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [url]="item.url"></app-item-card>
-        </ul>
+    </p>
+</div>
+<div class="container">
+    <div class="row justify-content-around">
+        <ng-container *ngIf="itemList" >
+            <div *ngFor="let item of itemList" class="col-lg-6 col-md-6 col-xs-12" style="padding: 15px;">
+                <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [url]="item.url"></app-item-card>
+            </div>
+        </ng-container>
     </div>
 </div>
+        
