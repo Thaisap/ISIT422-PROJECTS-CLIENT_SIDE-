@@ -9,6 +9,7 @@ import { Item } from '../item';
 })
 export class SearchGiftPageComponent implements OnInit {
   tagName: string;
+  //savedTagName: string;
   itemList: Item[];
   hideSearchResults: boolean = true;
   message: string;
@@ -29,6 +30,7 @@ export class SearchGiftPageComponent implements OnInit {
     this.hideSearchResults = true;
     this.itemList = [];
     this.tagName = $event;
+    //this.savedTagName = $event;
     this.message = '';
     //should check whether tag name is in database
     let tagNameInDB = this.allTagNames.includes(this.tagName);
@@ -38,7 +40,8 @@ export class SearchGiftPageComponent implements OnInit {
     }else{
       this.message = "No Results Found.";
       this.hideSearchResults = false;
-    }  
+    }
+    console.log(this.hideSearchResults);  
   }
 
   searchItems(): void{
@@ -49,7 +52,7 @@ export class SearchGiftPageComponent implements OnInit {
           this.message = "No Results Found.";
         }
         this.hideSearchResults = false;
-        //organize search results
+        console.log(this.hideSearchResults);
         return this.itemList = items;
       });
   }

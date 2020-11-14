@@ -4,9 +4,10 @@
 </div>
 
 <div [hidden]="hideSearchResults" style="margin-top: 35px;" class="row">
-    <div *ngIf="message">
-        <h2 class="sub-font">{{message}}</h2>
-    </div>
+    <div class="col-12"><h1 class="main-font bold" style="padding-left: 45px;">Search Results for #{{tagName}}</h1></div>
+    <div class="col-12"><p *ngIf="message" class="sub-font" style="display: block; padding-left: 45px; font-size: 1.6em;">
+        {{message}}
+    </p></div>
     <div *ngIf="itemList" class="col-6 col-sm-12 col-xs-12 d-flex p-0 justify-content-around">
         <ul *ngFor="let item of itemList">
             <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [url]="item.url"></app-item-card>
