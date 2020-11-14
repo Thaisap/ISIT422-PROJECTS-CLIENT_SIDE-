@@ -48,8 +48,9 @@ export class SearchGiftPageComponent implements OnInit {
         if(items.length === 0){
           this.message = "No Results Found.";
         }
+        this.hideSearchResults = false;
+        //organize search results
         return this.itemList = items;
       });
-    this.hideSearchResults = false;
   }
 }

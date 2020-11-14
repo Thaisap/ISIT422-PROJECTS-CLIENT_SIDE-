@@ -1,16 +1,15 @@
 <div style="padding: 35px;">
     <h1 class="main-font"> Search Gift Ideas</h1>
     <app-tags-autocomplete buttonName="Search" (enterFunc)="checkTagName($event)" (clickFunc)="checkTagName($event)"></app-tags-autocomplete>
+</div>
 
-
-    <div [hidden]="hideSearchResults" style="margin-top: 35px;">
-        <div *ngIf="message">
-            <h2 class="sub-font">{{message}}</h2>
-        </div>
-        <div *ngIf="itemList">
-            <ul *ngFor="let item of itemList">
-                <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [description]="item.description" [url]="item.url"></app-item-card>
-            </ul>
-        </div>
+<div [hidden]="hideSearchResults" style="margin-top: 35px;" class="row">
+    <div *ngIf="message">
+        <h2 class="sub-font">{{message}}</h2>
+    </div>
+    <div *ngIf="itemList" class="col-6 col-sm-12 col-xs-12 d-flex p-0 justify-content-around">
+        <ul *ngFor="let item of itemList">
+            <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [url]="item.url"></app-item-card>
+        </ul>
     </div>
 </div>
