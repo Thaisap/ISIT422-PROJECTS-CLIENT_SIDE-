@@ -142,6 +142,13 @@ body{
     font-size: 1.6em;
 }
 
+
+#create-wishlist > input{
+    border: 1px solid black;
+    margin-bottom: 25px;
+}
+
+
 .new-line{
     -moz-white-space: pre-line;
     white-space: pre-line;

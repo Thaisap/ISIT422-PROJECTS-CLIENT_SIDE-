@@ -4,3 +4,8 @@ export interface tag {
     item:string [];
    
 }
+
+export interface WriteTagDoc {
+    name: string;
+    item: string;
+}
