@@ -3,6 +3,7 @@ import { Item, WriteItemDoc } from '../item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddTagsModalComponent } from '../add-tags-modal/add-tags-modal.component';
 import { allTags } from '../allTags';
+import { WriteTagDoc } from '../tag';
 import { UserService } from '../user.service';
 
 @Component({
@@ -26,6 +27,7 @@ export class CreateWishlistItemComponent implements OnInit {
   //allTagsInfo: allTags;
   allTagNames: string[];
   allTagIds: string[];
+  tagDoc: WriteTagDoc;
 
 
   constructor(private userService: UserService, private modalService: NgbModal) { }
@@ -65,10 +67,23 @@ export class CreateWishlistItemComponent implements OnInit {
       }else{
         //create new tag in tag collection and get object id
         console.log("No tag found");
-        
+        this.tagDoc = {
+          name: tag,
+          item: []
+        };
+        console.log(this.tagDoc);
+        this.userService.CreateTag(this.tagDoc).subscribe(tagId => {
+          console.log(tagId);
+          this.createdItem.tag.push(tagId);
+        });
       }
+      //console.log(this.createdItem.tag);
     });
     //need to add the item to the tag collection
+    this.userService.createItem(this.createdItem).subscribe(itemId => {
+      console.log(itemId);
+      //this.
+    });
   }
 
   openAddTagsModal() {

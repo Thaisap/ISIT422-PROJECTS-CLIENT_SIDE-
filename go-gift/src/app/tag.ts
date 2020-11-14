@@ -7,5 +7,6 @@ export interface tag {
 
 export interface WriteTagDoc {
     name: string;
-    item: string;
+    item: string[];
 }
+

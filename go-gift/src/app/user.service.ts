@@ -6,9 +6,9 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {User} from './user';
 import {MessageService} from './message.service';
 import { Profile } from './Profile';
-import {tag} from './tag';
+import {tag, WriteTagDoc} from './tag';
 import {allTags} from './allTags';
-import { Item } from './item';
+import { Item, WriteItemDoc } from './item';
 
 
 @Injectable({
@@ -35,8 +35,8 @@ getAllTags() : Observable<allTags> {
 }
 
 //Create Account Page: used to create a new tag doc in the tag collection
-CreateTag(body:tag) : Observable<tag> {
-  return this.http.post<tag> ('http://localhost:3000/tag', body, this.httpOptions);
+CreateTag(body:WriteTagDoc) : Observable<string> {
+  return this.http.post<string> ('http://localhost:3000/tag', body, this.httpOptions);
 }
 
 // Profile Page: used to populate data
@@ -64,6 +64,16 @@ getFriendListById(id: string):Observable<User[]>{
 getItemListByTagName(tagName: string): Observable<Item[]>{
   return this.http.get<Item[]>(`http://localhost:3000/itemsByTag/${tagName}`);
 }
+
+//Create Wishlist Item Page: used to create a new item in the item collection
+createItem(body: WriteItemDoc) : Observable<string> {
+  return this.http.post<string> ('http://localhost:3000/item', body, this.httpOptions);
+}
+
+//Create Wishlist Item Page: used to add newly created item to tag collection
+/* addItemToTag(body: string[]): Observable{
+  return this.http.post<>
+} */
 
 
 ////////////////////////////////////////////////////////////
