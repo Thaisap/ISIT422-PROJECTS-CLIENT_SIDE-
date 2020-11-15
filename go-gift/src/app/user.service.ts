@@ -16,7 +16,7 @@ import { Item } from './item';
 })
 
 export class UserService {
-
+//item = [] ;
 
 //private usersUrl = 'api/users'; //ULR to web api
 
