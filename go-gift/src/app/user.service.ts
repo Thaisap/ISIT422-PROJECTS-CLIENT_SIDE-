@@ -6,9 +6,9 @@ import {catchError, map, tap} from 'rxjs/operators';
 import {User} from './user';
 import {MessageService} from './message.service';
 import { Profile } from './Profile';
-import {tag} from './tag';
+import {tag, WriteTagDoc} from './tag';
 import {allTags} from './allTags';
-import { Item } from './item';
+import { Item, WriteItemDoc } from './item';
 
 
 @Injectable({
@@ -25,6 +25,8 @@ export class UserService {
 
   constructor( private http: HttpClient, private messageService: MessageService) { }
 
+
+
 CreateProfile(body:Profile) : Observable<Profile> {
   return this.http.post<Profile> ('http://localhost:3000/profile', body, this.httpOptions);
 }
@@ -35,8 +37,8 @@ getAllTags() : Observable<allTags> {
 }
 
 //Create Account Page: used to create a new tag doc in the tag collection
-CreateTag(body:tag) : Observable<tag> {
-  return this.http.post<tag> ('http://localhost:3000/tag', body, this.httpOptions);
+CreateTag(body:WriteTagDoc) : Observable<string> {
+  return this.http.post<string> ('http://localhost:3000/tag', body, this.httpOptions);
 }
 
 // Profile Page: used to populate data
@@ -63,6 +65,21 @@ getFriendListById(id: string):Observable<User[]>{
 //Search Gifts Page: used to get a list of items based on tag name
 getItemListByTagName(tagName: string): Observable<Item[]>{
   return this.http.get<Item[]>(`http://localhost:3000/itemsByTag/${tagName}`);
+}
+
+//Create Wishlist Item Page: used to create a new item in the item collection
+createItem(body: WriteItemDoc) : Observable<string> {
+  return this.http.post<string> ('http://localhost:3000/item', body, this.httpOptions);
+}
+
+//Create Wishlist Item Page: used to add newly created item to tag collection
+addItemToTag(tagId: string, itemId: string): Observable<tag>{
+  return this.http.patch<tag>(`http://localhost:3000/tag/${tagId}`, [itemId], this.httpOptions)
+}
+
+//Create Wishlist Item Page: used to add newly created item to user collection
+addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
+  return this.http.patch<Profile>(`http://localhost:3000/profile/item/${userId}`, [itemId], this.httpOptions)
 }
 
 

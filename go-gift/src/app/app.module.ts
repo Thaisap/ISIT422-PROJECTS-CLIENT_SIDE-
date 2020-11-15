@@ -27,6 +27,7 @@ import { TagsAutocompleteComponent } from './tags-autocomplete/tags-autocomplete
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { ItemCardComponent } from './item-card/item-card.component';
+import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
 
 @NgModule({
   imports: [
@@ -58,7 +59,8 @@ import { ItemCardComponent } from './item-card/item-card.component';
     AddChipComponent,
     AddTagsModalComponent,
     TagsAutocompleteComponent,
-    ItemCardComponent,  
+    ItemCardComponent,
+    CreateWishlistItemComponent,  
   ],
   providers:[
     NgbActiveModal, {

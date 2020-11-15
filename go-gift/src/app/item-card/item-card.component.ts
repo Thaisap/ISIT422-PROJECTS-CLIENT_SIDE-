@@ -9,10 +9,18 @@ import { MatCardModule } from '@angular/material/card';
 export class ItemCardComponent implements OnInit {
   @Input() itemName: string;
   @Input() vendorName: string;
+  @Input() itemPrice: string;
+  @Input() url: string;
+  descriptionArray: string[];
 
   constructor() { }
 
   ngOnInit(): void {
+  
+  }
+
+  goToItemUrl(): void{
+    window.open(this.url, "_blank");
   }
 
 }

@@ -33,6 +33,7 @@ export class TagsAutocompleteComponent implements OnInit {
 
   keyPressEnter(): void{
     this.enterFunc.emit(this.tagName);
+    this.tagName = '';
   }
 
   buttonClick(): void{
