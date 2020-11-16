@@ -15,21 +15,20 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 export class ProfilePageComponent implements OnInit {
   userId: string;
-  userProfile: Profile;
+  userProfile?: Profile;
   hideDisplay: boolean = false;
   hideProfile: boolean = true;
   hideEditProfile: boolean = true;
   //updatedProfile: Profile;
   //user: User;
   //allTags: allTags;
+  addedTagsArray = new Set();
+  hideEditTags: boolean = true;
 
   constructor(private userService: UserService, private modalService: NgbModal) {  }
 
   ngOnInit() {
     this.getProfile('5f9725288c008df2d8d1c241');
-    //OldCode  this.getUserInfo();
-    //this.getallTags();
- 
   }
   
   getProfile(id: string): void{
@@ -68,12 +67,31 @@ export class ProfilePageComponent implements OnInit {
   }
 
   editTags(): void{
-    console.log("EDIT Tags");
+    this.hideEditTags = false;
+  }
+
+  deleteTagName(tagName: string): void{
+    this.addedTagsArray.delete(tagName);
+
   }
 
   openAddTagsModal() {
-    const modalRef = this.modalService.open(AddTagsModalComponent);
-    modalRef.result.then((result) => console.log(result), (reason) => console.log(reason));
+    const modalRef = this.modalService.open(AddTagsModalComponent,  { windowClass : "addTagsModal"});
+    modalRef.result.then((result) => result.map((tag) => this.addedTagsArray.add(tag)));
+  }
+
+  updateTags(): void{
+    this.hideEditTags = true;
+    console.log(this.addedTagsArray);
+    
+  } 
+
+  userTagNames(tagName: string): Set<any>{
+    this.addedTagsArray.add(tagName);
+    //console.log(Array.from(this.addedTagsArray));
+    return this.addedTagsArray;
+    //this.addedTagsArray.add(tag.name);
+    //console.log(this.addedTagsArray);
   }
 
 /* getallTags(): void{

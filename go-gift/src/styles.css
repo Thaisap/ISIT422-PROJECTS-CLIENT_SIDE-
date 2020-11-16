@@ -148,6 +148,9 @@ body{
     margin-bottom: 25px;
 }
 
+.addTagsModal .modal-dialog {
+    max-width: 1000px;
+}
 
 .new-line{
     -moz-white-space: pre-line;
