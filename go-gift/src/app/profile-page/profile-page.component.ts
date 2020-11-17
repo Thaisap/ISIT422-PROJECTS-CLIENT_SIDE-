@@ -87,7 +87,10 @@ export class ProfilePageComponent implements OnInit {
   editTags(): void{
     this.hideOriginalTags = true;
     this.hideEditTags = false;
-    this.addedTagsArray = Array.from(this.originalTags);
+    if(this.changedTag === false){
+      this.addedTagsArray = Array.from(this.originalTags);
+    }
+    this.changedTag = false;
   }
 
   deleteTagName(tagName: string): void{
@@ -104,14 +107,14 @@ export class ProfilePageComponent implements OnInit {
   updateTagsInUserDoc(): void{
     this.hideEditTags = true;
     this.changedTag = true;
-    this.updateTags().then((tagIdArray) => {
+    this.getTagIdsArray().then((tagIdArray) => {
       console.log(`TAG ARRAY: ${tagIdArray}`);
       this.userService.updateTagInUser('5f9725288c008df2d8d1c241', tagIdArray).subscribe((userInfo) => console.log(userInfo))
     });
     
   }
 
-  async updateTags(){
+  async getTagIdsArray(){
     console.log('All Tags');
     console.log(this.addedTagsArray);
     let promArray = await this.addedTagsArray.map(async(tagName) => {
@@ -132,33 +135,7 @@ export class ProfilePageComponent implements OnInit {
     let newTagArray = Promise.all(promArray).then((v) => v);
     console.log(newTagArray);
     return newTagArray;
-    //console.log('calling promarray');
-    //console.log(this.tagIds);
-    //return this.tagIds;
-    //this.tagIds =  
-    //console.log(this.tagIds);
-    //this.userService.updateTagInUser('5f9725288c008df2d8d1c241',this.tagIds).subscribe((userInfo) => console.log(userInfo));
   }
-  
- /*NOT WORKING. Need to resolve all promises 
-  getTagRefArray(): Observable<Promise<string>[]>{
-    return of(Array.from(this.addedTagsArray).map(async(tagName) => {
-        tagName = tagName.trim();
-        let index = this.allTagNames.indexOf(tagName);
-        if(index !== -1){
-          //console.log(this.allTagIds[index]);
-          return this.allTagIds[index];
-        }else{
-          console.log('CALLING CREATE TAG')
-          this.userService.CreateTag({
-            name: tagName,
-            item: []
-          }).subscribe(tagId => {
-            return tagId;
-          });
-        }  
-    }));
-  } */
 
   userTagNames(tagName: string): Set<any>{
     this.originalTags.add(tagName);
@@ -167,10 +144,4 @@ export class ProfilePageComponent implements OnInit {
     //this.addedTagsArray.add(tag.name);
     //console.log(this.addedTagsArray);
   }
-
-/* getallTags(): void{
-    this.userService.GetallTags()
-    .subscribe(allTags => this.allTags = allTags);
-  }
- */
 }
