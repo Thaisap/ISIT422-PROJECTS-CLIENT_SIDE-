@@ -45,6 +45,30 @@ export class CreateWishlistItemComponent implements OnInit {
     });
   }
 
+  createDemoWishlistItem(): void{
+    this.createdItem = {
+      itemName: 'Amethyst the Unicorn - Crochet Amigurumi Pattern',
+      vendor: 'SmileyCrochetThings',
+      price: '6.21',
+      image: 'plushie image',
+      url: 'https://www.etsy.com/listing/770208591/amethyst-the-unicorn-crochet-amigurumi',
+      tag: []
+    }
+    this.recordedItem = this.createdItem;
+    this.tags = ['animuguri', 'unicorn'];
+    this.getTagIdsArray().then((tagArray) => {
+      this.recordedItem.tag = tagArray;
+      //need to add the item to the tag collection
+      this.userService.createItem(this.recordedItem).subscribe(itemId => {
+        console.log(itemId);
+        this.recordedItem.tag.map((tagId) => {
+          this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
+        });
+        this.userService.addItemToUserWishlist('5fab402e47e3c65a4f93db8c', itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
+      });
+    });
+  }
+
   createWishlistItem(): void{
     this.recordedItem = this.createdItem;
     this.createdItem = {
@@ -75,13 +99,28 @@ export class CreateWishlistItemComponent implements OnInit {
     //check the tags and find the ids
     this.tags = this.tagInput.split(",");
     this.tagInput = "";
-    this.tags.map((tag) => {
+
+    this.getTagIdsArray().then((tagArray) => {
+      this.recordedItem.tag = tagArray;
+      //need to add the item to the tag collection
+      this.userService.createItem(this.recordedItem).subscribe(itemId => {
+        console.log(itemId);
+        this.recordedItem.tag.map((tagId) => {
+          this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
+        });
+        this.userService.addItemToUserWishlist('5f9725288c008df2d8d1c241', itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
+      });
+    });
+  }
+
+  async getTagIdsArray(){
+    let promArray = await this.tags.map(async(tag) => {
       tag = tag.trim();
       let index = this.allTagNames.indexOf(tag);
       //in db, get tag object id to write as a reference to item collection
       if(index !== -1){
         console.log(this.allTagIds[index]);
-        this.recordedItem.tag.push(this.allTagIds[index]);
+        return this.allTagIds[index];
       }else{
         //create new tag in tag collection and get object id
         console.log("No tag found");
@@ -90,21 +129,12 @@ export class CreateWishlistItemComponent implements OnInit {
           item: []
         };
         console.log(this.tagDoc);
-        this.userService.CreateTag(this.tagDoc).subscribe(tagId => {
-          console.log(tagId);
-          this.recordedItem.tag.push(tagId);
-        });
+        let newTagId = await this.userService.CreateTag(this.tagDoc).toPromise();
+        return newTagId
       }
-      //console.log(this.recordedItem.tag);
     });
-    //need to add the item to the tag collection
-    this.userService.createItem(this.recordedItem).subscribe(itemId => {
-      console.log(itemId);
-      this.recordedItem.tag.map((tagId) => {
-        this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
-      });
-      this.userService.addItemToUserWishlist('5f9725288c008df2d8d1c241', itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
-    });
+    let newTagArray = Promise.all(promArray).then((v) => v);
+    return newTagArray;
   }
 
   openAddTagsModal() {

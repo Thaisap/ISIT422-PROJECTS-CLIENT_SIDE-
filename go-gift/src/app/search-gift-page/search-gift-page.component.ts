@@ -52,7 +52,7 @@ export class SearchGiftPageComponent implements OnInit {
           this.message = "No Results Found.";
         }
         this.hideSearchResults = false;
-        console.log(this.hideSearchResults);
+        console.log(this.hideSearchResults); 
         return this.itemList = items;
         
       });

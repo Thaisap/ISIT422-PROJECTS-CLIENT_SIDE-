@@ -1,5 +1,5 @@
 export interface tag {
-    id: string;
+    _id: string;
     name: string;
     item:string [];
    

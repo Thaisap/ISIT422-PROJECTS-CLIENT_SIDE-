@@ -8,9 +8,15 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./add-tags-modal.component.css']
 })
 export class AddTagsModalComponent implements OnInit {
+  tagArray: string[] = [];
 
   constructor(public activeModal: NgbActiveModal) {}
   ngOnInit(): void {
+  }
+
+  addTag($event): void{
+    this.tagArray.push($event);
+    console.log(this.tagArray);
   }
 
 }

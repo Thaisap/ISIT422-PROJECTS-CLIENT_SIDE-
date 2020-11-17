@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-removable-chip',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class RemovableChipComponent implements OnInit {
   @Input() tagName: string;
+  @Output() clickFunc = new EventEmitter();
   removeTag: boolean = false;
   constructor() { }
 
@@ -16,6 +17,7 @@ export class RemovableChipComponent implements OnInit {
   removeSelectedTag(): void{
     //call delete tag route
     this.removeTag = true;
+    this.clickFunc.emit();
   }
 
 }

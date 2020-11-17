@@ -103,6 +103,11 @@ addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/item/${userId}`, [itemId], this.httpOptions)
 }
 
+//Profile Page: update user's tags
+updateTagInUser(userId: string, tagIds: string[]): Observable<Profile>{
+  return this.http.patch<Profile>(`http://localhost:3000/profile/tag/${userId}`, tagIds, this.httpOptions);
+}
+
 
 ////////////////////////////////////////////////////////////
 

@@ -1,12 +1,10 @@
 <div class="modal-header">
-    <h3>Add Tags</h3>
-    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
+    <app-tags-autocomplete buttonName="Add Tags" style="min-width: 950px;" (enterFunc)="addTag($event)" (clickFunc)="addTag($event)"></app-tags-autocomplete>
 </div>
-<div class="modal-body">
-    <app-tags-autocomplete></app-tags-autocomplete>
+<div class="modal-body" *ngIf="tagArray">
+    <div class="tag" *ngFor="let tag of tagArray">{{tag}}</div>
 </div>
 <div class="modal-footer">
-    <div type="button" class="button" (click)="activeModal.close('Hello World!! TESTING.')">Close</div>
+    <div type="button" class="rev-button" style="width: 200px;" (click)="activeModal.close(tagArray)">Confirm</div>
+    <div type="button" class="button" style="width: 200px;" (click)="activeModal.dismiss()">Cancel</div>
 </div> 
