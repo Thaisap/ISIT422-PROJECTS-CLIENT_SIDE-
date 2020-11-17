@@ -22,15 +22,15 @@
     </div>    
     <app-header-edit title="My Tags" (clickFunc)="editTags()"></app-header-edit>
     <div class="d-lg-flex flex-wrap justify-content-start">
-        <div class="tag" [hidden]="!hideEditTags" *ngFor="let tag of userProfile.tag;">{{tag.name}}<ng-container *ngFor="let tag of userTagNames(tag.name)"></ng-container></div>
-        <!-- <app-removable-chip [hidden]="hideEditTags" *ngFor="let tag of userProfile.tag" [tagName]="tag.name" (clickFunc)="deleteTagName(tag.name)"></app-removable-chip> -->
+        <div class="tag" [hidden]="hideOriginalTags" *ngFor="let tag of userProfile.tag;">{{tag.name}}<ng-container *ngFor="let tag of userTagNames(tag.name)"></ng-container></div>
+        <div class="tag" [hidden]="!changedTag" *ngFor="let addedTag of addedTagsArray">{{addedTag}}</div>
         <ng-container *ngIf="addedTagsArray">
             <app-removable-chip [hidden]="hideEditTags" *ngFor="let addedTag of addedTagsArray" [tagName]="addedTag" (clickFunc)="deleteTagName(addedTag)"></app-removable-chip>
         </ng-container>        
         <app-add-chip [hidden]="hideEditTags" (clickFun)="openAddTagsModal()"></app-add-chip>       
     </div>
     <div class="d-flex justify-content-end" style="margin-top: 15px;">
-        <div type="button" class="button" [hidden]="hideEditTags" style="width: 45%;" (click)="updateTags()">Update My Tags</div>
+        <div type="button" class="button" [hidden]="hideEditTags" style="width: 45%;" (click)="updateTagsInUserDoc()">Update My Tags</div>
     </div>
     
 </div>
