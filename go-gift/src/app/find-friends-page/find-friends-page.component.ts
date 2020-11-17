@@ -21,7 +21,7 @@ export class FindFriendsPageComponent implements OnInit {
   }
 
   getFriendInfo(): void {
-    this.userService.getFriendInfo().subscribe(users => {
+    this.userService.getFriendListById("5f9725288c008df2d8d1c241").subscribe(users => {
       this.oFriends = users;
       this.friend = this.oFriends;
     });

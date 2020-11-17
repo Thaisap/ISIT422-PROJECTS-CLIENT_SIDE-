@@ -2,7 +2,7 @@
   <div id="container">
   <h1> Find Friends</h1>
   <div id="inputBox">
-    <input #email />
+    <input #email (keyup.enter)="this.onSearch(email.value)"/>
     <div><button style="margin-bottom: 1.5rem;" (click)="this.onSearch(email.value)">search</button></div>
     <hr style="margin-bottom: 2rem;">
     <button style="padding: 1.25rem 2rem 1rem 2rem" (click)="this.openModal(addFriend)">Invite Friend</button>
@@ -14,10 +14,7 @@
       <span >
        <li *ngFor="let user of friend" class="col-1-4" (click)="this.openModal(showFriend)">
            FirstName:{{user.firstName}} <br>
-           LastName: {{user.lastName}} <br>
-           Bio: {{user.bio}} <br>
-           Email:  {{user.email}} <br> 
-           Profile Image:{{user.profileImg}}     
+           LastName: {{user.lastName}}  
        </li>     
   </span>  
       
@@ -28,13 +25,13 @@
   <ng-template #addFriend let-modal>
     <div class="modal-header ngbModal">
       <h2>Invite Friend</h2>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
         <span aria-hidden="true">×</span>
       </button>
     </div>
     <div class="modal-body ngbModal">
       <span>Email:</span>
-      <input #invite />
+      <input #invite (keyup.enter)="sendInvite(invite.value)"/>
       <div class="text-center"><button (click)="sendInvite(invite.value)">Send</button></div>  
     </div>
   </ng-template>
@@ -42,7 +39,7 @@
   <ng-template #showFriend let-modal>
     <div class="modal-header ngbModal">
       <h4 class="modal-title" id="modal-basic-title">Friend Modal Coming Up!!!</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
         <span aria-hidden="true">×</span>
       </button>
     </div>
@@ -50,6 +47,6 @@
       Friend Details will be here.
     </div>
     <div class="modal-footer ngbModal">
-      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('')">Ok</button>
     </div>
   </ng-template>
