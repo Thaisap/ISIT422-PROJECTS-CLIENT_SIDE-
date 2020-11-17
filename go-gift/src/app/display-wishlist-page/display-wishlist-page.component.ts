@@ -12,4 +12,8 @@ export class DisplayWishlistPageComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  editWishlist(): void{
+    console.log('clicked on edit wishlist button')
+  }
+
 }

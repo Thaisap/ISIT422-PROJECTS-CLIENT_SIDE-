@@ -7,6 +7,7 @@ import { SearchGiftPageComponent } from './search-gift-page/search-gift-page.com
 import { DisplayWishlistPageComponent } from './display-wishlist-page/display-wishlist-page.component';
 import { LoginComponent } from './login/login.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
+import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
 import { SignupComponent} from './signup/signup.component'
 
 const routes: Routes = [
@@ -19,6 +20,7 @@ const routes: Routes = [
   {path: 'display-wishlist', component: DisplayWishlistPageComponent},
   {path: 'login', component: LoginComponent}  ,
   {path: 'create-account', component: CreateAccountComponent},
+  {path: 'create-wishlist', component: CreateWishlistItemComponent},
   {path: 'signup', component: SignupComponent}
 ];
 

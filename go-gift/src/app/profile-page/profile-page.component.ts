@@ -76,6 +76,13 @@ export class ProfilePageComponent implements OnInit {
     modalRef.result.then((result) => console.log(result), (reason) => console.log(reason));
   }
 
+  addItemToUserWishlist() : void{
+    this.hideDisplay = false;
+    this.userService.updateCurrentUser('5f9725288c008df2d8d1c241', this.userProfile)
+      .subscribe((info) => this.userProfile = info);
+ 
+  }
+
 /* getallTags(): void{
     this.userService.GetallTags()
     .subscribe(allTags => this.allTags = allTags);

@@ -28,6 +28,8 @@ import { TagsAutocompleteComponent } from './tags-autocomplete/tags-autocomplete
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { ItemCardComponent } from './item-card/item-card.component';
+import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
+import { ToastModule } from '@syncfusion/ej2-angular-notifications';
 
 @NgModule({
   imports: [
@@ -39,7 +41,8 @@ import { ItemCardComponent } from './item-card/item-card.component';
     ReactiveFormsModule,
     SocialLoginModule,
     NoopAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    ToastModule
   ],
   
   declarations: [
@@ -61,6 +64,7 @@ import { ItemCardComponent } from './item-card/item-card.component';
     AddTagsModalComponent,
     TagsAutocompleteComponent,
     ItemCardComponent,
+    CreateWishlistItemComponent,  
   ],
   providers:[
     UserService,
