@@ -5,8 +5,6 @@ import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/fo
 import { UserService } from '../user.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
-
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -34,9 +32,7 @@ export class LoginComponent implements OnInit {
       this.user = user;
       
     });
-   
-
-  }
+    }
 
   isValid(controlName) {
     return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
@@ -51,15 +47,17 @@ export class LoginComponent implements OnInit {
           data => {
             console.log(data);
             localStorage.setItem('token', data.toString());
-            this._router.navigate(['/dash']);
+            this._router.navigate(['dashboard']);
           },
           error => { }
         );
     }
   }
 
+  
+
   movetoregister() {
-    this._router.navigate(['../register'], { relativeTo: this._activatedRoute });
+    this._router.navigate(['../signup'], { relativeTo: this._activatedRoute });
   }
 
  

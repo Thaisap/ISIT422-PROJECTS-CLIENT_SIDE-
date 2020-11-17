@@ -19,8 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { LoginComponent } from './login/login.component';
 import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
-import {MatInputModule} from '@angular/material/input';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { SignupComponent } from './signup/signup.component';
 
 
 
@@ -32,7 +31,9 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    SocialLoginModule
+    SocialLoginModule,
+
+  
     
   ],
   
@@ -49,10 +50,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     ModalComponent,
     CreateAccountComponent,
     LoginComponent,
-    MatSnackBarModule,
-    MatInputModule  
+    SignupComponent,
+
   ],
-  providers:[{
+  providers:[
+    UserService,
+    {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -63,7 +66,8 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
       }
     ]
     } as SocialAuthServiceConfig,
-  }
+  },
+  
   ],
   
   bootstrap: [AppComponent]

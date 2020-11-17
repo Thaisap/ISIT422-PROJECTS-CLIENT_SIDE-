@@ -10,6 +10,7 @@ import {tag} from './tag';
 import {allTags} from './allTags';
 
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -28,22 +29,23 @@ CreateProfile(body:Profile) : Observable<Profile> {
   return this.http.post<Profile> ('http://localhost:3000/profile', body, this.httpOptions);
 }
 
+submitRegister(body: any){
+  return this.http.post('http://localhost:3000/users/register', body,{
+    observe:'body'
+  });
+}
+
 login(body: any){
-  return this.http.post('http://locahost:3000/users/login', body,{
+  return this.http.post('http://localhost:3000/users/login', body,{
     observe:'body'
   });
 }
 
-register(body: any){
-  return this.http.post('http://locahost:3000/users/register', body,{
-    observe:'body'
-  });
-}
 
-getUserName(){
-  return this.http.post('http://locahost:3000/users/username', {  
-  observe:'body',
-  params: new HttpParams().append('token', localStorage.getItem('token'))
+getUserName() {
+  return this.http.get('http://localhost:3000/users/username', {
+    observe: 'body',
+    params: new HttpParams().append('token', localStorage.getItem('token'))
   });
 }
 
