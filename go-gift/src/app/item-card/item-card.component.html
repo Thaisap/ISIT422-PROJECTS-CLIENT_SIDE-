@@ -8,7 +8,9 @@
     </mat-card-content>
     
     <mat-card-actions style="display: block;">
-      <div class="rev-button" style="height: 60px; line-height: 40px; padding: 10px; margin-bottom: 20px;">Add to Wishlist</div>
+
+      <div class="rev-button" style="height: 60px; line-height: 40px; padding: 10px; margin-bottom: 20px;" type="button" (click)="addItemToUserWishlist(itemId)">Add to Wishlist </div>
+      
       <div class="rev-button" style="height: 60px; line-height: 40px; padding: 10px; margin-bottom: 20px;" type="button" (click)="goToItemUrl()">See Item Details</div>
     </mat-card-actions>
 </mat-card>

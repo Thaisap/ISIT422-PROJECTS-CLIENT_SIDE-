@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastComponent } from '@syncfusion/ej2-angular-notifications';
 
 @Component({
   selector: 'app-root',

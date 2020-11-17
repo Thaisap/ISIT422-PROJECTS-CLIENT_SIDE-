@@ -54,6 +54,11 @@ export class SearchGiftPageComponent implements OnInit {
         this.hideSearchResults = false;
         console.log(this.hideSearchResults);
         return this.itemList = items;
+        
       });
   }
+
+ 
+
+
 }
