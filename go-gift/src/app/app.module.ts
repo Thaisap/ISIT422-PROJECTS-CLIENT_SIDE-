@@ -20,8 +20,14 @@ import { CreateAccountComponent } from './create-account/create-account.componen
 import { LoginComponent } from './login/login.component';
 import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
 import { SignupComponent } from './signup/signup.component';
-
-
+import { RemovableChipComponent } from './removable-chip/removable-chip.component';
+import { AddChipComponent } from './add-chip/add-chip.component';
+import { AddTagsModalComponent } from './add-tags-modal/add-tags-modal.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TagsAutocompleteComponent } from './tags-autocomplete/tags-autocomplete.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { ItemCardComponent } from './item-card/item-card.component';
 
 @NgModule({
   imports: [
@@ -32,9 +38,8 @@ import { SignupComponent } from './signup/signup.component';
     NgbModule,
     ReactiveFormsModule,
     SocialLoginModule,
-
-  
-    
+    NoopAnimationsModule,
+    MatCardModule
   ],
   
   declarations: [
@@ -51,11 +56,16 @@ import { SignupComponent } from './signup/signup.component';
     CreateAccountComponent,
     LoginComponent,
     SignupComponent,
-
+    RemovableChipComponent,
+    AddChipComponent,
+    AddTagsModalComponent,
+    TagsAutocompleteComponent,
+    ItemCardComponent,
   ],
   providers:[
     UserService,
-    {
+    NgbActiveModal, {
+
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
