@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { LoginComponent } from './login/login.component';
 import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
+import { SignupComponent } from './signup/signup.component';
 import { RemovableChipComponent } from './removable-chip/removable-chip.component';
 import { AddChipComponent } from './add-chip/add-chip.component';
 import { AddTagsModalComponent } from './add-tags-modal/add-tags-modal.component';
@@ -54,14 +55,17 @@ import { ItemCardComponent } from './item-card/item-card.component';
     ModalComponent,
     CreateAccountComponent,
     LoginComponent,
+    SignupComponent,
     RemovableChipComponent,
     AddChipComponent,
     AddTagsModalComponent,
     TagsAutocompleteComponent,
-    ItemCardComponent,  
+    ItemCardComponent,
   ],
   providers:[
+    UserService,
     NgbActiveModal, {
+
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -72,7 +76,8 @@ import { ItemCardComponent } from './item-card/item-card.component';
       }
     ]
     } as SocialAuthServiceConfig,
-  }
+  },
+  
   ],
   
   bootstrap: [AppComponent]

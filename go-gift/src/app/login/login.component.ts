@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SocialAuthService, GoogleLoginProvider} from 'angularx-social-login';
 import {SocialUser} from 'angularx-social-login';
-
+import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms'; 
+import { UserService } from '../user.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,27 +14,66 @@ export class LoginComponent implements OnInit {
 
  
   user: SocialUser;
-  
+  loginForm: FormGroup;
 
-  constructor(private authService: SocialAuthService) { }
+  constructor(private authGService: SocialAuthService,
+    private _userservice: UserService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute) {
+
+      this.loginForm = new FormGroup({
+        email: new FormControl(null, Validators.required),
+        password: new FormControl(null, Validators.required)
+      });
+     }
 
   ngOnInit() {
-    this.authService.authState.subscribe((user) => {
+    this.authGService.authState.subscribe((user) => {
       this.user = user;
       
     });
+    }
+
+  isValid(controlName) {
+    return this.loginForm.get(controlName).invalid && this.loginForm.get(controlName).touched;
   }
+
+  login() {
+    console.log(this.loginForm.value);
+
+    if (this.loginForm.valid) {
+      this._userservice.login(this.loginForm.value)
+        .subscribe(
+          data => {
+            console.log(data);
+            localStorage.setItem('token', data.toString());
+            this._router.navigate(['dashboard']);
+          },
+          error => { }
+        );
+    }
+  }
+
+  
+
+  movetoregister() {
+    this._router.navigate(['../signup'], { relativeTo: this._activatedRoute });
+  }
+
  
   signInWithGoogle(): void {
-    this.authService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authGService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
  
 
  
   signOut(): void {
-    this.authService.signOut();
+    this.authGService.signOut();
   }
  
 }
+
+
+
 
 
