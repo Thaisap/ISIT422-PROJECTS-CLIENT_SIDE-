@@ -4,8 +4,17 @@
   width: 75%;
   font-family: 'Josefin Sans', sans-serif;
 }
-
-h1 {
+.ngbModal{
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 2rem;
+}
+.close{
+  font-size: 3rem;
+}
+h2 {
+  font-weight: bold;
+}
+h1{
   font-weight: bold;
   margin: 2rem 0;
 }
@@ -23,7 +32,7 @@ input{
   border-width: 0.5rem;
   border-color: black;
   width: 100%;
-  line-height: 4;
+  line-height: 2.5;
   margin-bottom: 2rem;
 }
 hr{

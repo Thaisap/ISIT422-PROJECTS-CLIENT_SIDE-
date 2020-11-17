@@ -8,10 +8,11 @@ import { DisplayWishlistPageComponent } from './display-wishlist-page/display-wi
 import { LoginComponent } from './login/login.component';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
+import { SignupComponent} from './signup/signup.component'
 
 const routes: Routes = [
   
-  {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'dashboard', component:DashboardComponent},
   {path: 'profile', component: ProfilePageComponent},
   {path: 'find-friends', component:FindFriendsPageComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent}  ,
   {path: 'create-account', component: CreateAccountComponent},
   {path: 'create-wishlist', component: CreateWishlistItemComponent},
+  {path: 'signup', component: SignupComponent}
 ];
 
 

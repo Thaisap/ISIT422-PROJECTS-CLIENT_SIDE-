@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 
@@ -9,6 +9,7 @@ import { Profile } from './Profile';
 import {tag, WriteTagDoc} from './tag';
 import {allTags} from './allTags';
 import { Item, WriteItemDoc } from './item';
+
 
 
 @Injectable({
@@ -29,6 +30,26 @@ export class UserService {
 
 CreateProfile(body:Profile) : Observable<Profile> {
   return this.http.post<Profile> ('http://localhost:3000/profile', body, this.httpOptions);
+}
+
+submitRegister(body: any){
+  return this.http.post('http://localhost:3000/users/register', body,{
+    observe:'body'
+  });
+}
+
+login(body: any){
+  return this.http.post('http://localhost:3000/users/login', body,{
+    observe:'body'
+  });
+}
+
+
+getUserName() {
+  return this.http.get('http://localhost:3000/users/username', {
+    observe: 'body',
+    params: new HttpParams().append('token', localStorage.getItem('token'))
+  });
 }
 
 //Create Account Page: used to check all the tags currently in the tags collection
