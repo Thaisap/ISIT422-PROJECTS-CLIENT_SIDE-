@@ -3,7 +3,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <form class="md-float-material form-material" action="#" method="POST">
+                <form class="md-float-material form-material" [formGroup]="loginForm">
                     <div class="auth-box card">
                         <div class="card-block">
                             <div class="row">
@@ -11,7 +11,7 @@
                                     <h3 class="text-center heading">Welcome to GOGift!</h3>
                                 </div>
                             </div>
-                          <div class="form-group form-primary"> <input type="text" class="form-control" name="email" value="" placeholder="Email" id="email"> </div>
+                         <mat-form-field style="width: 100%;" >  <input type="text" formControlName="email" matInput placeholder="Username"> </mat-form-field>
                             <div class="form-group form-primary"> <input type="password" class="form-control" name="password" placeholder="Password" value="" id="password"> </div>
                                                        <div class="row">
                                 <div class="col-md-12"> <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" name="submit" value="Signup Now">

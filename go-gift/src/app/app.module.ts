@@ -19,6 +19,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { LoginComponent } from './login/login.component';
 import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
+import {MatInputModule} from '@angular/material/input';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 
 @NgModule({
@@ -45,7 +48,9 @@ import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'a
     HeaderEditComponent,
     ModalComponent,
     CreateAccountComponent,
-    LoginComponent,  
+    LoginComponent,
+    MatSnackBarModule,
+    MatInputModule  
   ],
   providers:[{
     provide: 'SocialAuthServiceConfig',
