@@ -143,5 +143,8 @@ export class ProfilePageComponent implements OnInit {
     return this.originalTags;
     //this.addedTagsArray.add(tag.name);
     //console.log(this.addedTagsArray);
+
+
+
   }
 }

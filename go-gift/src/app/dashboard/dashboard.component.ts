@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../user';
+import {UserService} from '../user.service';
+import {Router} from '@angular/router';
+
 
 
 @Component({
@@ -9,12 +11,25 @@ import {User} from '../user';
 })
 export class DashboardComponent implements OnInit {
 
+username= '';
 
 
+  constructor( private userService:UserService,
+    private _router: Router) {
+      this.userService.getUserName()
+      .subscribe(
+        data => this.username = data.toString(),
+        error => this._router.navigate(['login'])
+      )
+   
+     }
 
-  constructor() { }
+  ngOnInit() {
+  }
 
-  ngOnInit(): void {
+  logout(){
+    localStorage.removeItem('token');
+    this._router.navigate(['login']);
   }
 
 }

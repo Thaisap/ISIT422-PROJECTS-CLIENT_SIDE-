@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { LoginComponent } from './login/login.component';
 import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
+import { SignupComponent } from './signup/signup.component';
 import { RemovableChipComponent } from './removable-chip/removable-chip.component';
 import { AddChipComponent } from './add-chip/add-chip.component';
 import { AddTagsModalComponent } from './add-tags-modal/add-tags-modal.component';
@@ -28,6 +29,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
 import { ItemCardComponent } from './item-card/item-card.component';
 import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
+import { ToastModule } from '@syncfusion/ej2-angular-notifications';
 
 @NgModule({
   imports: [
@@ -39,7 +41,8 @@ import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishl
     ReactiveFormsModule,
     SocialLoginModule,
     NoopAnimationsModule,
-    MatCardModule
+    MatCardModule,
+    ToastModule
   ],
   
   declarations: [
@@ -55,6 +58,7 @@ import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishl
     ModalComponent,
     CreateAccountComponent,
     LoginComponent,
+    SignupComponent,
     RemovableChipComponent,
     AddChipComponent,
     AddTagsModalComponent,
@@ -63,7 +67,9 @@ import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishl
     CreateWishlistItemComponent,  
   ],
   providers:[
+    UserService,
     NgbActiveModal, {
+
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -74,7 +80,8 @@ import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishl
       }
     ]
     } as SocialAuthServiceConfig,
-  }
+  },
+  
   ],
   
   bootstrap: [AppComponent]

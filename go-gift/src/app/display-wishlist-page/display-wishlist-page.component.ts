@@ -15,4 +15,5 @@ export class DisplayWishlistPageComponent implements OnInit {
   editWishlist(): void{
     console.log('clicked on edit wishlist button')
   }
+
 }

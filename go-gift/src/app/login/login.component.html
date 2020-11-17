@@ -1,9 +1,9 @@
-
+<!-- 
  <section class="login-block">
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-12">
-                <form class="md-float-material form-material" action="#" method="POST">
+                <form class="md-float-material form-material" [formGroup]="loginForm">
                     <div class="auth-box card">
                         <div class="card-block">
                             <div class="row">
@@ -11,10 +11,12 @@
                                     <h3 class="text-center heading">Welcome to GOGift!</h3>
                                 </div>
                             </div>
-                          <div class="form-group form-primary"> <input type="text" class="form-control" name="email" value="" placeholder="Email" id="email"> </div>
-                            <div class="form-group form-primary"> <input type="password" class="form-control" name="password" placeholder="Password" value="" id="password"> </div>
+                          <div class="form-group form-primary"> <input type="text" formControlName="email" matInput placeholder="Username"> </div>
+                          <span *ngIf="isValid('email')">Username cannot be blank</span>
+                            <div class="form-group form-primary"> <input type="password" formControlName="password" matInput placeholder="Password"> </div>
+                            <span *ngIf="isValid('password')">Password cannot be blank</span>
                                                        <div class="row">
-                                <div class="col-md-12"> <input type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20" name="submit" value="Signup Now">
+                                <div class="col-md-12">    <button class="form-btn" (click)="login()">Sign In</button>
         
                                 </div>
                             </div>
@@ -36,13 +38,62 @@
         </div>
     </div>
 
+    
 
 
-<div *ngIf="user"> </div>
+
+<!-- <div *ngIf="user"> </div>
+<h4> {{user.name}}</h4>
+<p> {{user.email}}</p>
+<div><img src="{{user.photoUrl}}"> </div>
+<br>  
+
+<button (click) = "signOut()"> Sign out</button> 
+
+ -->
+
+ <div class="formcontainer">
+    <div class="formbody">
+        <form style="width:200%;" [formGroup]="loginForm">
+            <div class="header">Welcome To GOGift</div>
+            <div>
+                
+                    <div class="form-group form-primary">    <input type="text" formControlName="email" matInput placeholder="Username"> </div>
+                
+                <span *ngIf="isValid('email')">Username cannot be blank</span>
+            </div>
+            <div>
+                <div class="form-group form-primary">
+                
+                    <input type="password" formControlName="password" matInput placeholder="Password">
+                </div>
+                <span *ngIf="isValid('password')">Password cannot be blank</span>
+            </div>
+            <div style="margin-top:40px;">
+                <button class="col-md-12" (click)="login()" class="btn btn-lg btn-google btn-block text-uppercase btn-outline">Sign In</button>
+            </div>
+        
+    <div class="or-container">
+        <div class="line-separator"></div>
+        <div class="or-label">or</div>
+        <div class="line-separator"></div>
+    </div>
+    <div class="row">
+        <div class="col-md-12"> <button (click) = "signInWithGoogle()" class="btn btn-lg btn-google btn-block text-uppercase btn-outline"> <img src="https://img.icons8.com/color/16/000000/google-logo.png"> Sign In Using Google</button> </div>
+    </div> <br>
+
+    <div>
+        <div style="margin-top:40px;">
+            <button class="col-md-12" (click)="movetoregister()" class="btn btn-lg btn-google btn-block text-uppercase btn-outline">Signup</button>
+        </div>
+    </div>
+</form>
+</div>
+</div>
+
+<div> <span *ngIf="user"> </span>
 <h4> {{user.name}}</h4>
 <p> {{user.email}}</p>
 <div><img src="{{user.photoUrl}}"> </div>
 <br> 
-
-<button (click) = "signOut()"> Sign out</button> 
-
+</div>
