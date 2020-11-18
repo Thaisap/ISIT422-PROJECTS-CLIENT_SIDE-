@@ -1,0 +1,60 @@
+<div style="padding: 35px;">
+    <div class="section">
+        <h1 class="main-font bold">Create New Wishlist Item</h1>
+    </div>
+    <div id="create-wishlist" class="sub-font" style="font-size: 1.6em; margin-top: 35px;">
+        <div class="form-group">
+            <label for="itemName">Item Name</label>
+            <input type="text" class="form-control" id="itemName" required [(ngModel)]="createdItem.itemName">
+        </div>
+        <div class="form-group">
+            <label for="vendorName">Vendor Name</label>
+            <input type="text" class="form-control" id="vendorName" [(ngModel)]="createdItem.vendor">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="itemPrice">Item Listed Price</label>
+                <input type="number" min="0.00" max="10000.00" step="0.01" class="form-control" id="itemPrice" placeholder="7.00" [(ngModel)]="priceAsNum">
+                <!-- [ngModel]="priceAsNum | number:'1.2-2'" (ngModelChange)="priceAsNum=$event"> -->
+            </div>
+            <div class="form-group col-md-6" style="padding-left: 35px; font-size: 0.8em;">
+              <label for="startingPrice">Is this price the starting price? (ex. The listed price is like $5.00+)</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="startingPrice" [(ngModel)]="startingPrice" id="startingYes" value="true" required>
+                <label class="form-check-label" for="startingYes">Yes</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="startingPrice" [(ngModel)]="startingPrice" id="startingNo" value="false">
+                <label class="form-check-label" for="startingNo">No</label>
+              </div>
+            </div>
+        </div>    
+            
+        
+        <div class="form-group">
+            <label for="img">Image</label>
+            <input type="text" class="form-control" id="img" [(ngModel)]="createdItem.image">
+        </div>    
+        <div class="form-group">
+            <label for="url">Link to Item</label>
+            <input type="text" class="form-control" id="url" required [(ngModel)]="createdItem.url">
+        </div>
+
+        <div class="form-group">
+            <label for="tags">Give Tags to the Item</label>
+            <input type="text" class="form-control" id="tags" placeholder="postage stamps, Christmas" required [(ngModel)]="tagInput" (keydown.enter)="createWishlistItem()">
+        </div>
+    </div>
+    <!-- <div class="row justify-content-start">
+        <div class="sub-font" style="padding-left: 35px; font-size: 2.4em;">Add Tags <span style="margin-left: 25px; border-left: 3px solid black;"></span></div>
+        <app-add-chip (clickFun)="openAddTagsModal()"></app-add-chip>        
+    </div> -->
+    <div class="row justify-content-around" style="margin-top: 30px;">
+        <div class="rev-button" type="button" style="width: 30%;" (click)="createDemoWishlistItem()">Create</div>
+        <!-- <div class="rev-button" type="button" style="width: 30%;" (click)="createWishlistItem()">Create</div> -->
+        <div class="button" type="button" style="width: 30%; position: relative;">Cancel<a routerLink="/display-wishlist"><span class="link-panel"></span></a></div>
+    </div>
+        
+    
+
+</div>

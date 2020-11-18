@@ -1,5 +1,5 @@
 export interface allTags {
 
    tags:string[];
-   taglds: string[];
+   tagIds: string[];
 }

@@ -19,7 +19,17 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreateAccountComponent } from './create-account/create-account.component';
 import { LoginComponent } from './login/login.component';
 import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'angularx-social-login';
-
+import { SignupComponent } from './signup/signup.component';
+import { RemovableChipComponent } from './removable-chip/removable-chip.component';
+import { AddChipComponent } from './add-chip/add-chip.component';
+import { AddTagsModalComponent } from './add-tags-modal/add-tags-modal.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { TagsAutocompleteComponent } from './tags-autocomplete/tags-autocomplete.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { ItemCardComponent } from './item-card/item-card.component';
+import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
+import { ToastModule } from '@syncfusion/ej2-angular-notifications';
 
 @NgModule({
   imports: [
@@ -29,8 +39,10 @@ import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'a
     HttpClientModule,
     NgbModule,
     ReactiveFormsModule,
-    SocialLoginModule
-    
+    SocialLoginModule,
+    NoopAnimationsModule,
+    MatCardModule,
+    ToastModule
   ],
   
   declarations: [
@@ -45,9 +57,19 @@ import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'a
     HeaderEditComponent,
     ModalComponent,
     CreateAccountComponent,
-    LoginComponent,  
+    LoginComponent,
+    SignupComponent,
+    RemovableChipComponent,
+    AddChipComponent,
+    AddTagsModalComponent,
+    TagsAutocompleteComponent,
+    ItemCardComponent,
+    CreateWishlistItemComponent,  
   ],
-  providers:[{
+  providers:[
+    UserService,
+    NgbActiveModal, {
+
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -58,7 +80,8 @@ import {SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider} from 'a
       }
     ]
     } as SocialAuthServiceConfig,
-  }
+  },
+  
   ],
   
   bootstrap: [AppComponent]

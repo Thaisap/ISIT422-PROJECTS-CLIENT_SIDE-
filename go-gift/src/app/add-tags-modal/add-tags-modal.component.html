@@ -1,0 +1,10 @@
+<div class="modal-header">
+    <app-tags-autocomplete buttonName="Add Tags" style="min-width: 950px;" (enterFunc)="addTag($event)" (clickFunc)="addTag($event)"></app-tags-autocomplete>
+</div>
+<div class="modal-body" *ngIf="tagArray">
+    <div class="tag" *ngFor="let tag of tagArray">{{tag}}</div>
+</div>
+<div class="modal-footer">
+    <div type="button" class="rev-button" style="width: 200px;" (click)="activeModal.close(tagArray)">Confirm</div>
+    <div type="button" class="button" style="width: 200px;" (click)="activeModal.dismiss()">Cancel</div>
+</div> 

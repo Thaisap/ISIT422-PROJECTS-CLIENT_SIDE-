@@ -1,0 +1,16 @@
+<mat-card style="border: 10px solid black; padding: 30px; max-width: 500px;">
+    
+    <img mat-card-image src="../../assets/white-seahorse-profile.png" style="margin-left: auto; margin-right: auto; margin-top: 20px; width: 50%; display: block;" alt="white seahorse">
+    <mat-card-content class="sub-font">
+      <mat-card-title class="main-font">{{itemName}}</mat-card-title>
+      <mat-card-subtitle class="main-font" style="font-size: 1.4em;">{{vendorName}}</mat-card-subtitle>
+      <p style="font-size: 1.4em;">${{itemPrice}}</p>
+    </mat-card-content>
+    
+    <mat-card-actions style="display: block;">
+
+      <div class="rev-button" style="height: 60px; line-height: 40px; padding: 10px; margin-bottom: 20px;" type="button" (click)="addItemToUserWishlist(itemId)">Add to Wishlist </div>
+      
+      <div class="rev-button" style="height: 60px; line-height: 40px; padding: 10px; margin-bottom: 20px;" type="button" (click)="goToItemUrl()">See Item Details</div>
+    </mat-card-actions>
+</mat-card>
