@@ -14,6 +14,8 @@ export class ItemCardComponent implements OnInit {
   @Input() itemPrice: string;
   @Input() url: string;
   @Input() itemId: string;
+  @Input() imageUrl: string;
+
   descriptionArray: string[];
 
   constructor(private userService:UserService) { }
