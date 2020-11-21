@@ -39,6 +39,7 @@ export class SearchGiftPageComponent implements OnInit {
       this.searchItems();
     }else{
       this.message = "No Results Found.";
+
       this.hideSearchResults = false;
     }
     console.log(this.hideSearchResults);  

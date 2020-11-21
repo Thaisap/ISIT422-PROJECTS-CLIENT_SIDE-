@@ -82,6 +82,9 @@ getFriendByEmail(email: string): Observable<User>{
 getFriendListById(id: string):Observable<User[]>{
   return this.http.get<User[]>(`http://localhost:3000/friends/${id}`);
 }
+takeWishlist(id: string):Observable<Profile>{
+  return this.http.get<Profile>(`http://localhost:3000/takeWishlist/${id}`);
+}
 
 //Search Gifts Page: used to get a list of items based on tag name
 getItemListByTagName(tagName: string): Observable<Item[]>{
