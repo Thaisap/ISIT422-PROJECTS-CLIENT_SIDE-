@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
 import { ProfileWithImg } from '../Profile';
-import {allTags} from '../allTags';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-account',
@@ -27,7 +26,7 @@ export class CreateAccountComponent implements OnInit {
   imagePath: any = "../../assets/white-seahorse-profile.png";
   imageType: string;
 
-  constructor(private userService: UserService) {  }
+  constructor(private userService: UserService, public router: Router) {  }
 
 
   ngOnInit(): void {
@@ -69,7 +68,10 @@ export class CreateAccountComponent implements OnInit {
     formData.append('email', this.account.email);
     formData.append('bio', this.account.bio);
     formData.append('profileImg', this.account.profileImg);
-    this.userService.createUserWithImg(formData).subscribe((newUser) => console.log(newUser));
+    this.userService.createUserWithImg(formData).subscribe((newUser) => {
+      console.log(newUser);
+      this.router.navigateByUrl('/welcome', { state: { userId: newUser._id } });
+    });
   };
  
 }
