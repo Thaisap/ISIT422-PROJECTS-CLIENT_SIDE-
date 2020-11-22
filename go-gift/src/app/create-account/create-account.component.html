@@ -26,6 +26,6 @@
 		<div *ngIf="hasImg">
 			<img [src]="imagePath" alt="profile image preview" style="width: 500px;">
 		</div>
-		<div class="rev-button" type="button" style="margin-top: 25px;" (click)="CreateProfile()">Create</div>
+		<div class="rev-button" type="button" style="margin-top: 25px; position: relative;" (click)="CreateProfile()">Create<a routerLink="/welcome"><span class="link-panel"></span></a></div>
 	</div>
 </div>

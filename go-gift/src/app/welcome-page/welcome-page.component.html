@@ -1,1 +1,10 @@
-<p>welcome-page works!</p>
+<div style="padding: 35px;">
+    <div *ngIf="profileWithImg">
+        <h4>Welcome <strong>{{profileWithImg.firstName}} {{profileWithImg.lastName}}</strong></h4>
+        <h5>{{profileWithImg.email}}</h5>
+        <h5>{{profileWithImg.bio}}</h5>
+        <ng-container *ngIf="imageData">
+            <img [src]="imageData" alt="profile image">
+        </ng-container>
+    </div>
+</div>

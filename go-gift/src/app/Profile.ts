@@ -18,7 +18,7 @@ export interface ProfileWithImg{
     lastName: string;
     email: string;
     bio: string;
-    profileImg: unknown;
+    profileImg: any;
     tag: string [];
     wishlist: string [];
     friend: string [];

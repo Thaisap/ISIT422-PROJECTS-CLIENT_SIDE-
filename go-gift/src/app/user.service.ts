@@ -5,7 +5,7 @@ import {catchError, map, tap} from 'rxjs/operators';
 
 import {User} from './user';
 import {MessageService} from './message.service';
-import { Profile } from './Profile';
+import { Profile, ProfileWithImg } from './Profile';
 import {tag, WriteTagDoc} from './tag';
 import {allTags} from './allTags';
 import { Item, WriteItemDoc } from './item';
@@ -106,6 +106,14 @@ addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
 //Profile Page: update user's tags
 updateTagInUser(userId: string, tagIds: string[]): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/tag/${userId}`, tagIds, this.httpOptions);
+}
+
+createUserWithImg(body: FormData): Observable<ProfileWithImg>{
+  return this.http.post<ProfileWithImg>('http://localhost:3000/profileWithImg', body)
+}
+
+getUserWithImg(userId: string): Observable<ProfileWithImg>{
+  return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/${userId}`);
 }
 
 
