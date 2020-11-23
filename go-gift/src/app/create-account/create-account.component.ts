@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileWithImg } from '../Profile';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddTagsModalComponent } from '../add-tags-modal/add-tags-modal.component';
 
 @Component({
   selector: 'app-create-account',
@@ -25,11 +27,23 @@ export class CreateAccountComponent implements OnInit {
   hasImg: boolean = false;
   imagePath: any = "../../assets/white-seahorse-profile.png";
   imageType: string;
+  addedTagsArray: string[] = [];
+  allTagNames: string[];
+  allTagIds: string[];
 
-  constructor(private userService: UserService, public router: Router) {  }
+  constructor(private userService: UserService, private modalService: NgbModal, public router: Router) {  }
 
 
   ngOnInit(): void {
+    this.getAllTags();
+  }
+
+  getAllTags(): void{
+    this.userService.getAllTags()
+    .subscribe(allTags => {
+      console.log(allTags);
+      [this.allTagNames = allTags.tags, this.allTagIds = allTags.tagIds];
+    });
   }
 
   async onFileSelection(event){
@@ -60,6 +74,37 @@ export class CreateAccountComponent implements OnInit {
     });
   } */
 
+  openAddTagsModal() {
+    const modalRef = this.modalService.open(AddTagsModalComponent,  { windowClass : "addTagsModal"});
+    modalRef.result.then((result) => result.map((tag) => {
+      console.log(tag);
+      this.addedTagsArray.push(tag);
+      console.log(this.addedTagsArray);
+    }), (reason) => {
+      this.addedTagsArray = [];
+    });
+  }
+
+  async getTagIdsArray(){
+    let promArray = await this.addedTagsArray.map(async(tagName) => {
+      tagName = tagName.trim();
+        let index = this.allTagNames.indexOf(tagName);
+        if(index !== -1){
+          return this.allTagIds[index];
+        }else{
+          let tagDoc = {
+            name: tagName,
+            item: []
+          };
+          let newTagId = await this.userService.CreateTag(tagDoc).toPromise();
+          return newTagId;
+        }
+    });
+    let newTagArray = Promise.all(promArray).then((v) => v);
+    return newTagArray;
+  }
+
+
   CreateProfile() : void{    
     console.log(this.account);
     let formData = new FormData();
@@ -68,9 +113,12 @@ export class CreateAccountComponent implements OnInit {
     formData.append('email', this.account.email);
     formData.append('bio', this.account.bio);
     formData.append('profileImg', this.account.profileImg);
-    this.userService.createUserWithImg(formData).subscribe((newUser) => {
-      console.log(newUser);
-      this.router.navigateByUrl('/welcome', { state: { userId: newUser._id } });
+    this.getTagIdsArray().then((tagIdArray) => {
+      formData.append('tag', JSON.stringify(tagIdArray));
+      this.userService.createUserWithImg(formData).subscribe((newUser) => {
+        console.log(newUser);
+        this.router.navigateByUrl('/welcome', { state: { userId: newUser._id } });
+      });
     });
   };
  

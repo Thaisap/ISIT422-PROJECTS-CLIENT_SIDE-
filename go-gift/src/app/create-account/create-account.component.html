@@ -2,7 +2,7 @@
     <div class="section">
         <h1 class="main-font bold">Create Account</h1>
 	</div>
-	<div style="margin-top: 25px; font-size: 1.4em;">
+	<div style="margin-top: 25px; font-size: 1.6em;">
 		<div class="form-group">
 			<label for="firstName">First Name: </label>
 			<input type="text" class="form-control" id="firstName" [(ngModel)]="account.firstName">
@@ -25,6 +25,13 @@
 		</div>
 		<div *ngIf="hasImg">
 			<img [src]="imagePath" alt="profile image preview" style="width: 500px;">
+		</div>
+		<div class="row justify-content-start">
+			<div class="sub-font" style="padding-left: 35px; font-size: 1.6em;">Add Tags <span style="margin-left: 25px; border-left: 3px solid black;"></span></div>
+			<ng-container *ngIf="addedTagsArray">
+				<div class="tag" style="font-size: 1.4em;" *ngFor="let tag of addedTagsArray">{{tag}}</div>
+			</ng-container>
+			<app-add-chip (clickFun)="openAddTagsModal()"></app-add-chip>        
 		</div>
 		<div class="rev-button" type="button" style="margin-top: 25px; position: relative;" (click)="CreateProfile()">Create</div>
 	</div>
