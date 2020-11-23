@@ -20,13 +20,13 @@
 			<textarea class="form-control" id="bio" name="bio" rows="4" cols="60" [(ngModel)]="account.bio"></textarea>
 		</div>
 		<div class="form-group">
-			<label for="profileImg">Select a Profile Image: </label>
+			<label for="profileImg" class="input-file">Upload Profile Image</label>
 			<input type="file" class="form-control" id="profileImg" name="profileImg" [(ngModel)]="account.profileImg" (change)="onFileSelection($event)">
 		</div>
 		<div *ngIf="hasImg">
 			<img [src]="imagePath" alt="profile image preview" style="width: 500px;">
 		</div>
-		<div class="row justify-content-start">
+		<div class="row justify-content-start" style="margin-top: 25px;">
 			<div class="sub-font" style="padding-left: 35px; font-size: 1.6em;">Add Tags <span style="margin-left: 25px; border-left: 3px solid black;"></span></div>
 			<ng-container *ngIf="addedTagsArray">
 				<div class="tag" style="font-size: 1.4em;" *ngFor="let tag of addedTagsArray">{{tag}}</div>

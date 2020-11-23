@@ -177,6 +177,18 @@ body{
     color: white;
 }
 
+input[type="file"]{
+    display: none;
+}
+
+.input-file{
+    background-color: white;
+    border: 5px solid black;
+    font-family: 'Josefin Sans', sans-serif;
+    padding: 15px;
+    font-size: bold;
+}
+
 .new-line{
     -moz-white-space: pre-line;
     white-space: pre-line;
