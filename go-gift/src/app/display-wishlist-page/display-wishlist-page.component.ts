@@ -18,6 +18,7 @@ export class DisplayWishlistPageComponent implements OnInit {
 
   editWishlist(): void{
     console.log('clicked on edit wishlist button')
+    
   }
   takeWishlist(id: string): void {
     this.userService.takeWishlist('5f9725288c008df2d8d1c241')

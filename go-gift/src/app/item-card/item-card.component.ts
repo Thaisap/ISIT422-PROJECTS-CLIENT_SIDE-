@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {UserService} from '../user.service';
 
@@ -15,6 +15,7 @@ export class ItemCardComponent implements OnInit {
   @Input() url: string;
   @Input() itemId: string;
   descriptionArray: string[];
+  @Output() buttonName = new EventEmitter();
 
   constructor(private userService:UserService) { }
 
@@ -30,5 +31,8 @@ export class ItemCardComponent implements OnInit {
     .subscribe((info) => console.log(info));
  
  };
+ buttonClick2(){
+  this.buttonName.emit();
+};
 
 };
