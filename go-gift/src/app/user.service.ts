@@ -9,6 +9,7 @@ import { Profile, ProfileWithImg } from './Profile';
 import {tag, WriteTagDoc} from './tag';
 import {allTags} from './allTags';
 import { Item, WriteItemDoc } from './item';
+import {Credentials} from './credentials'
 
 
 
@@ -26,8 +27,6 @@ export class UserService {
 
   constructor( private http: HttpClient, private messageService: MessageService) { }
 
-
-
 CreateProfile(body:Profile) : Observable<Profile> {
   return this.http.post<Profile> ('http://localhost:3000/profile', body, this.httpOptions);
 }
@@ -38,12 +37,15 @@ submitRegister(body: any){
   });
 }
 
-login(body: any){
-  return this.http.post('http://localhost:3000/usercredential/login', body,{
-    observe:'body'
-  });
+login(body: any): Observable<Credentials>{
+  return this.http.post<Credentials>('http://localhost:3000/usercredential/login', body)
+//  ,{  observe:'body'});
 }
 
+credentials (body: any, id: string): Observable<Object>{
+  return this.http.patch<Object>(`http://localhost:3000/usercredential/credentials/${id}`, body)
+//  ,{  observe:'body'});
+}
 
 getUserName() {
   return this.http.get('http://localhost:3000/usercredential/username', {

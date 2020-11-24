@@ -21,8 +21,10 @@ export class CreateAccountComponent implements OnInit {
     profileImg:"",
     tag: [],
     wishlist: [],
-    friend: []
+    friend: [],
+  
     }
+ crendentialId: string;
 
   hasImg: boolean = false;
   imagePath: any = "../../assets/white-seahorse-profile.png";
@@ -31,7 +33,12 @@ export class CreateAccountComponent implements OnInit {
   allTagNames: string[];
   allTagIds: string[];
 
-  constructor(private userService: UserService, private modalService: NgbModal, public router: Router) {  }
+  constructor(private userService: UserService, private modalService: NgbModal, public router: Router) { 
+    let navigation = this.router.getCurrentNavigation()
+    let navigationState = navigation.extras.state
+    this.crendentialId = navigationState.CrId
+
+   }
 
 
   ngOnInit(): void {
@@ -117,6 +124,10 @@ export class CreateAccountComponent implements OnInit {
       formData.append('tag', JSON.stringify(tagIdArray));
       this.userService.createUserWithImg(formData).subscribe((newUser) => {
         console.log(newUser);
+        this.userService.credentials (newUser._id, this.crendentialId).
+        subscribe (
+          data=> console.log(data) //gogift value updated
+        )
         this.router.navigateByUrl('/welcome', { state: { userId: newUser._id } });
       });
     });
