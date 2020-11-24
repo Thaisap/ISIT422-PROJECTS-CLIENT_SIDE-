@@ -7,7 +7,7 @@
 
             <ng-container *ngIf="itemList.wishlist" >
                     <div *ngFor="let item of itemList.wishlist" class="col-lg-6 col-md-6 col-xs-12" style="padding: 15px;">
-                            <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [url]="item.url" [itemId]= "item._id" buttonName="Delete to Wishlist" (buttonClick2)="deleteItemFromWislist()"></app-item-card>
+                            <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [url]="item.url" [itemId]= "item._id" buttonName="Delete from Wishlist" (buttonClick2)="deleteItemFromWislist()"></app-item-card>
                         </div>
                     </ng-container>
 
