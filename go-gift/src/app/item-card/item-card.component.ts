@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output  } from '@angular/core';
 import { MatCardModule } from '@angular/material/card';
 import {UserService} from '../user.service';
 
@@ -14,7 +14,10 @@ export class ItemCardComponent implements OnInit {
   @Input() itemPrice: string;
   @Input() url: string;
   @Input() itemId: string;
+  @Input() buttonName : string;
   descriptionArray: string[];
+  message: string;
+  @Output()ClickFonc2=new EventEmitter();
 
   constructor(private userService:UserService) { }
 
@@ -25,10 +28,16 @@ export class ItemCardComponent implements OnInit {
   goToItemUrl(): void{
     window.open(this.url, "_blank");
   }
- addItemToUserWishlist(itemId) : void{
+  addItemToUserWishlist(itemId) : void{
     this.userService.addItemToUserWishlist('5f9725288c008df2d8d1c241', itemId)
     .subscribe((info) => console.log(info));
  
  };
+ 
+
+    
+ buttonClick2(){
+  this.ClickFonc2.emit();
+};
 
 };
