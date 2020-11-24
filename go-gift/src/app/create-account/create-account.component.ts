@@ -25,6 +25,7 @@ export class CreateAccountComponent implements OnInit {
   
     }
  crendentialId: string;
+ email: string;
 
   hasImg: boolean = false;
   imagePath: any = "../../assets/white-seahorse-profile.png";
@@ -34,9 +35,11 @@ export class CreateAccountComponent implements OnInit {
   allTagIds: string[];
 
   constructor(private userService: UserService, private modalService: NgbModal, public router: Router) { 
-    let navigation = this.router.getCurrentNavigation()
-    let navigationState = navigation.extras.state
-    this.crendentialId = navigationState.CrId
+    let navigation = this.router.getCurrentNavigation();
+    let navigationState = navigation.extras.state;
+    console.log(navigationState);
+    this.crendentialId = navigationState.CrId;
+    this.email = navigationState.email;
 
    }
 
@@ -113,11 +116,10 @@ export class CreateAccountComponent implements OnInit {
 
 
   CreateProfile() : void{    
-    console.log(this.account);
     let formData = new FormData();
     formData.append('firstName', this.account.firstName);
     formData.append('lastName', this.account.lastName);
-    formData.append('email', this.account.email);
+    formData.append('email', this.email);
     formData.append('bio', this.account.bio);
     formData.append('profileImg', this.account.profileImg);
     this.getTagIdsArray().then((tagIdArray) => {

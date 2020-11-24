@@ -48,7 +48,7 @@ export class LoginComponent implements OnInit {
             console.log(data);
             localStorage.setItem('token', data.token.toString());
           if (data.gogift == null) {
-            this._router.navigateByUrl('/create-account', { state: { CrId: data.credId } });
+            this._router.navigateByUrl('/create-account', { state: { CrId: data.credId, email: data.email } });
   
               
           }
