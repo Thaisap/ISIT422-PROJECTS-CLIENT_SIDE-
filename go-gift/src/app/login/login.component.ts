@@ -55,7 +55,7 @@ export class LoginComponent implements OnInit {
           else
           
             
-            this._router.navigate(['welcome`']);
+            this._router.navigateByUrl('/welcome', {state: {userId: data.gogift}});
           },
           error => { }
         );

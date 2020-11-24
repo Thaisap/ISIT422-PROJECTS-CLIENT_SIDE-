@@ -124,7 +124,7 @@ export class CreateAccountComponent implements OnInit {
       formData.append('tag', JSON.stringify(tagIdArray));
       this.userService.createUserWithImg(formData).subscribe((newUser) => {
         console.log(newUser);
-        this.userService.credentials (newUser._id, this.crendentialId).
+        this.userService.credentials ({accountId: newUser._id}, this.crendentialId).
         subscribe (
           data=> console.log(data) //gogift value updated
         )
