@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {ReactiveFormsModule} from '@angular/forms'; // <--NgModel lives here
 import { AppComponent } from './app.component';
@@ -34,6 +35,7 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 @NgModule({
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
