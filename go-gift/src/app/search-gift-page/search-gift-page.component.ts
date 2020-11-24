@@ -58,8 +58,8 @@ export class SearchGiftPageComponent implements OnInit {
         
       });
   }
-  addItemToUserWishlist(id:String){
-
+  addItemToUserWishlist(id:string){
+    
   }
 
 
