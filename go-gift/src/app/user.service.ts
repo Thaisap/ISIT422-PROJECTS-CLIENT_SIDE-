@@ -37,11 +37,17 @@ submitRegister(body: any){
   });
 }
 
+// response will pass back Credentials object (token, email, gogift, credentialsId)
+// Observable<T> and http.post<T>, the T has to match and will be the data type of the response
 login(body: any): Observable<Credentials>{
   return this.http.post<Credentials>('http://localhost:3000/usercredential/login', body)
 //  ,{  observe:'body'});
 }
 
+// response will pass back {gogift: value} so for Observable<T> and http.patch<T>, the T is Object
+// we need to pass the following fields for calling the Express route
+// body: this will have an object like this {accountId: newObjectId} [key needs to match what is in the credentials route in Express]
+// id: this will be the credential id to locate the doc to update
 credentials (body: any, id: string): Observable<Object>{
   return this.http.patch<Object>(`http://localhost:3000/usercredential/credentials/${id}`, body)
 //  ,{  observe:'body'});

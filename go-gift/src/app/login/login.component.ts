@@ -47,13 +47,20 @@ export class LoginComponent implements OnInit {
           data => {
             console.log(data);
             localStorage.setItem('token', data.token.toString());
+          // need to check whether the user is a first time user or already has a gogift account
+          // gogift will be null if they are first-time user  
           if (data.gogift == null) {
+            // create-account needs the credentialId (for updating credential doc) and email data (for inserting email field in user doc)
+            // pass the data to the create-account page by setting navigation state so that create-account can have those data
             this._router.navigateByUrl('/create-account', { state: { CrId: data.credId, email: data.email } });
   
               
           }
+          // gogift will have ObjectId value from user collection
           else
           
+            // welcome page needs the gogift to know which doc to get in user collection
+            // pass the data to the welcome page by setting navigation state so that welcome can have the data
             
             this._router.navigateByUrl('/welcome', {state: {userId: data.gogift}});
           },

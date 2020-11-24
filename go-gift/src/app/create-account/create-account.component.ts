@@ -35,6 +35,9 @@ export class CreateAccountComponent implements OnInit {
   allTagIds: string[];
 
   constructor(private userService: UserService, private modalService: NgbModal, public router: Router) { 
+    // get the data that was passed by login page
+    // need to get it through the constructor or it'll be lost 
+    // (see here to know why: https://stackoverflow.com/questions/54891110/router-getcurrentnavigation-always-returns-null)
     let navigation = this.router.getCurrentNavigation();
     let navigationState = navigation.extras.state;
     console.log(navigationState);
@@ -126,10 +129,13 @@ export class CreateAccountComponent implements OnInit {
       formData.append('tag', JSON.stringify(tagIdArray));
       this.userService.createUserWithImg(formData).subscribe((newUser) => {
         console.log(newUser);
+        // once the user is created in the user collection, update the doc in credentials
+        // call the route with passed in information: credentialsId (from naviagtion state) and gogift (from the createUserWithImg)
         this.userService.credentials ({accountId: newUser._id}, this.crendentialId).
         subscribe (
-          data=> console.log(data) //gogift value updated
+          data=> console.log(data) // check to see if gogift value is updated
         )
+        // pass the userId to the welcome page to get the correct doc in user collection
         this.router.navigateByUrl('/welcome', { state: { userId: newUser._id } });
       });
     });
