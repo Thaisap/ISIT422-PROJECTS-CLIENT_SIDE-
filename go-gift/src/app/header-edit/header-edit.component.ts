@@ -9,6 +9,7 @@ export class HeaderEditComponent implements OnInit {
   @Input() title: string;
   @Output() clickFunc = new EventEmitter();
 
+
   constructor() { }
 
   ngOnInit(): void {
@@ -16,5 +17,6 @@ export class HeaderEditComponent implements OnInit {
   buttonClick(){
     this.clickFunc.emit();
   }
+
 
 }

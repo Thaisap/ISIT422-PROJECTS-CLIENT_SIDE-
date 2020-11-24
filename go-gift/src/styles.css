@@ -1,5 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Merriweather&display=swap');
+.row{
+    margin: 0;
+    overflow-x: hidden;
+}
 body{
     padding: 0;
     margin: 0;
@@ -150,6 +154,43 @@ body{
 
 .addTagsModal .modal-dialog {
     max-width: 1000px;
+}
+
+.toast{
+    position: fixed;
+    top: 0;
+    right: 0;
+    margin: 0.5em;
+    z-index: 2;
+}
+
+.style-toast{
+    background-color: black;
+    color: white;
+    width: 300px;
+    font-family: 'Merriweather', serif;
+}
+
+.toast-header{
+    background-color: black;
+    color: white;
+    border-bottom: 1px solid white;
+}
+
+.close{
+    color: white;
+}
+
+input[type="file"]{
+    display: none;
+}
+
+.input-file{
+    background-color: white;
+    border: 5px solid black;
+    font-family: 'Josefin Sans', sans-serif;
+    padding: 15px;
+    font-size: bold;
 }
 
 .new-line{

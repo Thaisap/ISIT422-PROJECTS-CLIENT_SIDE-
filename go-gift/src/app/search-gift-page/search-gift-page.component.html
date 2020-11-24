@@ -13,7 +13,9 @@
     <div class="row justify-content-around">
         <ng-container *ngIf="itemList" >
             <div *ngFor="let item of itemList" class="col-lg-6 col-md-6 col-xs-12" style="padding: 15px;">
-                <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [url]="item.url" [itemId]= "item._id"></app-item-card>
+
+                <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [imageUrl]="item.image" [url]="item.url" [itemId]= "item._id" buttonName="Add to Wishlist" (buttonClik2)="addItemToUserWishlist(item._id)"></app-item-card>
+
             </div>
         </ng-container>
     </div>

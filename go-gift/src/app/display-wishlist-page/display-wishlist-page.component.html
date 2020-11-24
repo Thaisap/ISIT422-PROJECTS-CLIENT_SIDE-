@@ -1,9 +1,20 @@
 
 
-=======
 <div style="padding: 35px;">
     <app-header-edit title="My Wishlist" (clickFunc)="editWishlist()"></app-header-edit>
-    <div></div>
-    <div class="rev-button" style="width: 50%; margin: 0 auto; position: relative;">Create New Item to Add to Wishlist<a routerLink="/create-wishlist"><span class="link-panel"></span></a></div>
+
+    <div class="container">
+            <div class="row justify-content-around">
+
+            <ng-container *ngIf="itemList.wishlist" >
+                    <div *ngFor="let item of itemList.wishlist" class="col-lg-6 col-md-6 col-xs-12" style="padding: 15px;">
+                            <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [url]="item.url" [itemId]= "item._id" buttonName="Delete from Wishlist" (buttonClick2)="deleteItemFromWislist()"></app-item-card>
+                        </div>
+                    </ng-container>
+
+  </div>
+    </div>
+    <div class="rev-button" style="width: 50%; margin: 0 auto; position: relative;">Create New Item to Add to Wishlist<a routerLink="/main/create-wishlist"><span class="link-panel"></span></a></div>
+
 </div>
 
