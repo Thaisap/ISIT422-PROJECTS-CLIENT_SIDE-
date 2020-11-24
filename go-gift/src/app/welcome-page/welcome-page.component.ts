@@ -39,4 +39,9 @@ export class WelcomePageComponent implements OnInit {
     });
   }
 
+  logout(){
+    localStorage.removeItem('token');
+    this.router.navigate(['login']);
+  }
+
 }
