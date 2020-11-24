@@ -14,8 +14,10 @@ export class ItemCardComponent implements OnInit {
   @Input() itemPrice: string;
   @Input() url: string;
   @Input() itemId: string;
+  @Input() buttonName : string;
   descriptionArray: string[];
-  @Output() buttonName = new EventEmitter();
+  message: string;
+  @Output()ClickFonc2=new EventEmitter();
 
   constructor(private userService:UserService) { }
 
@@ -31,8 +33,11 @@ export class ItemCardComponent implements OnInit {
     .subscribe((info) => console.log(info));
  
  };
+ 
+
+    
  buttonClick2(){
-  this.buttonName.emit();
+  this.ClickFonc2.emit();
 };
 
 };

@@ -86,6 +86,10 @@ takeWishlist(id: string):Observable<Profile>{
   return this.http.get<Profile>(`http://localhost:3000/takeWishlist/${id}`);
 }
 
+deleteItemFromWislist(id: string):Observable<Profile>{
+  return this.http.get<Profile>(`http://localhost:3000/deleteItemFromWislist/${id}`);
+}
+
 //Search Gifts Page: used to get a list of items based on tag name
 getItemListByTagName(tagName: string): Observable<Item[]>{
   return this.http.get<Item[]>(`http://localhost:3000/itemsByTag/${tagName}`);

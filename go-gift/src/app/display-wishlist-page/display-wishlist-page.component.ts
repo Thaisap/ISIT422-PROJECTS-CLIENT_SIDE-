@@ -24,10 +24,15 @@ export class DisplayWishlistPageComponent implements OnInit {
     this.userService.takeWishlist('5f9725288c008df2d8d1c241')
     .subscribe((info) =>{
       console.log(info);
+      
 
     return this.itemList= info;
 
     })
   
   }
+deleteItemFromWislist(){
+  
+}
+ 
 }
