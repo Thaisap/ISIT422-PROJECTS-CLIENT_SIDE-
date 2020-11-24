@@ -46,14 +46,24 @@ export class LoginComponent implements OnInit {
         .subscribe(
           data => {
             console.log(data);
-            localStorage.setItem('token', data.toString());
-            this._router.navigate(['dashboard']);
+            localStorage.setItem('token', data.token.toString());
+          if (data.gogift == null) {
+            this._router.navigateByUrl('/create-account', { state: { CrId: data.credId } });
+  
+              
+          }
+          else
+          
+            
+            this._router.navigate(['welcome`']);
           },
           error => { }
         );
     }
   }
+  
 
+  
   
 
   movetoregister() {
