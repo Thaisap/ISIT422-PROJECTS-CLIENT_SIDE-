@@ -33,20 +33,20 @@ CreateProfile(body:Profile) : Observable<Profile> {
 }
 
 submitRegister(body: any){
-  return this.http.post('http://localhost:3000/users/register', body,{
+  return this.http.post('http://localhost:3000/usercredential/register', body,{
     observe:'body'
   });
 }
 
 login(body: any){
-  return this.http.post('http://localhost:3000/users/login', body,{
+  return this.http.post('http://localhost:3000/usercredential/login', body,{
     observe:'body'
   });
 }
 
 
 getUserName() {
-  return this.http.get('http://localhost:3000/users/username', {
+  return this.http.get('http://localhost:3000/usercredential/username', {
     observe: 'body',
     params: new HttpParams().append('token', localStorage.getItem('token'))
   });
