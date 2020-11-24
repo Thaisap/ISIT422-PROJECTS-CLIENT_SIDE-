@@ -29,12 +29,14 @@ export class CreateWishlistItemComponent implements OnInit {
   allTagIds: string[];
   tagDoc: WriteTagDoc;
   recordedItem: WriteItemDoc;
+  showToast: boolean = false;
 
 
   constructor(private userService: UserService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getAllTags();
+    console.log(this.showToast);
   }
 
   getAllTags(): void{
@@ -65,6 +67,8 @@ export class CreateWishlistItemComponent implements OnInit {
           this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
         });
         this.userService.addItemToUserWishlist('5fab402e47e3c65a4f93db8c', itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
+        //
+        this.showToast = true;
       });
     });
   }

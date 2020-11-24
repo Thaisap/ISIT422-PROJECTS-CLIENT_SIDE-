@@ -10,3 +10,15 @@ export interface Profile {
     friend: string [];
 }
 
+
+export interface ProfileWithImg{
+    _id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    bio: string;
+    profileImg: any;
+    tag: string [];
+    wishlist: string [];
+    friend: string [];
+}

@@ -30,6 +30,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ItemCardComponent } from './item-card/item-card.component';
 import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
 import { ToastModule } from '@syncfusion/ej2-angular-notifications';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 @NgModule({
   imports: [
@@ -64,7 +65,8 @@ import { ToastModule } from '@syncfusion/ej2-angular-notifications';
     AddTagsModalComponent,
     TagsAutocompleteComponent,
     ItemCardComponent,
-    CreateWishlistItemComponent,  
+    CreateWishlistItemComponent,
+    WelcomePageComponent,  
   ],
   providers:[
     UserService,
