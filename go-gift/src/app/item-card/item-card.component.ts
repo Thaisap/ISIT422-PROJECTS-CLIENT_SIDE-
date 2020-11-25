@@ -14,7 +14,9 @@ export class ItemCardComponent implements OnInit {
   @Input() itemPrice: string;
   @Input() url: string;
   @Input() itemId: string;
+  @Input() imageUrl: string;
   @Input() buttonName : string;
+
   descriptionArray: string[];
   message: string;
   @Output()ClickFonc2=new EventEmitter();

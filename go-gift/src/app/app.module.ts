@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import {FormsModule} from '@angular/forms'
 import {ReactiveFormsModule} from '@angular/forms'; // <--NgModel lives here
 import { AppComponent } from './app.component';
@@ -30,9 +31,11 @@ import { MatCardModule } from '@angular/material/card';
 import { ItemCardComponent } from './item-card/item-card.component';
 import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
 import { ToastModule } from '@syncfusion/ej2-angular-notifications';
+import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 
 @NgModule({
   imports: [
+    CommonModule,
     BrowserModule,
     FormsModule,
     AppRoutingModule,
@@ -64,7 +67,8 @@ import { ToastModule } from '@syncfusion/ej2-angular-notifications';
     AddTagsModalComponent,
     TagsAutocompleteComponent,
     ItemCardComponent,
-    CreateWishlistItemComponent,  
+    CreateWishlistItemComponent,
+    WelcomePageComponent,  
   ],
   providers:[
     UserService,

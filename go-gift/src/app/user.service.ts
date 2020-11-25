@@ -5,10 +5,11 @@ import {catchError, map, tap} from 'rxjs/operators';
 
 import {User} from './user';
 import {MessageService} from './message.service';
-import { Profile } from './Profile';
+import { Profile, ProfileWithImg } from './Profile';
 import {tag, WriteTagDoc} from './tag';
 import {allTags} from './allTags';
 import { Item, WriteItemDoc } from './item';
+import {Credentials} from './credentials'
 
 
 
@@ -26,27 +27,34 @@ export class UserService {
 
   constructor( private http: HttpClient, private messageService: MessageService) { }
 
-
-
 CreateProfile(body:Profile) : Observable<Profile> {
   return this.http.post<Profile> ('http://localhost:3000/profile', body, this.httpOptions);
 }
 
 submitRegister(body: any){
-  return this.http.post('http://localhost:3000/users/register', body,{
+  return this.http.post('http://localhost:3000/usercredential/register', body,{
     observe:'body'
   });
 }
 
-login(body: any){
-  return this.http.post('http://localhost:3000/users/login', body,{
-    observe:'body'
-  });
+// response will pass back Credentials object (token, email, gogift, credentialsId)
+// Observable<T> and http.post<T>, the T has to match and will be the data type of the response
+login(body: any): Observable<Credentials>{
+  return this.http.post<Credentials>('http://localhost:3000/usercredential/login', body)
+//  ,{  observe:'body'});
 }
 
+// response will pass back {gogift: value} so for Observable<T> and http.patch<T>, the T is Object
+// we need to pass the following fields for calling the Express route
+// body: this will have an object like this {accountId: newObjectId} [key needs to match what is in the credentials route in Express]
+// id: this will be the credential id to locate the doc to update
+credentials (body: any, id: string): Observable<Object>{
+  return this.http.patch<Object>(`http://localhost:3000/usercredential/credentials/${id}`, body)
+//  ,{  observe:'body'});
+}
 
 getUserName() {
-  return this.http.get('http://localhost:3000/users/username', {
+  return this.http.get('http://localhost:3000/usercredential/username', {
     observe: 'body',
     params: new HttpParams().append('token', localStorage.getItem('token'))
   });
@@ -113,6 +121,14 @@ addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
 //Profile Page: update user's tags
 updateTagInUser(userId: string, tagIds: string[]): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/tag/${userId}`, tagIds, this.httpOptions);
+}
+
+createUserWithImg(body: FormData): Observable<ProfileWithImg>{
+  return this.http.post<ProfileWithImg>('http://localhost:3000/profileWithImg', body)
+}
+
+getUserWithImg(userId: string): Observable<ProfileWithImg>{
+  return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/${userId}`);
 }
 
 

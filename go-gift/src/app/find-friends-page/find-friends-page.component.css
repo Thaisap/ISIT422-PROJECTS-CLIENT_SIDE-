@@ -1,9 +1,56 @@
 /* HeroesComponent's private CSS styles */
 #container{
+  position: relative;
   margin: 0 auto;
   width: 75%;
   font-family: 'Josefin Sans', sans-serif;
 }
+.profileImg{
+  float: unset;
+  width: auto;
+  height: auto;
+  display: block;
+}
+.tag{
+  font-size: unset;
+}
+.profileBody{
+  min-height: 20rem;
+}
+.profileBtn{
+  background-color: white;
+  border-color: tomato;
+  color: tomato;
+}
+.leftMain{
+  position: absolute;
+  transition: 2s;
+  left: 0;
+  width: 100%;
+  z-index: 0;
+}
+.rightMain{
+  position: absolute;
+  transition: 2s;
+  right: 0;
+  width: 100%;
+  z-index: 0;
+}
+.panelLeft{
+  position: absolute;
+  transition: 2s;
+  left: -500px;
+  width: 100%;
+  z-index: -1;
+}
+.panelRight{
+  position: absolute;
+  transition: 2s;
+  right: -500px;
+  width: 100%;
+  z-index: -1;
+}
+
 .ngbModal{
   font-family: 'Josefin Sans', sans-serif;
   font-size: 2rem;
@@ -57,7 +104,7 @@ button{
     cursor: pointer;
     position: relative;
     left: 0;
-    background-color: violet;
+/*    background-color: violet; */
     margin: .5em;
     padding: .3em 0;
     height: 90px;
