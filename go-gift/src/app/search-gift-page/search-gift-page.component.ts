@@ -59,8 +59,9 @@ export class SearchGiftPageComponent implements OnInit {
       });
   }
   addItemToUserWishlist(id:string){
-    
-  }
+    this.userService.addItemToUserWishlist('5f9725288c008df2d8d1c241',id)
+    .subscribe((info) => console.log(info));
+  };
 
 
  

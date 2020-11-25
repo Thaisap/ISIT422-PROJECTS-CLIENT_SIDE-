@@ -9,6 +9,7 @@ import { Profile } from '../Profile';
 })
 export class DisplayWishlistPageComponent implements OnInit {
   itemList : Profile;
+  
 
   constructor(private userService : UserService) { }
 

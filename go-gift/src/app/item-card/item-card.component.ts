@@ -30,11 +30,12 @@ export class ItemCardComponent implements OnInit {
   goToItemUrl(): void{
     window.open(this.url, "_blank");
   }
-  addItemToUserWishlist(itemId) : void{
+/*  addItemToUserWishlist(itemId) : void{
     this.userService.addItemToUserWishlist('5f9725288c008df2d8d1c241', itemId)
     .subscribe((info) => console.log(info));
  
  };
+ */
  
 
     
