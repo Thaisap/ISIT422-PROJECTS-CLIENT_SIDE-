@@ -18,10 +18,17 @@ export class WelcomePageComponent implements OnInit {
     //Usage: https://stackoverflow.com/questions/54891110/router-getcurrentnavigation-always-returns-null
     const navigation = this.router.getCurrentNavigation();
     const navState = navigation.extras.state;
-    this.userId = navState.userId;
+      
+    if(navState == null){
+      this.userId = localStorage.getItem('accountId');
+    }else{
+      this.userId = navState.userId;
+    }
+    this.userService.userAccountChange(this.userId);
   }
 
   ngOnInit(): void { 
+    console.log(`UserID on Welcome Page: ${this.userId}`);
     this.getProfileWithImg(this.userId);
   }
 
@@ -41,6 +48,7 @@ export class WelcomePageComponent implements OnInit {
 
   logout(){
     localStorage.removeItem('token');
+    localStorage.removeItem('accountId');
     this.router.navigate(['login']);
   }
 

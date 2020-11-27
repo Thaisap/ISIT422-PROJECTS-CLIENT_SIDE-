@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 
 import {User} from './user';
@@ -18,6 +18,14 @@ import {Credentials} from './credentials'
 })
 
 export class UserService {
+//for login
+loggedInUserAccount: ReplaySubject<string> = new ReplaySubject<string>();
+userAccountChange(newAccountId: string){
+  this.loggedInUserAccount.next(newAccountId);
+  console.log(`new user id: ${newAccountId}`);
+}
+
+
 //item = [] ;
 
 //private usersUrl = 'api/users'; //ULR to web api
@@ -129,6 +137,11 @@ createUserWithImg(body: FormData): Observable<ProfileWithImg>{
 
 getUserWithImg(userId: string): Observable<ProfileWithImg>{
   return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/${userId}`);
+}
+
+updateUserWithImg(userId: string, body: ProfileWithImg): Observable<ProfileWithImg>{
+  console.log(body);
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/${userId}`, body, this.httpOptions);
 }
 
 

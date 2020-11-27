@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from '../user';
 import { UserService } from '../user.service';
 import {allTags} from '../allTags';
-import { Profile } from '../Profile';
+import { Profile, ProfileWithImg } from '../Profile';
 import { AddTagsModalComponent } from '../add-tags-modal/add-tags-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
@@ -17,7 +17,8 @@ import { WriteTagDoc } from '../tag';
 
 export class ProfilePageComponent implements OnInit {
   userId: string;
-  userProfile?: Profile;
+  //_accountIdSubscription$: any
+  userProfile?: ProfileWithImg;
   hideDisplay: boolean = false;
   hideProfile: boolean = true;
   hideEditProfile: boolean = true;
@@ -34,15 +35,28 @@ export class ProfilePageComponent implements OnInit {
   changedTag: boolean = false;
   hideOriginalTags: boolean = false;
 
-  constructor(private userService: UserService, private modalService: NgbModal) {  }
+  constructor(private userService: UserService, private modalService: NgbModal) {
+    this.userService.loggedInUserAccount.subscribe((accountId) => {
+      this.userId = accountId;
+    });
+  }
 
   ngOnInit() {
-    this.getProfile('5f9725288c008df2d8d1c241');
+    //this.getAccountId();
+    if(this.userId == null){
+      this.userId = localStorage.getItem('accountId');
+    }
+    console.log(this.userId);
+    this.getProfile(this.userId);
     this.getAllTags();
   }
   
+  getAccountId(): void{
+    
+  }
+
   getProfile(id: string): void{
-    this.userService.getCurrentUser(id)
+    this.userService.getUserWithImg(id)
       .subscribe( (info) => this.userProfile = info );
   }
 
@@ -69,7 +83,7 @@ export class ProfilePageComponent implements OnInit {
   updateProfile(): void{
     this.hideEditProfile = true;
     console.log(this.userProfile);
-    this.userService.updateCurrentUser('5f9725288c008df2d8d1c241', this.userProfile)
+    this.userService.updateCurrentUser(this.userId, this.userProfile)
       .subscribe((info) => this.userProfile = info);    
   }
 
@@ -80,7 +94,7 @@ export class ProfilePageComponent implements OnInit {
 
   updateBio(): void{
     this.hideDisplay = false;
-    this.userService.updateCurrentUser('5f9725288c008df2d8d1c241', this.userProfile)
+    this.userService.updateCurrentUser(this.userId, this.userProfile)
       .subscribe((info) => this.userProfile = info);    
   }
 
@@ -109,7 +123,7 @@ export class ProfilePageComponent implements OnInit {
     this.changedTag = true;
     this.getTagIdsArray().then((tagIdArray) => {
       console.log(`TAG ARRAY: ${tagIdArray}`);
-      this.userService.updateTagInUser('5f9725288c008df2d8d1c241', tagIdArray).subscribe((userInfo) => console.log(userInfo))
+      this.userService.updateTagInUser(this.userId, tagIdArray).subscribe((userInfo) => console.log(userInfo))
     });
     
   }
@@ -143,8 +157,5 @@ export class ProfilePageComponent implements OnInit {
     return this.originalTags;
     //this.addedTagsArray.add(tag.name);
     //console.log(this.addedTagsArray);
-
-
-
   }
 }

@@ -137,6 +137,9 @@ export class CreateAccountComponent implements OnInit {
         )
         // pass the userId to the welcome page to get the correct doc in user collection
         this.router.navigateByUrl('/welcome', { state: { userId: newUser._id } });
+        
+        // store the userId in local storage in case of refresh or renaviagtion
+        localStorage.setItem('accountId', newUser._id);
       });
     });
   };
