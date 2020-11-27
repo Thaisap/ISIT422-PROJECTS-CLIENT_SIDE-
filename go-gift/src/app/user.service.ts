@@ -121,16 +121,16 @@ addItemToTag(tagId: string, itemId: string): Observable<tag>{
   return this.http.patch<tag>(`http://localhost:3000/tag/${tagId}`, [itemId], this.httpOptions)
 }
 
-//Create Wishlist Item Page: used to add newly created item to user collection
-addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
+// [OLD]Create Wishlist Item Page: used to add newly created item to user collection
+/* addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/item/${userId}`, [itemId], this.httpOptions)
 }
-
-//Profile Page: update user's tags
-updateTagInUser(userId: string, tagIds: string[]): Observable<Profile>{
+ */
+// [OLD]Profile Page: update user's tags
+/* updateTagInUser(userId: string, tagIds: string[]): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/tag/${userId}`, tagIds, this.httpOptions);
 }
-
+ */
 createUserWithImg(body: FormData): Observable<ProfileWithImg>{
   return this.http.post<ProfileWithImg>('http://localhost:3000/profileWithImg', body)
 }
@@ -143,6 +143,22 @@ updateUserWithImg(userId: string, body: ProfileWithImg): Observable<ProfileWithI
   console.log(body);
   return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/${userId}`, body, this.httpOptions);
 }
+
+// [NEW] update tag in tag array for profile with image
+updateTagInUser(userId: string, tagIds: string[]): Observable<ProfileWithImg>{
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/tag/${userId}`, tagIds, this.httpOptions);
+}
+
+
+// [NEW] add item to wishlist function (for profile with image)
+addItemToUserWishlist(userId: string, itemId: string): Observable<ProfileWithImg>{
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/item/${userId}`, [itemId], this.httpOptions)
+}
+
+getWishlistForUserWithImg(userId: string): Observable<ProfileWithImg>{
+  return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/wishlist/${userId}`);
+}
+
 
 
 ////////////////////////////////////////////////////////////

@@ -8,6 +8,7 @@ import { Item } from '../item';
   styleUrls: ['./search-gift-page.component.css']
 })
 export class SearchGiftPageComponent implements OnInit {
+  userId: string;
   tagName: string;
   //savedTagName: string;
   itemList: Item[];
@@ -15,9 +16,16 @@ export class SearchGiftPageComponent implements OnInit {
   message: string;
   allTagNames: string[];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+    this.userService.loggedInUserAccount.subscribe((accountId) => {
+      this.userId = accountId;
+    });
+  }
 
   ngOnInit(): void {
+    if(this.userId == null){
+      this.userId = localStorage.getItem('accountId');
+    }
     this.getAllTags();
   }
 
@@ -59,7 +67,7 @@ export class SearchGiftPageComponent implements OnInit {
       });
   }
   addItemToUserWishlist(id:string){
-    this.userService.addItemToUserWishlist('5f9725288c008df2d8d1c241',id)
+    this.userService.addItemToUserWishlist(this.userId,id)
     .subscribe((info) => console.log(info));
   };
 

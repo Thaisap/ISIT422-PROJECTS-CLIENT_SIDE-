@@ -1,40 +1,17 @@
-<div *ngIf="profileWithImg">
-    <div class="container-fluid p-0">
-        <div class="row">
-            <div class="col-lg-4 d-lg-flex p-0 justify-content-center align-items-end main-left">
-                <div style="width: 100%;">
-                    <img src="../assets/gogift-navbar.png" style="width: 200px; position: absolute; left: 20px; top: 0;" alt="go-gift logo">
-                    <ng-container *ngIf="imageData">
-                        <img [src]="imageData" style="margin-left: 35%; width: 252px;" alt="profile image">
-                    </ng-container>
-                    <h2 class="main-font bold" style="color: white; text-align: center; margin-top: 50px; margin-bottom: 40px; font-size: 3.6em">{{profileWithImg.firstName}} {{profileWithImg.lastName}}</h2>
-                    <div style="height: 100%;">
-                        <div class="nav-item">Home<a routerLink="/dashboard"><span class="link-panel"></span></a></div>
-                        <div class="nav-item">Profile<a routerLink="/main/profile"><span class="link-panel"></span></a></div>
-                        <div class="nav-item">Find Friends<a routerLink="/main/find-friends"><span class="link-panel"></span></a></div>
-                        <div class="nav-item">Search Gift Ideas<a routerLink="/main/search"><span class="link-panel"></span></a></div>
-                        <div class="nav-item">See My Wishlist<a routerLink="/main/display-wishlist"><span class="link-panel"></span></a></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 p-0 main-right" style="overflow-y: scroll;">
-                <div style="padding: 35px;">
-                    <div class="section">
-                        <h1 class="main-font">Welcome <strong>{{profileWithImg.firstName}} {{profileWithImg.lastName}}</strong></h1>
-                    </div>
-                    <div class="sub-font">
-                        <h3 style="margin-bottom: 20px; margin-top: 20px;">This is your dahboard. Here is some information about you.</h3>
-                        <h5>Email: {{profileWithImg.email}}</h5>
-                        <h5>Gift Preferences: {{profileWithImg.bio}}</h5>
-                        <ng-container *ngIf="profileWithImg.tag">
-                            <h5>Tags:</h5>
-                            <div *ngFor="let tag of profileWithImg.tag" class="tag">{{tag.name}}</div>
-                        </ng-container>
-                    </div>      
-                    <div class="container"> 
-                        <div class="headerbar">     <button mat-raised-button color="primary" (click)="logout()">Logout</button>  
-                </div>
-            </div>
-        </div>
-    </div>    
+<div style="padding: 35px;">
+    <div class="section">
+        <h1 class="main-font">Welcome <strong>{{profileWithImg.firstName}} {{profileWithImg.lastName}}</strong></h1>
+    </div>
+    <div class="sub-font">
+        <h3 style="margin-bottom: 20px; margin-top: 20px;">This is your dahboard. Here is some information about you.</h3>
+        <h5>Email: {{profileWithImg.email}}</h5>
+        <h5>Gift Preferences: {{profileWithImg.bio}}</h5>
+        <ng-container *ngIf="profileWithImg.tag">
+            <h5>Tags:</h5>
+            <div *ngFor="let tag of profileWithImg.tag" class="tag">{{tag.name}}</div>
+        </ng-container>
+    </div>      
+    <div class="container"> 
+        <div class="headerbar">     <button mat-raised-button color="primary" (click)="logout()">Logout</button>  
 </div>
+            

@@ -18,6 +18,7 @@ const routes: Routes = [
   {path: 'dashboard', component:DashboardComponent},
   {path: 'main', component: NavigationComponent,
     children: [
+      {path: 'welcome', component: WelcomePageComponent},
       {path: 'profile', component: ProfilePageComponent},
       {path: 'find-friends', component:FindFriendsPageComponent},
       {path: 'search', component: SearchGiftPageComponent},
@@ -28,7 +29,6 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent}  ,
   {path: 'create-account', component: CreateAccountComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'welcome', component: WelcomePageComponent}
 ];
 
 

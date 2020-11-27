@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
             // welcome page needs the gogift to know which doc to get in user collection
             // pass the data to the welcome page by setting navigation state so that welcome can have the data
             localStorage.setItem('accountId', data.gogift);
-            this._router.navigateByUrl('/welcome', {state: {userId: data.gogift}});
+            this._router.navigateByUrl('/main/welcome', {state: {userId: data.gogift}});
           },
           error => { }
         );
