@@ -17,6 +17,7 @@ import { WriteTagDoc } from '../tag';
 
 export class ProfilePageComponent implements OnInit {
   userId: string;
+  imageData: any = "../../assets/white-seahorse-profile.png";
   //_accountIdSubscription$: any
   userProfile?: ProfileWithImg;
   hideDisplay: boolean = false;
@@ -34,6 +35,10 @@ export class ProfilePageComponent implements OnInit {
   originalTags: Set<string> = new Set();
   changedTag: boolean = false;
   hideOriginalTags: boolean = false;
+  changedImageData: any;
+  imageType: string;
+  hideImage: boolean = true;
+  hideEditImage: boolean = true;
 
   constructor(private userService: UserService, private modalService: NgbModal) {
     this.userService.loggedInUserAccount.subscribe((accountId) => {
@@ -50,14 +55,20 @@ export class ProfilePageComponent implements OnInit {
     this.getProfile(this.userId);
     this.getAllTags();
   }
-  
-  getAccountId(): void{
-    
-  }
 
   getProfile(id: string): void{
     this.userService.getUserWithImg(id)
-      .subscribe( (info) => this.userProfile = info );
+      .subscribe( (info) => {
+        if(info.profileImg !== null){
+          let binary = '';
+          let bytes = [].slice.call(new Uint8Array(info.profileImg.data.data));
+          bytes.forEach((b) => binary += String.fromCharCode(b));
+          let bufferData = window.btoa(binary);
+          console.log(bufferData);
+          this.imageData = `data:${info.profileImg.contentType};base64,${bufferData}`;        
+        }
+        this.userProfile = info;      
+      });
   }
 
   getAllTags(): void{
@@ -80,11 +91,50 @@ export class ProfilePageComponent implements OnInit {
     this.hideEditProfile = false;
   }
 
+  openImage():void{
+    if(this.hideImage){
+      this.hideImage = false;
+    }else{
+      this.hideImage = true;
+    }
+  }
+
+  editImage(): void{
+    this.hideEditImage = false;
+    this.changedImageData = this.imageData;
+  }
+
+  async onFileSelection(event){
+    console.log(event.target.files[0]);
+    //Access the file object
+    let imgFile = event.target.files[0];
+    this.userProfile.profileImg = imgFile;
+    this.imageType = imgFile.type;
+    //Create preview image by getting the data url
+    let reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]); 
+    reader.onload = (e) => { 
+      this.changedImageData = reader.result; 
+    }
+  }
+
   updateProfile(): void{
     this.hideEditProfile = true;
     console.log(this.userProfile);
-    this.userService.updateCurrentUser(this.userId, this.userProfile)
+    let reqObj = {
+      firstName: this.userProfile.firstName,
+      lastName: this.userProfile.lastName,
+      email: this.userProfile.email
+    };
+    this.userService.updatePersonalInfo(this.userId, reqObj)
       .subscribe((info) => this.userProfile = info);    
+  }
+
+  updateImage():void{
+    this.hideEditImage = true;
+    let formData = new FormData();
+    formData.append('profileImg', this.userProfile.profileImg);
+    this.userService.updateProfilePicture(this.userId, formData).subscribe((newInfo) => this.userProfile = newInfo);
   }
 
   editBio(): void{
@@ -94,7 +144,10 @@ export class ProfilePageComponent implements OnInit {
 
   updateBio(): void{
     this.hideDisplay = false;
-    this.userService.updateCurrentUser(this.userId, this.userProfile)
+    let reqObj = {
+      bio: this.userProfile.bio
+    };
+    this.userService.updateBio(this.userId, reqObj)
       .subscribe((info) => this.userProfile = info);    
   }
 

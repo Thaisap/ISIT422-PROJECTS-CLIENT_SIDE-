@@ -139,9 +139,18 @@ getUserWithImg(userId: string): Observable<ProfileWithImg>{
   return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/${userId}`);
 }
 
-updateUserWithImg(userId: string, body: ProfileWithImg): Observable<ProfileWithImg>{
+updatePersonalInfo(userId: string, body: Object): Observable<ProfileWithImg>{
   console.log(body);
-  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/${userId}`, body, this.httpOptions);
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/info/${userId}`, body, this.httpOptions);
+}
+
+updateBio(userId: string, body: Object): Observable<ProfileWithImg>{
+  console.log(body);
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/bio/${userId}`, body, this.httpOptions);
+}
+
+updateProfilePicture(userId: string, body: FormData): Observable<ProfileWithImg>{
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/image/${userId}`, body);
 }
 
 // [NEW] update tag in tag array for profile with image

@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class NavigationComponent implements OnInit {
   userId: string;
   profileWithImg: ProfileWithImg;
-  imageData: any;
+  imageData: any = "../../assets/white-seahorse-profile.png";
 
   constructor(private userService: UserService, public router: Router) {
      //Usage: https://stackoverflow.com/questions/54891110/router-getcurrentnavigation-always-returns-null
@@ -34,12 +34,14 @@ export class NavigationComponent implements OnInit {
     this.userService.getUserWithImg(userId).subscribe((userInfo) => {
       console.log(userInfo.profileImg);
       //Usage: https://medium.com/@colinrlly/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed
-      let binary = '';
-      let bytes = [].slice.call(new Uint8Array(userInfo.profileImg.data.data));
-      bytes.forEach((b) => binary += String.fromCharCode(b));
-      let bufferData = window.btoa(binary);
-      console.log(bufferData);
-      this.imageData = `data:${userInfo.profileImg.contentType};base64,${bufferData}`;
+      if(userInfo.profileImg !== null){
+        let binary = '';
+        let bytes = [].slice.call(new Uint8Array(userInfo.profileImg.data.data));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        let bufferData = window.btoa(binary);
+        console.log(bufferData);
+        this.imageData = `data:${userInfo.profileImg.contentType};base64,${bufferData}`;        
+      }
       this.profileWithImg = userInfo;
     });
   }
