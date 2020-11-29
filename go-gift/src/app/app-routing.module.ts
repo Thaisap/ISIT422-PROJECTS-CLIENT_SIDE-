@@ -12,6 +12,7 @@ import { SignupComponent} from './signup/signup.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TagResultComponent } from './tag-result/tag-result.component';
+import { FriendWishlistComponent } from './friend-wishlist/friend-wishlist.component';
 
 const routes: Routes = [
   
@@ -29,6 +30,7 @@ const routes: Routes = [
     ]
   },
   {path: 'search/:term', component: TagResultComponent},
+  {path: 'friend-wishlist', component: FriendWishlistComponent},
   {path: 'login', component: LoginComponent}  ,
   {path: 'create-account', component: CreateAccountComponent},
   {path: 'signup', component: SignupComponent},

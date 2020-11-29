@@ -4,7 +4,7 @@
         <div class="rev-button" style="width: 50%;" [routerLink]="['/main/search']">New Search</div>
     </div>
     <div [hidden]="showResults" class="sub-font" style="font-size: 1.6em; padding: 30px;">
-        <p >No Items Listed Under #{{searchTerm}}</p>
+        <p>No Items Listed Under #{{searchTerm}}</p>
     </div>
     <div [hidden]="!showResults" class="container-fluid">
         <div class="row justify-content-around" *ngIf="!fromFriend">
