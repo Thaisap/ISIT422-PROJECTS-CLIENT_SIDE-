@@ -8,7 +8,7 @@
         <h5>Gift Preferences: {{profileWithImg.bio}}</h5>
         <ng-container *ngIf="profileWithImg.tag">
             <h5>Tags:</h5>
-            <div *ngFor="let tag of profileWithImg.tag" class="tag">{{tag.name}}</div>
+            <div *ngFor="let tag of profileWithImg.tag" class="tag" [routerLink]="['/main/search', tag.name]">{{tag.name}}</div>
         </ng-container>
     </div>      
     <div class="container"> 
