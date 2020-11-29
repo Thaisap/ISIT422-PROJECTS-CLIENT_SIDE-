@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 
 import {User} from './user';
@@ -23,6 +23,22 @@ loggedInUserAccount: ReplaySubject<string> = new ReplaySubject<string>();
 userAccountChange(newAccountId: string){
   this.loggedInUserAccount.next(newAccountId);
   console.log(`new user id: ${newAccountId}`);
+}
+
+currentUserInfo: BehaviorSubject<ProfileWithImg> = new BehaviorSubject<ProfileWithImg>({
+    _id: '',
+    firstName: '',
+    lastName: '',
+    email: '',
+    bio: '',
+    profileImg: '',
+    tag: [],
+    wishlist: [],
+    friend: []
+});
+userData = this.currentUserInfo.asObservable();
+updateUserInfo(newProfile: ProfileWithImg){
+  this.currentUserInfo.next(newProfile);
 }
 
 
@@ -84,10 +100,10 @@ getCurrentUser(id: string): Observable<Profile>{
 }
 
 // Profile Page: used to update profile
-updateCurrentUser(id: string, body: Profile): Observable<Profile>{
+/* updateCurrentUser(id: string, body: Profile): Observable<Profile>{
   console.log(body);
   return this.http.patch<Profile>(`http://localhost:3000/profile/${id}`, body, this.httpOptions);
-}
+} */
 
 //Find Friends Page: used to get friend info based on email address
 getFriendByEmail(email: string): Observable<User>{

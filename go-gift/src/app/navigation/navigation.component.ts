@@ -28,6 +28,17 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit(): void {
     this.getProfileWithImg(this.userId);
+    this.userService.userData.subscribe((updatedData) => {
+      console.log(updatedData);
+      this.profileWithImg = updatedData;
+      if(updatedData.profileImg !== null){
+        let binary = '';
+        let bytes = [].slice.call(new Uint8Array(updatedData.profileImg.data.data));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        let bufferData = window.btoa(binary);
+        this.imageData = `data:${updatedData.profileImg.contentType};base64,${bufferData}`;        
+      }
+    });
   }
 
   getProfileWithImg(userId: string): void{
@@ -39,12 +50,9 @@ export class NavigationComponent implements OnInit {
         let bytes = [].slice.call(new Uint8Array(userInfo.profileImg.data.data));
         bytes.forEach((b) => binary += String.fromCharCode(b));
         let bufferData = window.btoa(binary);
-        console.log(bufferData);
         this.imageData = `data:${userInfo.profileImg.contentType};base64,${bufferData}`;        
       }
       this.profileWithImg = userInfo;
     });
   }
-
-
 }

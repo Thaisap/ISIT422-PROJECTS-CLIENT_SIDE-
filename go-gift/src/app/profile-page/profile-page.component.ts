@@ -127,14 +127,30 @@ export class ProfilePageComponent implements OnInit {
       email: this.userProfile.email
     };
     this.userService.updatePersonalInfo(this.userId, reqObj)
-      .subscribe((info) => this.userProfile = info);    
+      .subscribe((info) => {
+        this.userProfile = info;
+        this.userService.updateUserInfo(info);
+      });    
   }
 
   updateImage():void{
     this.hideEditImage = true;
     let formData = new FormData();
     formData.append('profileImg', this.userProfile.profileImg);
-    this.userService.updateProfilePicture(this.userId, formData).subscribe((newInfo) => this.userProfile = newInfo);
+    this.userService.updateProfilePicture(this.userId, formData).subscribe((newInfo) => {
+      this.userProfile = newInfo
+      this.userService.updateUserInfo(newInfo);
+
+      //re-display profile image
+      if(newInfo.profileImg !== null){
+        let binary = '';
+        let bytes = [].slice.call(new Uint8Array(newInfo.profileImg.data.data));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        let bufferData = window.btoa(binary);
+        console.log(bufferData);
+        this.imageData = `data:${newInfo.profileImg.contentType};base64,${bufferData}`;        
+      }
+    });
   }
 
   editBio(): void{
