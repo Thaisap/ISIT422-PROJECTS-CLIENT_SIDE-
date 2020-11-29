@@ -13,8 +13,8 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { NavigationComponent } from './navigation/navigation.component';
 
 const routes: Routes = [
-  
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', component:LoginComponent, pathMatch:'full'}, 
+  //{path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'dashboard', component:DashboardComponent},
   {path: 'main', component: NavigationComponent,
     children: [

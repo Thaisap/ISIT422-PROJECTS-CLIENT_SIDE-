@@ -9,7 +9,8 @@ import { Profile, ProfileWithImg } from './Profile';
 import {tag, WriteTagDoc} from './tag';
 import {allTags} from './allTags';
 import { Item, WriteItemDoc } from './item';
-import {Credentials} from './credentials'
+import {Credentials} from './credentials';
+import {GoogleCredentials} from './googleCredentials'
 
 
 
@@ -35,6 +36,14 @@ submitRegister(body: any){
   return this.http.post('http://localhost:3000/usercredential/register', body,{
     observe:'body'
   });
+}
+/* 
+loginWithGoogle(body: any):Observable<GoogleCredentials> {
+  return this.http.post<GoogleCredentials>('http://localhost:3000/usergooglecredential/auth/google', body);
+} */
+
+postSocialLogin( socialData: any): Observable<Object> {
+  return this.http.post('http://localhost:3000/usercredential/postSocialLogin', socialData)
 }
 
 // response will pass back Credentials object (token, email, gogift, credentialsId)

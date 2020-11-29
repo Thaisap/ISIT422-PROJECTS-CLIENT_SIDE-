@@ -70,12 +70,31 @@ export class LoginComponent implements OnInit {
   }
   
 
-  
+  googleLogin(){
+    this.authGService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authGService.authState.subscribe((user)=> {
+    this._userservice.postSocialLogin({username: user.name, email: user.email, image:user.photoUrl, googleId: user.id, gogift: null})
+      .subscribe((res)=> {
+        console.log(res)
+   
+        if (res['sucesss']){
+        //  this._router.navigateByUrl('/create-account', {state: { CrId: user.id, email: user.email}})
+        }
+        else{
+          console.log('Error login in with google')
+    //      this._router.navigate(['/create-account'])
+        }
+console.log(user)
+      })
+      
+    })
+  }
   
 
   movetoregister() {
     this._router.navigate(['../signup'], { relativeTo: this._activatedRoute });
   }
+
 
  
   signInWithGoogle(): void {
