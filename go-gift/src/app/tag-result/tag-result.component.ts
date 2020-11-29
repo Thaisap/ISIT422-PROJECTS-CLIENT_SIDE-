@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Item } from '../item';
 import { UserService } from '../user.service';
 
@@ -14,8 +14,24 @@ export class TagResultComponent implements OnInit {
   userId: string;
   itemList: Item[];
   showResults: boolean;
+  fromFriend: boolean;
 
-  constructor(private activatedRouter: ActivatedRoute, public userService: UserService) { 
+  constructor(private activatedRouter: ActivatedRoute, public router: Router, public userService: UserService) { 
+    const navigation = this.router.getCurrentNavigation();
+    const navState = navigation.extras.state;
+    console.log(navState.page);
+    if(navState == null){
+      this.fromFriend = false;
+    }
+    if(navState.page === "user"){
+      this.fromFriend = false;
+    }
+    if(navState.page === "friend"){
+      this.fromFriend = true;
+    }
+
+    console.log(this.fromFriend);
+    
     this.activatedRouter.params.subscribe( params => this.searchTerm = params['term']);
     this.userService.loggedInUserAccount.subscribe((accountId) => {
       this.userId = accountId;
@@ -37,11 +53,14 @@ export class TagResultComponent implements OnInit {
         }else{
           this.showResults = true;
         }
+        console.log(this.showResults);
         return this.itemList = items;        
       });
   }
 
   addItemToUserWishlist(id:string){
+    console.log(id);
+    console.log(this.userId);
     this.userService.addItemToUserWishlist(this.userId,id)
     .subscribe((info) => console.log(info));
   };
