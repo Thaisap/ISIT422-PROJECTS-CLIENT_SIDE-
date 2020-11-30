@@ -25,17 +25,7 @@ userAccountChange(newAccountId: string){
   console.log(`new user id: ${newAccountId}`);
 }
 
-currentUserInfo: BehaviorSubject<ProfileWithImg> = new BehaviorSubject<ProfileWithImg>({
-    _id: '',
-    firstName: '',
-    lastName: '',
-    email: '',
-    bio: '',
-    profileImg: '',
-    tag: [],
-    wishlist: [],
-    friend: []
-});
+currentUserInfo: ReplaySubject<ProfileWithImg> = new ReplaySubject<ProfileWithImg>();
 userData = this.currentUserInfo.asObservable();
 updateUserInfo(newProfile: ProfileWithImg){
   this.currentUserInfo.next(newProfile);
