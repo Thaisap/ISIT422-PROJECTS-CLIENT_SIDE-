@@ -3,6 +3,7 @@ import {User} from '../user';
 import {Profile} from '../Profile';
 import {UserService} from '../user.service';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import { EmailDoc } from '../item';
 
 @Component({
   selector: 'app-find-friends-page',
@@ -15,7 +16,10 @@ export class FindFriendsPageComponent implements OnInit {
   friend: User[];
   email:string;
   selectedUser: Profile;
+  searchResult: User;
   showMain: boolean;
+  emailItem: EmailDoc;
+  retMsg: any;
   constructor(private userService: UserService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
@@ -30,19 +34,12 @@ export class FindFriendsPageComponent implements OnInit {
     this.modalService.open(content);
   }
   onSearch(value: string) { 
-    if(value.length==0){
-      this.getFriendInfo();
-    } else {
-      this.userService.getFriendByEmail(value).subscribe(user => {
-        this.friend = [];
-        this.friend.push(user);
-      });
-    }
+      this.userService.getFriendByEmail(value).subscribe(user => this.searchResult = user);
   }
   sendInvite(email: string): void{
-    let mail = `mailto:${email}?subject=` + 'Hey ! Come Join me with this cool app!' +
-               '&body= Hey! I found this cool app. Come Join me!' ;
-    window.open(mail);
+    this.retMsg = null;
+    const emailItem ={to: email};
+    this.userService.sendFriendEmail(emailItem).subscribe(msg => this.retMsg = msg);
   }
   getCurrentUser(id: string):void{
     this.showMain = !this.showMain;
