@@ -5,6 +5,13 @@
       <div id="inputBox">
         <input #email (keyup.enter)="this.onSearch(email.value)"/>
         <div><button style="margin-bottom: 1.5rem;" (click)="this.onSearch(email.value)">search</button></div>
+        <div class="searchResult users m-0 text-left" *ngIf=searchResult>
+          Result:<br>
+          <li class="col-1-4" >
+          FirstName:{{searchResult.firstName}}<br>
+          LastName: {{searchResult.lastName}} 
+          </li>
+        </div>
         <hr style="margin-bottom: 2rem;">
         <button style="padding: 1.25rem 2rem 1rem 2rem" (click)="this.openModal(addFriend)">Invite Friend</button>
         <hr>
@@ -51,6 +58,7 @@
   <div class="modal-body ngbModal">
     <span>Email:</span>
     <input #invite (keyup.enter)="sendInvite(invite.value)"/>
+    <span *ngIf=retMsg>{{this.retMsg.msg}}</span>
     <div class="text-center"><button (click)="sendInvite(invite.value)">Send</button></div>  
   </div>
 </ng-template>
