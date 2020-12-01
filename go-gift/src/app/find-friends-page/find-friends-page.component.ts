@@ -53,6 +53,6 @@ export class FindFriendsPageComponent implements OnInit {
 
   saveFriendId(friendId: string): void{
     // localStorage.setItem('friendId', friendId);
-    localStorage.setItem('friendId', '5fbd5f785814945baedc06bc');
+    localStorage.setItem('friendId', '5fbd71a6620f1164e5a3142d');
   }
 }

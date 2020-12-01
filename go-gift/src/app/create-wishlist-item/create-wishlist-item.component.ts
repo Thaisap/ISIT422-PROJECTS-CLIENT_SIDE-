@@ -57,6 +57,17 @@ export class CreateWishlistItemComponent implements OnInit {
 
   createDemoWishlistItem(): void{
     this.createdItem = {
+      itemName: 'Water\'s Edge by David Hale - 1000 piece jigsaw puzzle',
+      vendor: 'verygoodpuzzle',
+      price: '24.00',
+      image: 'https://i.etsystatic.com/19002028/r/il/11a5f0/1746826817/il_1588xN.1746826817_afpe.jpg',
+      url: 'https://www.etsy.com/listing/662204297/waters-edge-by-david-hale-1000-piece',
+      tag: []
+    }
+    this.recordedItem = this.createdItem;
+    this.tags = ['puzzle', 'black', 'red'];
+
+    /* this.createdItem = {
       itemName: 'Octobuddies',
       vendor: 'TheCapedCrocheters',
       price: '15.00+',
@@ -65,7 +76,7 @@ export class CreateWishlistItemComponent implements OnInit {
       tag: []
     }
     this.recordedItem = this.createdItem;
-    this.tags = ['amigurumi', 'octopus'];
+    this.tags = ['amigurumi', 'octopus']; */
 
     /* this.createdItem = {
       itemName: 'Amethyst the Unicorn - Crochet Amigurumi Pattern',
