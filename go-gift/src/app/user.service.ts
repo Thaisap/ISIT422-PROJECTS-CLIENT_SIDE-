@@ -8,8 +8,8 @@ import {MessageService} from './message.service';
 import { Profile, ProfileWithImg } from './Profile';
 import {tag, WriteTagDoc} from './tag';
 import {allTags} from './allTags';
-import { Item, WriteItemDoc } from './item';
 import {Credentials} from './credentials'
+import { EmailDoc, Item, WriteItemDoc } from './item';
 
 
 
@@ -84,6 +84,10 @@ updateCurrentUser(id: string, body: Profile): Observable<Profile>{
 //Find Friends Page: used to get friend info based on email address
 getFriendByEmail(email: string): Observable<User>{
   return this.http.get<User>(`http://localhost:3000/friend/${email}`);
+}
+
+sendFriendEmail(body: EmailDoc): Observable<string>{
+  return this.http.post<string>(`http://localhost:3000/friend/email`, body, this.httpOptions);
 }
 
 //Find Friends Page: used to get a list of user's friends (id is user's id)
