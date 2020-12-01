@@ -5,6 +5,13 @@
       <div id="inputBox">
         <input #email (keyup.enter)="this.onSearch(email.value)"/>
         <div><button style="margin-bottom: 1.5rem;" (click)="this.onSearch(email.value)">search</button></div>
+        <div class="searchResult users m-0 text-left" *ngIf=searchResult>
+          Result:<br>
+          <li class="col-1-4" >
+          FirstName:{{searchResult.firstName}}<br>
+          LastName: {{searchResult.lastName}} 
+          </li>
+        </div>
         <hr style="margin-bottom: 2rem;">
         <button style="padding: 1.25rem 2rem 1rem 2rem" (click)="this.openModal(addFriend)">Invite Friend</button>
         <hr>
@@ -29,14 +36,15 @@
       <div class="modal-body ngbModal row" *ngIf="this.selectedUser">
         <div class="col-5">
           <img class="profileImg" src="../assets/white-seahorse-profile.png"/>
-          <button class="profileBtn mt-5">See My Wishlist</button>
+          <!-- <button class="profileBtn mt-5" (click)="saveFriendId(this.selectedUser._id)" [routerLink]="['/friend-wishlist']" [state]="{ friendId: '5fbd5f785814945baedc06bc' }">See My Wishlist</button> -->
+          <button class="profileBtn mt-5" (click)="saveFriendId(this.selectedUser._id)" [routerLink]="['/friend-wishlist']" [state]="{ friendId: '5fbd71a6620f1164e5a3142d' }">See My Wishlist</button>
         </div>
         <div class="col-7">
           <div class="profileBody">
             {{this.selectedUser.firstName}} {{this.selectedUser.lastName}} <br>
             {{this.selectedUser.bio}}
           </div>
-          <div class="tag" *ngFor="let tag of selectedUser.tag">{{tag.name}}</div>
+          <div class="tag" *ngFor="let tag of selectedUser.tag" [routerLink]="['/search', tag.name]" [state]="{ page: 'friend' }">{{tag.name}}</div>
         </div>
       </div>
     </div>
@@ -51,6 +59,7 @@
   <div class="modal-body ngbModal">
     <span>Email:</span>
     <input #invite (keyup.enter)="sendInvite(invite.value)"/>
+    <span *ngIf=retMsg>{{this.retMsg.msg}}</span>
     <div class="text-center"><button (click)="sendInvite(invite.value)">Send</button></div>  
   </div>
 </ng-template>

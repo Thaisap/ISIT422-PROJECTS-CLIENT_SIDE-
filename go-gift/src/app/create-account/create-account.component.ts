@@ -22,10 +22,12 @@ export class CreateAccountComponent implements OnInit {
     tag: [],
     wishlist: [],
     friend: [],
+    
   
     }
  crendentialId: string;
  email: string;
+ loginMethod: String;
 
   hasImg: boolean = false;
   imagePath: any = "../../assets/white-seahorse-profile.png";
@@ -43,7 +45,7 @@ export class CreateAccountComponent implements OnInit {
     console.log(navigationState);
     this.crendentialId = navigationState.CrId;
     this.email = navigationState.email;
-
+    this.loginMethod = navigationState.loginMethod;
    }
 
 
@@ -131,12 +133,12 @@ export class CreateAccountComponent implements OnInit {
         console.log(newUser);
         // once the user is created in the user collection, update the doc in credentials
         // call the route with passed in information: credentialsId (from naviagtion state) and gogift (from the createUserWithImg)
-        this.userService.credentials ({accountId: newUser._id}, this.crendentialId).
+        this.userService.credentials ({accountId: newUser._id, loginMethod: this.loginMethod}, this.crendentialId).
         subscribe (
           data=> console.log(data) // check to see if gogift value is updated
         )
         // pass the userId to the welcome page to get the correct doc in user collection
-        this.router.navigateByUrl('/welcome', { state: { userId: newUser._id } });
+        this.router.navigateByUrl('/main/welcome', { state: { userId: newUser._id } });
       });
     });
   };

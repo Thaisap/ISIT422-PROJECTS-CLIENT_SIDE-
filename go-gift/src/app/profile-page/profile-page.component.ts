@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {User} from '../user';
 import { UserService } from '../user.service';
 import {allTags} from '../allTags';
-import { Profile } from '../Profile';
+import { Profile, ProfileWithImg } from '../Profile';
 import { AddTagsModalComponent } from '../add-tags-modal/add-tags-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable, of } from 'rxjs';
@@ -17,7 +17,9 @@ import { WriteTagDoc } from '../tag';
 
 export class ProfilePageComponent implements OnInit {
   userId: string;
-  userProfile?: Profile;
+  imageData: any = "../../assets/white-seahorse-profile.png";
+  //_accountIdSubscription$: any
+  userProfile?: ProfileWithImg;
   hideDisplay: boolean = false;
   hideProfile: boolean = true;
   hideEditProfile: boolean = true;
@@ -33,17 +35,40 @@ export class ProfilePageComponent implements OnInit {
   originalTags: Set<string> = new Set();
   changedTag: boolean = false;
   hideOriginalTags: boolean = false;
+  changedImageData: any;
+  imageType: string;
+  hideImage: boolean = true;
+  hideEditImage: boolean = true;
 
-  constructor(private userService: UserService, private modalService: NgbModal) {  }
+  constructor(private userService: UserService, private modalService: NgbModal) {
+    this.userService.loggedInUserAccount.subscribe((accountId) => {
+      this.userId = accountId;
+    });
+  }
 
   ngOnInit() {
-    this.getProfile('5f9725288c008df2d8d1c241');
+    //this.getAccountId();
+    if(this.userId == null){
+      this.userId = localStorage.getItem('accountId');
+    }
+    console.log(this.userId);
+    this.getProfile(this.userId);
     this.getAllTags();
   }
-  
+
   getProfile(id: string): void{
-    this.userService.getCurrentUser(id)
-      .subscribe( (info) => this.userProfile = info );
+    this.userService.getUserWithImg(id)
+      .subscribe( (info) => {
+        if(info.profileImg !== null){
+          let binary = '';
+          let bytes = [].slice.call(new Uint8Array(info.profileImg.data.data));
+          bytes.forEach((b) => binary += String.fromCharCode(b));
+          let bufferData = window.btoa(binary);
+          console.log(bufferData);
+          this.imageData = `data:${info.profileImg.contentType};base64,${bufferData}`;        
+        }
+        this.userProfile = info;      
+      });
   }
 
   getAllTags(): void{
@@ -66,11 +91,66 @@ export class ProfilePageComponent implements OnInit {
     this.hideEditProfile = false;
   }
 
+  openImage():void{
+    if(this.hideImage){
+      this.hideImage = false;
+    }else{
+      this.hideImage = true;
+    }
+  }
+
+  editImage(): void{
+    this.hideEditImage = false;
+    this.changedImageData = this.imageData;
+  }
+
+  async onFileSelection(event){
+    console.log(event.target.files[0]);
+    //Access the file object
+    let imgFile = event.target.files[0];
+    this.userProfile.profileImg = imgFile;
+    this.imageType = imgFile.type;
+    //Create preview image by getting the data url
+    let reader = new FileReader();
+    reader.readAsDataURL(event.target.files[0]); 
+    reader.onload = (e) => { 
+      this.changedImageData = reader.result; 
+    }
+  }
+
   updateProfile(): void{
     this.hideEditProfile = true;
     console.log(this.userProfile);
-    this.userService.updateCurrentUser('5f9725288c008df2d8d1c241', this.userProfile)
-      .subscribe((info) => this.userProfile = info);    
+    let reqObj = {
+      firstName: this.userProfile.firstName,
+      lastName: this.userProfile.lastName,
+      email: this.userProfile.email
+    };
+    this.userService.updatePersonalInfo(this.userId, reqObj)
+      .subscribe((info) => {
+        this.userProfile = info;
+        this.userService.updateUserInfo(info);
+      });    
+  }
+
+  updateImage():void{
+    this.hideEditImage = true;
+    let formData = new FormData();
+    formData.append('profileImg', this.userProfile.profileImg);
+    this.userService.updateProfilePicture(this.userId, formData).subscribe((newInfo) => {
+      this.userProfile = newInfo
+      this.userService.updateUserInfo(newInfo);
+
+      //re-display profile image
+      if(newInfo.profileImg !== null){
+        let binary = '';
+        let bytes = [].slice.call(new Uint8Array(newInfo.profileImg.data.data));
+        bytes.forEach((b) => binary += String.fromCharCode(b));
+        let bufferData = window.btoa(binary);
+        console.log(bufferData);
+        this.imageData = `data:${newInfo.profileImg.contentType};base64,${bufferData}`;        
+      }
+    });
   }
 
   editBio(): void{
@@ -80,7 +160,10 @@ export class ProfilePageComponent implements OnInit {
 
   updateBio(): void{
     this.hideDisplay = false;
-    this.userService.updateCurrentUser('5f9725288c008df2d8d1c241', this.userProfile)
+    let reqObj = {
+      bio: this.userProfile.bio
+    };
+    this.userService.updateBio(this.userId, reqObj)
       .subscribe((info) => this.userProfile = info);    
   }
 
@@ -109,7 +192,7 @@ export class ProfilePageComponent implements OnInit {
     this.changedTag = true;
     this.getTagIdsArray().then((tagIdArray) => {
       console.log(`TAG ARRAY: ${tagIdArray}`);
-      this.userService.updateTagInUser('5f9725288c008df2d8d1c241', tagIdArray).subscribe((userInfo) => console.log(userInfo))
+      this.userService.updateTagInUser(this.userId, tagIdArray).subscribe((userInfo) => console.log(userInfo))
     });
     
   }
@@ -143,8 +226,5 @@ export class ProfilePageComponent implements OnInit {
     return this.originalTags;
     //this.addedTagsArray.add(tag.name);
     //console.log(this.addedTagsArray);
-
-
-
   }
 }

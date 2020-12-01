@@ -9,12 +9,20 @@ import { Profile } from '../Profile';
 })
 export class DisplayWishlistPageComponent implements OnInit {
   itemList : Profile;
+  userId: string;
   
 
-  constructor(private userService : UserService) { }
+  constructor(private userService : UserService) { 
+    this.userService.loggedInUserAccount.subscribe((accountId) => {
+      this.userId = accountId;
+    });
+  }
 
   ngOnInit(): void {
-    this.takeWishlist('5f9725288c008df2d8d1c241');
+    if(this.userId == null){
+      this.userId = localStorage.getItem('accountId');
+    }
+    this.takeWishlist(this.userId);
   }
 
   editWishlist(): void{
@@ -22,7 +30,7 @@ export class DisplayWishlistPageComponent implements OnInit {
     
   }
   takeWishlist(id: string): void {
-    this.userService.takeWishlist('5f9725288c008df2d8d1c241')
+    this.userService.getWishlistForUserWithImg(id)
     .subscribe((info) =>{
       console.log(info);
       

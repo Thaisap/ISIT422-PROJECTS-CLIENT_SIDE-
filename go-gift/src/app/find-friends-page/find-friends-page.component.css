@@ -11,6 +11,9 @@
   height: auto;
   display: block;
 }
+.searchResult{
+  font-size: x-large;
+}
 .tag{
   font-size: unset;
 }

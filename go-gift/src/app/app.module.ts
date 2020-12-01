@@ -32,6 +32,8 @@ import { ItemCardComponent } from './item-card/item-card.component';
 import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishlist-item.component';
 import { ToastModule } from '@syncfusion/ej2-angular-notifications';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
+import { TagResultComponent } from './tag-result/tag-result.component';
+import { FriendWishlistComponent } from './friend-wishlist/friend-wishlist.component';
 
 @NgModule({
   imports: [
@@ -68,7 +70,9 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
     TagsAutocompleteComponent,
     ItemCardComponent,
     CreateWishlistItemComponent,
-    WelcomePageComponent,  
+    WelcomePageComponent,
+    TagResultComponent,
+    FriendWishlistComponent,  
   ],
   providers:[
     UserService,
@@ -80,7 +84,7 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
       providers: [
       {
         id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider('467762279715-j6qchnra4oj167h21u08vnnbmidhlq14.apps.googleusercontent.com')
+        provider: new GoogleLoginProvider('467762279715-rlf8q5drct208rsqki0g90d2otngm1nj.apps.googleusercontent.com')
       }
     ]
     } as SocialAuthServiceConfig,
