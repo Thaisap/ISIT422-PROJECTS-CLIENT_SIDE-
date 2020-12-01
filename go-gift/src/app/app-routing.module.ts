@@ -11,6 +11,8 @@ import { CreateWishlistItemComponent } from './create-wishlist-item/create-wishl
 import { SignupComponent} from './signup/signup.component';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { NavigationComponent } from './navigation/navigation.component';
+import { TagResultComponent } from './tag-result/tag-result.component';
+import { FriendWishlistComponent } from './friend-wishlist/friend-wishlist.component';
 
 const routes: Routes = [
   {path: '', component:LoginComponent, pathMatch:'full'}, 
@@ -18,17 +20,20 @@ const routes: Routes = [
   {path: 'dashboard', component:DashboardComponent},
   {path: 'main', component: NavigationComponent,
     children: [
+      {path: 'welcome', component: WelcomePageComponent},
       {path: 'profile', component: ProfilePageComponent},
       {path: 'find-friends', component:FindFriendsPageComponent},
       {path: 'search', component: SearchGiftPageComponent},
+      {path: 'search/:term', component: TagResultComponent},
       {path: 'display-wishlist', component: DisplayWishlistPageComponent},
       {path: 'create-wishlist', component: CreateWishlistItemComponent},
     ]
   },
+  {path: 'search/:term', component: TagResultComponent},
+  {path: 'friend-wishlist', component: FriendWishlistComponent},
   {path: 'login', component: LoginComponent}  ,
   {path: 'create-account', component: CreateAccountComponent},
   {path: 'signup', component: SignupComponent},
-  {path: 'welcome', component: WelcomePageComponent}
 ];
 
 

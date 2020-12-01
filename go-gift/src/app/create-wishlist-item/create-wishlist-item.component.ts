@@ -12,6 +12,7 @@ import { UserService } from '../user.service';
   styleUrls: ['./create-wishlist-item.component.css']
 })
 export class CreateWishlistItemComponent implements OnInit {
+  userId: string;
   createdItem: WriteItemDoc = {
     itemName: '',
     vendor: '',
@@ -32,9 +33,16 @@ export class CreateWishlistItemComponent implements OnInit {
   showToast: boolean = false;
 
 
-  constructor(private userService: UserService, private modalService: NgbModal) { }
+  constructor(private userService: UserService, private modalService: NgbModal) {
+    this.userService.loggedInUserAccount.subscribe((accountId) => {
+      this.userId = accountId;
+    });
+  }
 
   ngOnInit(): void {
+    if(this.userId == null){
+      this.userId = localStorage.getItem('accountId');
+    }
     this.getAllTags();
     console.log(this.showToast);
   }
@@ -49,15 +57,27 @@ export class CreateWishlistItemComponent implements OnInit {
 
   createDemoWishlistItem(): void{
     this.createdItem = {
+      itemName: 'Octobuddies',
+      vendor: 'TheCapedCrocheters',
+      price: '15.00+',
+      image: 'https://i.etsystatic.com/22470977/r/il/095af6/2397363138/il_1588xN.2397363138_54qu.jpg',
+      url: 'https://www.etsy.com/listing/767877758/octobuddies',
+      tag: []
+    }
+    this.recordedItem = this.createdItem;
+    this.tags = ['amigurumi', 'octopus'];
+
+    /* this.createdItem = {
       itemName: 'Amethyst the Unicorn - Crochet Amigurumi Pattern',
       vendor: 'SmileyCrochetThings',
       price: '6.21',
-      image: 'plushie image',
+      image: 'https://i.etsystatic.com/15416813/r/il/6eaf37/2239661361/il_794xN.2239661361_2bud.jpg',
       url: 'https://www.etsy.com/listing/770208591/amethyst-the-unicorn-crochet-amigurumi',
       tag: []
     }
     this.recordedItem = this.createdItem;
-    this.tags = ['animuguri', 'unicorn'];
+    this.tags = ['amigurumi', 'unicorn']; */
+
     this.getTagIdsArray().then((tagArray) => {
       this.recordedItem.tag = tagArray;
       //need to add the item to the tag collection
@@ -66,7 +86,7 @@ export class CreateWishlistItemComponent implements OnInit {
         this.recordedItem.tag.map((tagId) => {
           this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
         });
-        this.userService.addItemToUserWishlist('5fab402e47e3c65a4f93db8c', itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
+        this.userService.addItemToUserWishlist(this.userId, itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
         //
         this.showToast = true;
       });
@@ -112,7 +132,7 @@ export class CreateWishlistItemComponent implements OnInit {
         this.recordedItem.tag.map((tagId) => {
           this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
         });
-        this.userService.addItemToUserWishlist('5f9725288c008df2d8d1c241', itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
+        this.userService.addItemToUserWishlist(this.userId, itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
       });
     });
   }

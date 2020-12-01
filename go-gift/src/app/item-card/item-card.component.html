@@ -11,7 +11,7 @@
     
     <mat-card-actions style="display: block;">
 
-      <div class="rev-button" style="height: 60px; line-height: 40px; padding: 10px; margin-bottom: 20px;" type="button" (click)="buttonClick2()">{{buttonName}}</div>
+      <div class="rev-button" [hidden]="noButtonName" style="height: 60px; line-height: 40px; padding: 10px; margin-bottom: 20px;" type="button" (click)="buttonClick2()">{{buttonName}}</div>
       
       <div class="rev-button" style="height: 60px; line-height: 40px; padding: 10px; margin-bottom: 20px;" type="button" (click)="goToItemUrl()">See Item Details</div>
     </mat-card-actions>

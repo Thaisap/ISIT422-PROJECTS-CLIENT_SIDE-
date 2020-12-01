@@ -16,6 +16,7 @@ export class ItemCardComponent implements OnInit {
   @Input() itemId: string;
   @Input() imageUrl: string;
   @Input() buttonName : string;
+  noButtonName: boolean = false;
 
   descriptionArray: string[];
   message: string;
@@ -24,7 +25,11 @@ export class ItemCardComponent implements OnInit {
   constructor(private userService:UserService) { }
 
   ngOnInit(): void {
-  
+    if(this.buttonName === "none"){
+      this.noButtonName = true;
+    }
+    //console.log(this.buttonName);
+    //console.log(this.noButtonName);
   }
 
   goToItemUrl(): void{

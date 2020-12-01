@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject } from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 
 import {User} from './user';
@@ -19,6 +19,20 @@ import {Googleresponse} from './googleCredentials'
 })
 
 export class UserService {
+//for login
+loggedInUserAccount: ReplaySubject<string> = new ReplaySubject<string>();
+userAccountChange(newAccountId: string){
+  this.loggedInUserAccount.next(newAccountId);
+  console.log(`new user id: ${newAccountId}`);
+}
+
+currentUserInfo: ReplaySubject<ProfileWithImg> = new ReplaySubject<ProfileWithImg>();
+userData = this.currentUserInfo.asObservable();
+updateUserInfo(newProfile: ProfileWithImg){
+  this.currentUserInfo.next(newProfile);
+}
+
+
 //item = [] ;
 
 //private usersUrl = 'api/users'; //ULR to web api
@@ -85,10 +99,10 @@ getCurrentUser(id: string): Observable<Profile>{
 }
 
 // Profile Page: used to update profile
-updateCurrentUser(id: string, body: Profile): Observable<Profile>{
+/* updateCurrentUser(id: string, body: Profile): Observable<Profile>{
   console.log(body);
   return this.http.patch<Profile>(`http://localhost:3000/profile/${id}`, body, this.httpOptions);
-}
+} */
 
 //Find Friends Page: used to get friend info based on email address
 getFriendByEmail(email: string): Observable<User>{
@@ -122,16 +136,16 @@ addItemToTag(tagId: string, itemId: string): Observable<tag>{
   return this.http.patch<tag>(`http://localhost:3000/tag/${tagId}`, [itemId], this.httpOptions)
 }
 
-//Create Wishlist Item Page: used to add newly created item to user collection
-addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
+// [OLD]Create Wishlist Item Page: used to add newly created item to user collection
+/* addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/item/${userId}`, [itemId], this.httpOptions)
 }
-
-//Profile Page: update user's tags
-updateTagInUser(userId: string, tagIds: string[]): Observable<Profile>{
+ */
+// [OLD]Profile Page: update user's tags
+/* updateTagInUser(userId: string, tagIds: string[]): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/tag/${userId}`, tagIds, this.httpOptions);
 }
-
+ */
 createUserWithImg(body: FormData): Observable<ProfileWithImg>{
   return this.http.post<ProfileWithImg>('http://localhost:3000/profileWithImg', body)
 }
@@ -139,6 +153,36 @@ createUserWithImg(body: FormData): Observable<ProfileWithImg>{
 getUserWithImg(userId: string): Observable<ProfileWithImg>{
   return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/${userId}`);
 }
+
+updatePersonalInfo(userId: string, body: Object): Observable<ProfileWithImg>{
+  console.log(body);
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/info/${userId}`, body, this.httpOptions);
+}
+
+updateBio(userId: string, body: Object): Observable<ProfileWithImg>{
+  console.log(body);
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/bio/${userId}`, body, this.httpOptions);
+}
+
+updateProfilePicture(userId: string, body: FormData): Observable<ProfileWithImg>{
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/image/${userId}`, body);
+}
+
+// [NEW] update tag in tag array for profile with image
+updateTagInUser(userId: string, tagIds: string[]): Observable<ProfileWithImg>{
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/tag/${userId}`, tagIds, this.httpOptions);
+}
+
+
+// [NEW] add item to wishlist function (for profile with image)
+addItemToUserWishlist(userId: string, itemId: string): Observable<ProfileWithImg>{
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/item/${userId}`, [itemId], this.httpOptions)
+}
+
+getWishlistForUserWithImg(userId: string): Observable<ProfileWithImg>{
+  return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/wishlist/${userId}`);
+}
+
 
 
 ////////////////////////////////////////////////////////////

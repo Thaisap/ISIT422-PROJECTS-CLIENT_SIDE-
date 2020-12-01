@@ -29,14 +29,15 @@
       <div class="modal-body ngbModal row" *ngIf="this.selectedUser">
         <div class="col-5">
           <img class="profileImg" src="../assets/white-seahorse-profile.png"/>
-          <button class="profileBtn mt-5">See My Wishlist</button>
+          <!-- <button class="profileBtn mt-5" (click)="saveFriendId(this.selectedUser._id)" [routerLink]="['/friend-wishlist']" [state]="{ friendId: '5fbd5f785814945baedc06bc' }">See My Wishlist</button> -->
+          <button class="profileBtn mt-5" (click)="saveFriendId(this.selectedUser._id)" [routerLink]="['/friend-wishlist']" [state]="{ friendId: '5fbd71a6620f1164e5a3142d' }">See My Wishlist</button>
         </div>
         <div class="col-7">
           <div class="profileBody">
             {{this.selectedUser.firstName}} {{this.selectedUser.lastName}} <br>
             {{this.selectedUser.bio}}
           </div>
-          <div class="tag" *ngFor="let tag of selectedUser.tag">{{tag.name}}</div>
+          <div class="tag" *ngFor="let tag of selectedUser.tag" [routerLink]="['/search', tag.name]" [state]="{ page: 'friend' }">{{tag.name}}</div>
         </div>
       </div>
     </div>
