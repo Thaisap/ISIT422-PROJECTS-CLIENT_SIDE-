@@ -210,4 +210,3 @@ private log(message:string) {
   this.messageService.add(`UserService: ${message}`);
 }
 }
-

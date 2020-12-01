@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
             // create-account needs the credentialId (for updating credential doc) and email data (for inserting email field in user doc)
             // pass the data to the create-account page by setting navigation state so that create-account can have those data
 
-            this._router.navigateByUrl('/create-account', { state: { CrId: data.credId, email: data.email } });              
+            this._router.navigateByUrl('/create-account', { state: { CrId: data.credId, email: data.email, loginMethod: "jwt" } });              
           }else{
           
             // welcome page needs the gogift to know which doc to get in user collection
@@ -75,7 +75,7 @@ export class LoginComponent implements OnInit {
   googleLogin(){
     this.authGService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.authGService.authState.subscribe((user)=> {
-    this._userservice.postSocialLogin({username: user.name, email: user.email, image:user.photoUrl, gogift: null})
+    this._userservice.postSocialLogin({username: user.name, email: user.email, image:user.photoUrl, gogift: null, googleId: user.id})
       .subscribe((res)=> {
         console.log(res)
     
@@ -84,11 +84,11 @@ export class LoginComponent implements OnInit {
             
         }
         if (res.usergData.gogift == null){
-      this._router.navigateByUrl('/create-account', {state: { email: user.email, CrId: res.usergData._id }})
+      this._router.navigateByUrl('/create-account', {state: { email: user.email, CrId: res.usergData._id, loginMethod: "google" }})
         }
         else{
        //   console.log()
-          this._router.navigateByUrl('/welcome', {state: { userId: res.usergData.gogift} })
+          this._router.navigateByUrl('/main/welcome', {state: { userId: res.usergData.gogift} })
         }
 console.log(user)
       })
