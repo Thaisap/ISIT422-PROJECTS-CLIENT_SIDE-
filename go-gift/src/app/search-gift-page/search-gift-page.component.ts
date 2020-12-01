@@ -15,6 +15,7 @@ export class SearchGiftPageComponent implements OnInit {
   hideSearchResults: boolean = true;
   message: string;
   allTagNames: string[];
+  showToast: boolean = false;
 
   constructor(private userService: UserService) {
     this.userService.loggedInUserAccount.subscribe((accountId) => {
@@ -27,6 +28,7 @@ export class SearchGiftPageComponent implements OnInit {
       this.userId = localStorage.getItem('accountId');
     }
     this.getAllTags();
+    console.log(this.showToast);
   }
 
   getAllTags(): void{
@@ -69,6 +71,8 @@ export class SearchGiftPageComponent implements OnInit {
   addItemToUserWishlist(id:string){
     this.userService.addItemToUserWishlist(this.userId,id)
     .subscribe((info) => console.log(info));
+
+    this.showToast = true;
   };
 
 

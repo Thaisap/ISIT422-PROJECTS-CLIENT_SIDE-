@@ -15,3 +15,7 @@ export interface WriteItemDoc{
     url: string;
     tag: string[];
 }
+
+export interface EmailDoc{
+    to: string;
+}
