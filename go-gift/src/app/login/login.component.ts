@@ -58,24 +58,48 @@ export class LoginComponent implements OnInit {
           }
           // gogift will have ObjectId value from user collection
           else
-          
+          {
             // welcome page needs the gogift to know which doc to get in user collection
             // pass the data to the welcome page by setting navigation state so that welcome can have the data
             
             this._router.navigateByUrl('/welcome', {state: {userId: data.gogift}});
-          },
+          }
+        },
           error => { }
         );
     }
   }
   
 
-  
+  googleLogin(){
+    this.authGService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authGService.authState.subscribe((user)=> {
+    this._userservice.postSocialLogin({username: user.name, email: user.email, image:user.photoUrl, gogift: null})
+      .subscribe((res)=> {
+        console.log(res)
+    
+   
+        if (res['sucesss'] ){
+            
+        }
+        if (res.usergData.gogift == null){
+      this._router.navigateByUrl('/create-account', {state: { email: user.email, CrId: res.usergData._id }})
+        }
+        else{
+       //   console.log()
+          this._router.navigateByUrl('/welcome', {state: { userId: res.usergData.gogift} })
+        }
+console.log(user)
+      })
+      
+    })
+  }
   
 
   movetoregister() {
     this._router.navigate(['../signup'], { relativeTo: this._activatedRoute });
   }
+
 
  
   signInWithGoogle(): void {
