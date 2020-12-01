@@ -15,8 +15,8 @@ import { TagResultComponent } from './tag-result/tag-result.component';
 import { FriendWishlistComponent } from './friend-wishlist/friend-wishlist.component';
 
 const routes: Routes = [
-  
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  {path: '', component:LoginComponent, pathMatch:'full'}, 
+  //{path: '', redirectTo: '/login', pathMatch: 'full'},
   {path: 'dashboard', component:DashboardComponent},
   {path: 'main', component: NavigationComponent,
     children: [

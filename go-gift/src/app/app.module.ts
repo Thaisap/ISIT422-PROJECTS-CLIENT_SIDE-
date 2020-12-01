@@ -84,7 +84,7 @@ import { FriendWishlistComponent } from './friend-wishlist/friend-wishlist.compo
       providers: [
       {
         id: GoogleLoginProvider.PROVIDER_ID,
-        provider: new GoogleLoginProvider('467762279715-j6qchnra4oj167h21u08vnnbmidhlq14.apps.googleusercontent.com')
+        provider: new GoogleLoginProvider('467762279715-rlf8q5drct208rsqki0g90d2otngm1nj.apps.googleusercontent.com')
       }
     ]
     } as SocialAuthServiceConfig,
