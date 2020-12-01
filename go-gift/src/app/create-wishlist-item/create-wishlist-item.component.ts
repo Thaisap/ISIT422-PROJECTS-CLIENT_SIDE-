@@ -57,6 +57,17 @@ export class CreateWishlistItemComponent implements OnInit {
 
   createDemoWishlistItem(): void{
     this.createdItem = {
+      itemName: 'Octobuddies',
+      vendor: 'TheCapedCrocheters',
+      price: '15.00+',
+      image: 'https://i.etsystatic.com/22470977/r/il/095af6/2397363138/il_1588xN.2397363138_54qu.jpg',
+      url: 'https://www.etsy.com/listing/767877758/octobuddies',
+      tag: []
+    }
+    this.recordedItem = this.createdItem;
+    this.tags = ['amigurumi', 'octopus'];
+
+    /* this.createdItem = {
       itemName: 'Amethyst the Unicorn - Crochet Amigurumi Pattern',
       vendor: 'SmileyCrochetThings',
       price: '6.21',
@@ -65,7 +76,8 @@ export class CreateWishlistItemComponent implements OnInit {
       tag: []
     }
     this.recordedItem = this.createdItem;
-    this.tags = ['animuguri', 'unicorn'];
+    this.tags = ['amigurumi', 'unicorn']; */
+
     this.getTagIdsArray().then((tagArray) => {
       this.recordedItem.tag = tagArray;
       //need to add the item to the tag collection
