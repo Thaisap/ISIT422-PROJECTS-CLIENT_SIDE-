@@ -1,0 +1,24 @@
+
+
+<div style="padding: 35px;">
+    <div class="d-lg-flex justify-content-between" style="padding: 30px;">
+        <h1 class="main-font bold">{{friendProfile.firstName}} {{friendProfile.lastName}}'s Wishlist</h1>
+        <div class="rev-button" style="width: 50%;" type="button" (click)="back()">Back to Friend's Profile Page</div>
+    </div>
+
+    <div class="container-fluid" *ngIf="friendProfile.wishlist.length===0">
+        <div class="sub-font row jusitify-content-start" style="font-size: 1.6em; padding: 30px;">
+            <p>{{friendProfile.firstName}} {{friendProfile.lastName}} Has No Items Added to Their Wishlist</p>
+        </div>
+    </div>
+    <div class="container-fluid" *ngIf="friendProfile.wishlist">
+        <div class="row justify-content-around">
+            <ng-container *ngIf="friendProfile.wishlist" >
+                <div *ngFor="let item of friendProfile.wishlist" class="col-lg-6 col-md-6 col-xs-12" style="padding: 15px;">
+                        <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [imageUrl] = "item.image" [url]="item.url" [itemId]= "item._id" buttonName="none"></app-item-card>
+                </div>
+            </ng-container>
+        </div>
+    </div>
+</div>
+
