@@ -37,7 +37,7 @@
           </div>
           <ng-container *ngIf="friendImageData">
             <div *ngFor="let friend of friendList; let i = index" style="margin: 15px;">
-              <mat-card style="border: 10px solid black; width:270px;">
+              <mat-card style="border: 10px solid black; width:270px;" (click)="saveFriendId(friend._id)" routerLink="/friend/{{friend.firstName}}{{friend.lastName}}" [state]="{ friendId: friend._id }">
                 <img mat-card-image [src]="friendImageData[i]" style="object-fit: cover; width: 250px; height: 280px; border-bottom: 3px solid black;" alt="photo of user">
                 <mat-card-content class="sub-font bold">
                     <h2 style="text-align: center;">{{friend.firstName}} {{friend.lastName}}</h2>

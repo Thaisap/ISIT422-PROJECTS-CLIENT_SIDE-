@@ -7,13 +7,13 @@
         <p>No Items Listed Under #{{searchTerm}}</p>
     </div>
     <div [hidden]="!showResults" class="container-fluid">
-        <div class="row justify-content-around" *ngIf="!fromFriend">
+        <div class="row justify-content-start" *ngIf="!fromFriend">
             <div *ngFor="let item of itemList" class="col-lg-6 col-md-6 col-xs-12" style="padding: 15px;">
                         <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [imageUrl] = "item.image" [url]="item.url" [itemId]= "item._id" buttonName="Add to Wishlist" (ClickFonc2)="addItemToUserWishlist(item._id)"></app-item-card>
             </div>
         </div>
-        <div class="row justify-content-around" *ngIf="fromFriend">
-            <div *ngFor="let item of itemList" class="col-xl-4 col-lg-4 col-md-4 col-xs-6" style="padding: 15px;">
+        <div class="row justify-content-start" *ngIf="fromFriend">
+            <div *ngFor="let item of itemList" class="col-xl-4 col-lg-4 col-md-6 col-xs-12" style="padding: 15px;">
                         <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [imageUrl] = "item.image" [url]="item.url" [itemId]= "item._id" buttonName="none"></app-item-card>
             </div>
         </div>
