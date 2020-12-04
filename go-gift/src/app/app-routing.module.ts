@@ -13,6 +13,7 @@ import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TagResultComponent } from './tag-result/tag-result.component';
 import { FriendWishlistComponent } from './friend-wishlist/friend-wishlist.component';
+import { FriendProfileComponent } from './friend-profile/friend-profile.component';
 
 const routes: Routes = [
   {path: '', component:LoginComponent, pathMatch:'full'}, 
@@ -30,6 +31,7 @@ const routes: Routes = [
     ]
   },
   {path: 'search/:term', component: TagResultComponent},
+  {path: 'friend/:name', component: FriendProfileComponent},
   {path: 'friend-wishlist', component: FriendWishlistComponent},
   {path: 'login', component: LoginComponent}  ,
   {path: 'create-account', component: CreateAccountComponent},

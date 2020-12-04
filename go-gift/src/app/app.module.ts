@@ -34,6 +34,7 @@ import { ToastModule } from '@syncfusion/ej2-angular-notifications';
 import { WelcomePageComponent } from './welcome-page/welcome-page.component';
 import { TagResultComponent } from './tag-result/tag-result.component';
 import { FriendWishlistComponent } from './friend-wishlist/friend-wishlist.component';
+import { FriendProfileComponent } from './friend-profile/friend-profile.component';
 
 @NgModule({
   imports: [
@@ -72,7 +73,8 @@ import { FriendWishlistComponent } from './friend-wishlist/friend-wishlist.compo
     CreateWishlistItemComponent,
     WelcomePageComponent,
     TagResultComponent,
-    FriendWishlistComponent,  
+    FriendWishlistComponent,
+    FriendProfileComponent,  
   ],
   providers:[
     UserService,

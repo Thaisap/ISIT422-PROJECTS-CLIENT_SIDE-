@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { Profile } from '../Profile';
+import { Profile, ProfileWithImg } from '../Profile';
 
 @Component({
   selector: 'app-display-wishlist-page',
@@ -8,7 +8,7 @@ import { Profile } from '../Profile';
   styleUrls: ['./display-wishlist-page.component.css']
 })
 export class DisplayWishlistPageComponent implements OnInit {
-  itemList : Profile;
+  itemList : ProfileWithImg;
   userId: string;
   
 
