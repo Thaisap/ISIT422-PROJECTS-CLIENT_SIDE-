@@ -20,7 +20,8 @@ export class FindFriendsPageComponent implements OnInit {
   searchedFriendImageData: any;
 
   selectedUser: Profile;
-  showMain: boolean;
+  showToast: boolean = false;
+  
   emailItem: EmailDoc;
   retMsg: any;
   constructor(private userService: UserService, private modalService: NgbModal) {
@@ -35,7 +36,6 @@ export class FindFriendsPageComponent implements OnInit {
     }
     this.getFriendList(this.userId);
     this.getAccountUser(this.userId);
-    this.showMain = true;
   }
 
   getFriendList(userId: string): void {
@@ -83,6 +83,10 @@ export class FindFriendsPageComponent implements OnInit {
 
   addFriend(friendId: string): void{
     console.log(`Friend Id to Add: ${friendId}`);
+    this.userService.addFriendToUserWithImg(this.userId, friendId).subscribe((updatedInfo) => {
+      console.log(updatedInfo)
+      this.showToast = true;
+    });
   }
 
   sendInvite(email: string): void{
@@ -91,7 +95,6 @@ export class FindFriendsPageComponent implements OnInit {
     this.userService.sendFriendEmail(emailItem).subscribe(msg => this.retMsg = msg);
   }
   getCurrentUser(id: string):void{
-    this.showMain = !this.showMain;
     this.userService.getCurrentUser(id).subscribe(profile => {
       this.selectedUser = profile;
     });

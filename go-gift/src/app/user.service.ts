@@ -198,6 +198,9 @@ getWishlistForUserWithImg(userId: string): Observable<ProfileWithImg>{
   return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/wishlist/${userId}`);
 }
 
+addFriendToUserWithImg(userId: string, friendId: string): Observable<ProfileWithImg>{
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/friend/${userId}`, [friendId], this.httpOptions)
+}
 
 
 ////////////////////////////////////////////////////////////

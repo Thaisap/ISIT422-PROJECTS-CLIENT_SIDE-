@@ -63,3 +63,11 @@
     <div class="text-center"><button (click)="sendInvite(invite.value)">Send</button></div>  
   </div>
 </ng-template>
+
+<ngb-toast class="toast style-toast" *ngIf="showToast" [autohide]="true" [delay]="3000" (hide)="showToast = false">
+  <ng-template ngbToastHeader>
+      <img src="../../assets/GoGiftLogo.png" style="width: 50px" alt="go gift logo">
+      <h5 class="main-font bold" style="margin-left: 15px; color: white; line-height: 50px;">GoGift</h5>
+  </ng-template>
+  Friend is added to your friend list!
+</ngb-toast>
