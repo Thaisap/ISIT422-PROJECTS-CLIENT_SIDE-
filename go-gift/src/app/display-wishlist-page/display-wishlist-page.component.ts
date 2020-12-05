@@ -10,6 +10,7 @@ import { Profile } from '../Profile';
 export class DisplayWishlistPageComponent implements OnInit {
   itemList : Profile;
   userId: string;
+  showToast: boolean = false;
   
 
   constructor(private userService : UserService) { 
@@ -40,7 +41,12 @@ export class DisplayWishlistPageComponent implements OnInit {
     })
   
   }
-deleteItemFromWislist(){
+deleteItemFromWislist(itemId: string){
+  this.userService.deleteItemFromWislist(this.userId,itemId)
+  .subscribe((info) =>{
+    console.log(info);
+    this.showToast = true;});
+
   
 }
  

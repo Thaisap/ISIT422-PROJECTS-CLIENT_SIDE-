@@ -70,9 +70,12 @@ export class SearchGiftPageComponent implements OnInit {
   }
   addItemToUserWishlist(id:string){
     this.userService.addItemToUserWishlist(this.userId,id)
-    .subscribe((info) => console.log(info));
-
-    this.showToast = true;
+    .subscribe((info) =>{
+      console.log(info);
+      
+      this.showToast = true;});
+  
+    
   };
 
 
