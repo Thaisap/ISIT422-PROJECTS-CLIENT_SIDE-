@@ -94,9 +94,6 @@ takeWishlist(id: string):Observable<Profile>{
   return this.http.get<Profile>(`http://localhost:3000/takeWishlist/${id}`);
 }
 
-deleteItemFromWislist(id: string):Observable<Profile>{
-  return this.http.get<Profile>(`http://localhost:3000/deleteItemFromWislist/${id}`);
-}
 
 //Search Gifts Page: used to get a list of items based on tag name
 getItemListByTagName(tagName: string): Observable<Item[]>{
@@ -118,6 +115,9 @@ addItemToUserWishlist(userId: string, itemId: string): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/item/${userId}`, [itemId], this.httpOptions)
 }
 
+deleteItemFromWislist(userId: string, itemId: string): Observable<Profile>{
+  return this.http.patch<Profile>(`http://localhost:3000/profile/item/${userId}`, [itemId], this.httpOptions)
+}
 //Profile Page: update user's tags
 updateTagInUser(userId: string, tagIds: string[]): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/tag/${userId}`, tagIds, this.httpOptions);

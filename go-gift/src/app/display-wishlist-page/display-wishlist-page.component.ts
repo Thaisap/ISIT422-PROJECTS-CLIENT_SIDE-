@@ -32,7 +32,10 @@ export class DisplayWishlistPageComponent implements OnInit {
     })
   
   }
-deleteItemFromWislist(){
+deleteItemFromWislist(id:string){
+  this.userService.deleteItemFromWislist('5f9725288c008df2d8d1c241',id)
+    .subscribe((info) => console.log(info));
+    console.log("hello");
   
 }
  
