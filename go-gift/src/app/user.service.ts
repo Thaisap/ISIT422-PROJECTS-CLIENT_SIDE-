@@ -39,6 +39,12 @@ updateFriendListInfo(newFriendListProfile: ProfileWithImg[]){
   this.refreshedFriendListInfo.next(newFriendListProfile);
 }
 
+refreshedWishListInfo: ReplaySubject<ProfileWithImg> = new ReplaySubject<ProfileWithImg>();
+wishlistUserData = this.refreshedWishListInfo.asObservable();
+updateWishListInfo(newWishList: ProfileWithImg){
+  this.refreshedWishListInfo.next(newWishList);
+}
+
 
 //item = [] ;
 

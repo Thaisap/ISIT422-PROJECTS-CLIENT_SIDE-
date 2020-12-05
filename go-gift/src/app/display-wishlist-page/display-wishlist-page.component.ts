@@ -23,6 +23,7 @@ export class DisplayWishlistPageComponent implements OnInit {
       this.userId = localStorage.getItem('accountId');
     }
     this.takeWishlist(this.userId);
+    this.userService.wishlistUserData.subscribe((updatedProfile) => this.itemList = updatedProfile);
   }
 
   editWishlist(): void{
@@ -42,6 +43,7 @@ export class DisplayWishlistPageComponent implements OnInit {
   }
 deleteItemFromWislist(){
   
+  //this.userService.updateWishListInfo(info);
 }
  
 }
