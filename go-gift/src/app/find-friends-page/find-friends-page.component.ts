@@ -19,8 +19,11 @@ export class FindFriendsPageComponent implements OnInit {
   searched: boolean = false;
   searchedFriendImageData: any;
 
-  selectedUser: Profile;
+  email: string;
   showToast: boolean = false;
+  editFriend: boolean = false;
+  removeFriend: boolean = false;
+
   
   emailItem: EmailDoc;
   retMsg: any;
@@ -36,6 +39,10 @@ export class FindFriendsPageComponent implements OnInit {
     }
     this.getFriendList(this.userId);
     this.getAccountUser(this.userId);
+    this.userService.friendUserData.subscribe((updatedFriendList) => {
+      this.friendList = updatedFriendList;
+      this.getFriendImageData();
+    });
   }
 
   getFriendList(userId: string): void {
@@ -79,6 +86,7 @@ export class FindFriendsPageComponent implements OnInit {
         }
       });
       this.searched = true;
+      //this.email = "";
   }
 
   addFriend(friendId: string): void{
@@ -86,7 +94,27 @@ export class FindFriendsPageComponent implements OnInit {
     this.userService.addFriendToUserWithImg(this.userId, friendId).subscribe((updatedInfo) => {
       console.log(updatedInfo)
       this.showToast = true;
+      this.userService.updateFriendListInfo(updatedInfo);
     });
+  }
+
+  updateFriend(): void{
+    if(this.editFriend == false){
+      this.editFriend = true;
+    }else{
+      this.editFriend = false;
+    }
+    
+  }
+
+  deleteFriend(friendId: string): void{
+    this.removeFriend = true;
+    console.log(friendId);
+    this.userService.removeFriendFromUserWithImg(this.userId, friendId).subscribe((updatedInfo) => {
+      console.log(updatedInfo)
+      this.userService.updateFriendListInfo(updatedInfo);
+    });
+    this.editFriend = false;
   }
 
   sendInvite(email: string): void{
@@ -94,12 +122,7 @@ export class FindFriendsPageComponent implements OnInit {
     const emailItem ={to: email, sender: `${this.loggedInUser.firstName} ${this.loggedInUser.lastName}`};
     this.userService.sendFriendEmail(emailItem).subscribe(msg => this.retMsg = msg);
   }
-  getCurrentUser(id: string):void{
-    this.userService.getCurrentUser(id).subscribe(profile => {
-      this.selectedUser = profile;
-    });
-  }
-
+  
   saveFriendId(friendId: string): void{
     // localStorage.setItem('friendId', friendId);
     localStorage.removeItem('friendId');

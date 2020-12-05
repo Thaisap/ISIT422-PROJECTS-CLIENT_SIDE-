@@ -33,6 +33,12 @@ updateUserInfo(newProfile: ProfileWithImg){
   this.currentUserInfo.next(newProfile);
 }
 
+refreshedFriendListInfo: ReplaySubject<ProfileWithImg[]> = new ReplaySubject<ProfileWithImg[]>();
+friendUserData = this.refreshedFriendListInfo.asObservable();
+updateFriendListInfo(newFriendListProfile: ProfileWithImg[]){
+  this.refreshedFriendListInfo.next(newFriendListProfile);
+}
+
 
 //item = [] ;
 
@@ -191,15 +197,19 @@ updateTagInUser(userId: string, tagIds: string[]): Observable<ProfileWithImg>{
 
 // [NEW] add item to wishlist function (for profile with image)
 addItemToUserWishlist(userId: string, itemId: string): Observable<ProfileWithImg>{
-  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/item/${userId}`, [itemId], this.httpOptions)
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/item/${userId}`, [itemId], this.httpOptions);
 }
 
 getWishlistForUserWithImg(userId: string): Observable<ProfileWithImg>{
   return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/wishlist/${userId}`);
 }
 
-addFriendToUserWithImg(userId: string, friendId: string): Observable<ProfileWithImg>{
-  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/friend/${userId}`, [friendId], this.httpOptions)
+addFriendToUserWithImg(userId: string, friendId: string): Observable<ProfileWithImg[]>{
+  return this.http.patch<ProfileWithImg[]>(`http://localhost:3000/profileWithImg/friend/${userId}`, [friendId], this.httpOptions);
+}
+
+removeFriendFromUserWithImg(userId: string, friendId: string): Observable<ProfileWithImg[]>{
+  return this.http.delete<ProfileWithImg[]>(`http://localhost:3000/profileWithImg/friend/${userId}/${friendId}`, this.httpOptions);
 }
 
 

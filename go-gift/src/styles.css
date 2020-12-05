@@ -83,6 +83,27 @@ body{
     position: relative;
 }
 
+.friendCard{
+    position: relative;
+}
+
+.friendCard-remove{
+    right: -30px;
+    top: -30px;
+    background-color: black; 
+    border-radius: 50px; 
+    height: 25px;
+    width: 25px; 
+    padding: 25px; 
+    background-image: url(assets/close-thick.png);
+    background-size: 25px 25px;
+    background-repeat: no-repeat;
+    background-position: center;
+    display: block;
+    position: absolute;
+    z-index: 1;    
+}
+
 .remove{
     right: 15px;
     top: 10px;

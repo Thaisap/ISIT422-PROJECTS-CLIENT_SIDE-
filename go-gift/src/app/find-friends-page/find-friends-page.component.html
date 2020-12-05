@@ -2,8 +2,8 @@
   <div id="container">
     <h1> Find Friends</h1>
     <div id="inputBox">
-      <input #email (keyup.enter)="this.onSearch(email.value)"/>
-      <div><button style="margin-bottom: 1.5rem;" (click)="this.onSearch(email.value)">search</button></div>
+      <input #email (keyup.enter)="this.onSearch(email.value); email.value=''"/>
+      <div><button style="margin-bottom: 1.5rem;" (click)="this.onSearch(email.value); email.value=''">search</button></div>
       <div *ngIf="searched" style="padding-top: 25px; padding-bottom: 25px;">
 
       
@@ -29,19 +29,28 @@
       <hr>
     </div>
       
-      <h1>My Friends</h1>
+      <app-header-edit title="My Friends" (clickFunc)="updateFriend()"></app-header-edit>
       <div class="container-fluid p-0">
         <div class="d-lg-flex justify-content-start">
           <div *ngIf="friendList.length == 0">
             <p class="sub-font" style="display: block; padding-left: 45px; font-size: 1.6em;">No Friends Added</p>
           </div>
           <ng-container *ngIf="friendImageData">
-            <div *ngFor="let friend of friendList; let i = index" style="margin: 15px;">
+            <div [hidden]="editFriend" *ngFor="let friend of friendList; let i = index" style="margin: 15px;">
               <mat-card style="border: 10px solid black; width:270px;" (click)="saveFriendId(friend._id)" routerLink="/friend/{{friend.firstName}}{{friend.lastName}}" [state]="{ friendId: friend._id }">
                 <img mat-card-image [src]="friendImageData[i]" style="object-fit: cover; width: 250px; height: 280px; border-bottom: 3px solid black;" alt="photo of user">
                 <mat-card-content class="sub-font bold">
                     <h2 style="text-align: center;">{{friend.firstName}} {{friend.lastName}}</h2>
                 </mat-card-content>
+              </mat-card>
+            </div>
+            <div [hidden]="!editFriend" *ngFor="let friend of friendList; let i = index" style="margin: 15px;">
+              <mat-card [hidden]="removeFriend" class="friendCard" style="border: 10px solid black; width:270px;">
+                <img mat-card-image [src]="friendImageData[i]" style="object-fit: cover; width: 250px; height: 280px; border-bottom: 3px solid black;" alt="photo of user">
+                <mat-card-content class="sub-font bold">
+                    <h2 style="text-align: center;">{{friend.firstName}} {{friend.lastName}}</h2>
+                </mat-card-content>
+                <div class="friendCard-remove" type="button" (click)="deleteFriend(friend._id)"></div>
               </mat-card>
             </div>
           </ng-container>        
