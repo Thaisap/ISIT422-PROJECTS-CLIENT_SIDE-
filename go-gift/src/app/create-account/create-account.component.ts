@@ -42,7 +42,7 @@ export class CreateAccountComponent implements OnInit {
     // (see here to know why: https://stackoverflow.com/questions/54891110/router-getcurrentnavigation-always-returns-null)
     let navigation = this.router.getCurrentNavigation();
     let navigationState = navigation.extras.state;
-    console.log(navigationState);
+ //   console.log(navigationState);
     this.crendentialId = navigationState.CrId;
     this.email = navigationState.email;
     this.loginMethod = navigationState.loginMethod;
@@ -56,13 +56,13 @@ export class CreateAccountComponent implements OnInit {
   getAllTags(): void{
     this.userService.getAllTags()
     .subscribe(allTags => {
-      console.log(allTags);
+   //   console.log(allTags);
       [this.allTagNames = allTags.tags, this.allTagIds = allTags.tagIds];
     });
   }
 
   async onFileSelection(event){
-    console.log(event.target.files[0]);
+    //console.log(event.target.files[0]);
     //Access the file object
     let imgFile = event.target.files[0];
     this.account.profileImg = imgFile;
@@ -92,9 +92,9 @@ export class CreateAccountComponent implements OnInit {
   openAddTagsModal() {
     const modalRef = this.modalService.open(AddTagsModalComponent,  { windowClass : "addTagsModal"});
     modalRef.result.then((result) => result.map((tag) => {
-      console.log(tag);
+     // console.log(tag);
       this.addedTagsArray.push(tag);
-      console.log(this.addedTagsArray);
+      //console.log(this.addedTagsArray);
     }), (reason) => {
       this.addedTagsArray = [];
     });
@@ -130,12 +130,12 @@ export class CreateAccountComponent implements OnInit {
     this.getTagIdsArray().then((tagIdArray) => {
       formData.append('tag', JSON.stringify(tagIdArray));
       this.userService.createUserWithImg(formData).subscribe((newUser) => {
-        console.log(newUser);
+    //    console.log(newUser);
         // once the user is created in the user collection, update the doc in credentials
         // call the route with passed in information: credentialsId (from naviagtion state) and gogift (from the createUserWithImg)
         this.userService.credentials ({accountId: newUser._id, loginMethod: this.loginMethod}, this.crendentialId).
         subscribe (
-          data=> console.log(data) // check to see if gogift value is updated
+    //      data=> console.log(data) // check to see if gogift value is updated
         )
         // pass the userId to the welcome page to get the correct doc in user collection
         this.router.navigateByUrl('/main/welcome', { state: { userId: newUser._id } });
