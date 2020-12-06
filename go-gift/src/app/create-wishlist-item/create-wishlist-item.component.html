@@ -42,17 +42,13 @@
 
         <div class="form-group">
             <label for="tags">Give Tags to the Item</label>
-            <input type="text" class="form-control" id="tags" placeholder="postage stamps, Christmas" required [(ngModel)]="tagInput" (keydown.enter)="createWishlistItem()">
+            <input type="text" class="form-control" id="tags" placeholder="postage stamps, christmas" required [(ngModel)]="tagInput" (keydown.enter)="createWishlistItem()">
         </div>
     </div>
-    <!-- <div class="row justify-content-start">
-        <div class="sub-font" style="padding-left: 35px; font-size: 2.4em;">Add Tags <span style="margin-left: 25px; border-left: 3px solid black;"></span></div>
-        <app-add-chip (clickFun)="openAddTagsModal()"></app-add-chip>        
-    </div> -->
     <div class="row justify-content-around" style="margin-top: 30px;">
-        <div class="rev-button" type="button" style="width: 30%;" (click)="createDemoWishlistItem()">Create</div>
-        <!-- <div class="rev-button" type="button" style="width: 30%;" (click)="createWishlistItem()">Create</div> -->
-        <div class="button" type="button" style="width: 30%; position: relative;">Cancel<a routerLink="/main/display-wishlist"><span class="link-panel"></span></a></div>
+        <!-- <div class="rev-button" type="button" style="width: 30%;" (click)="createDemoWishlistItem()">Create</div> -->
+        <div class="rev-button" type="button" style="width: 30%;" (click)="createWishlistItem()">Create</div>
+        <div class="button" type="button" style="width: 30%; position: relative;" [routerLink]="['/main/display-wishlist']">Cancel</div>
     </div>
         
     
