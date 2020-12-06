@@ -29,7 +29,7 @@ export class CreateWishlistItemComponent implements OnInit {
   tagDoc: WriteTagDoc;
   recordedItem: WriteItemDoc;
   showToast: boolean = false;
-
+  addedTagsArray: string[] = [];
 
   constructor(private userService: UserService, private modalService: NgbModal) {
     this.userService.loggedInUserAccount.subscribe((accountId) => {
@@ -99,8 +99,9 @@ export class CreateWishlistItemComponent implements OnInit {
       this.startingPrice = "false";
     }
     //check the tags and find the ids
-    this.tags = this.tagInput.split(",");
-    this.tagInput = "";
+   /*  this.tags = this.tagInput.split(",");
+    this.tagInput = ""; */
+    this.tags = this.addedTagsArray;
 
     this.getTagIdsArray().then((tagArray) => {
       this.recordedItem.tag = tagArray;
@@ -113,6 +114,7 @@ export class CreateWishlistItemComponent implements OnInit {
         this.showToast = true;
       });
     });
+    this.addedTagsArray = [];
   }
 
   async getTagIdsArray(){
@@ -137,7 +139,13 @@ export class CreateWishlistItemComponent implements OnInit {
   }
 
   openAddTagsModal() {
-    const modalRef = this.modalService.open(AddTagsModalComponent);
-    modalRef.result.then((result) => console.log(result), (reason) => console.log(reason));
+    const modalRef = this.modalService.open(AddTagsModalComponent,  { windowClass : "addTagsModal"});
+    modalRef.result.then((result) => result.map((tag) => {
+      console.log(tag);
+      this.addedTagsArray.push(tag);
+      console.log(this.addedTagsArray);
+    }), (reason) => {
+      this.addedTagsArray = [];
+    });
   }
 }
