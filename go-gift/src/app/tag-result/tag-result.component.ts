@@ -15,11 +15,11 @@ export class TagResultComponent implements OnInit {
   itemList: Item[];
   showResults: boolean;
   fromFriend: boolean;
+  showToast: boolean = false;
 
   constructor(private activatedRouter: ActivatedRoute, public router: Router, public userService: UserService) { 
     const navigation = this.router.getCurrentNavigation();
     const navState = navigation.extras.state;
-    console.log(navState.page);
     if(navState == null){
       this.fromFriend = false;
     }
@@ -30,7 +30,6 @@ export class TagResultComponent implements OnInit {
       this.fromFriend = true;
     }
 
-    console.log(this.fromFriend);
     
     this.activatedRouter.params.subscribe( params => this.searchTerm = params['term']);
     this.userService.loggedInUserAccount.subscribe((accountId) => {
@@ -59,9 +58,7 @@ export class TagResultComponent implements OnInit {
   }
 
   addItemToUserWishlist(id:string){
-    console.log(id);
-    console.log(this.userId);
     this.userService.addItemToUserWishlist(this.userId,id)
-    .subscribe((info) => console.log(info));
+    .subscribe((info) => this.showToast = true);
   };
 }

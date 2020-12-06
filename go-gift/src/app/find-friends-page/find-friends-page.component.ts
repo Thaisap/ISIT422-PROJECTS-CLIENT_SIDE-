@@ -59,7 +59,6 @@ export class FindFriendsPageComponent implements OnInit {
         let bytes = [].slice.call(new Uint8Array(friend.profileImg.data.data));
         bytes.forEach((b) => binary += String.fromCharCode(b));
         let bufferData = window.btoa(binary);
-        console.log(bufferData);
         return `data:${friend.profileImg.contentType};base64,${bufferData}`;        
       }
     });
@@ -81,18 +80,15 @@ export class FindFriendsPageComponent implements OnInit {
           let bytes = [].slice.call(new Uint8Array(user.profileImg.data.data));
           bytes.forEach((b) => binary += String.fromCharCode(b));
           let bufferData = window.btoa(binary);
-          console.log(bufferData);
           this.searchedFriendImageData = `data:${user.profileImg.contentType};base64,${bufferData}`;        
         }
       });
       this.searched = true;
-      //this.email = "";
   }
 
   addFriend(friendId: string): void{
     console.log(`Friend Id to Add: ${friendId}`);
     this.userService.addFriendToUserWithImg(this.userId, friendId).subscribe((updatedInfo) => {
-      console.log(updatedInfo)
       this.showToast = true;
       this.userService.updateFriendListInfo(updatedInfo);
     });
@@ -109,9 +105,7 @@ export class FindFriendsPageComponent implements OnInit {
 
   deleteFriend(friendId: string): void{
     this.removeFriend = true;
-    console.log(friendId);
     this.userService.removeFriendFromUserWithImg(this.userId, friendId).subscribe((updatedInfo) => {
-      console.log(updatedInfo)
       this.userService.updateFriendListInfo(updatedInfo);
     });
     this.editFriend = false;
@@ -124,7 +118,6 @@ export class FindFriendsPageComponent implements OnInit {
   }
   
   saveFriendId(friendId: string): void{
-    // localStorage.setItem('friendId', friendId);
     localStorage.removeItem('friendId');
     localStorage.setItem('friendId', friendId);
   }
