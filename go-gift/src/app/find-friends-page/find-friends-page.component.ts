@@ -95,12 +95,12 @@ export class FindFriendsPageComponent implements OnInit {
   }
 
   updateFriend(): void{
-    if(this.editFriend == false){
+    if(this.editFriend === false){
       this.editFriend = true;
-    }else{
+      this.removeFriend = false;
+    }else {
       this.editFriend = false;
-    }
-    
+    }    
   }
 
   deleteFriend(friendId: string): void{
