@@ -36,7 +36,7 @@
     </div>    
     <app-header-edit title="My Tags" (clickFunc)="editTags()"></app-header-edit>
     <div class="d-lg-flex flex-wrap justify-content-start">
-        <div class="tag" [hidden]="hideOriginalTags" *ngFor="let tag of userProfile.tag;" [routerLink]="['/main/search', tag.name]" [state]="{ page: 'user' }">{{tag.name}}</div>
+        <div class="tag" [hidden]="hideOriginalTags" *ngFor="let tag of userProfile.tag;" [routerLink]="['/main/search', tag.name]" [state]="{ page: 'user' }">{{tag.name}}<ng-container *ngFor="let tag of userTagNames(tag.name)"></ng-container></div>
         <div class="tag" [hidden]="!changedTag" *ngFor="let addedTag of addedTagsArray" [routerLink]="['/main/search', addedTag]" [state]="{ page: 'user' }">{{addedTag}}</div>
         <ng-container *ngIf="addedTagsArray">
             <app-removable-chip [hidden]="hideEditTags" *ngFor="let addedTag of addedTagsArray" [tagName]="addedTag" (clickFunc)="deleteTagName(addedTag)"></app-removable-chip>
