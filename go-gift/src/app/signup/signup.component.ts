@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserService } from '../user.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Toast } from '@syncfusion/ej2-angular-notifications';
 
 @Component({
   selector: 'app-signup',
@@ -10,6 +11,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class SignupComponent implements OnInit {
 
+  showToast: boolean = false;
 
   myForm: FormGroup;
   successMessage: String = '';
@@ -59,13 +61,13 @@ export class SignupComponent implements OnInit {
   }
 
   register() {
-    console.log(this.myForm.value);
+//    console.log(this.myForm.value);
 
     if (this.myForm.valid) {
       this._userservice.submitRegister(this.myForm.value)
         .subscribe(
-          data => this.successMessage = 'Registration Success',
-          error => this.successMessage = 'Some error'
+          data => this.showToast = true,
+          error => this.showToast = false
           
         );
     }
