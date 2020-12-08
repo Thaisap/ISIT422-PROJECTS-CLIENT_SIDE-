@@ -122,8 +122,10 @@ takeWishlist(id: string):Observable<Profile>{
   return this.http.get<Profile>(`https://gogiftdb.azurewebsites.net/takeWishlist/${id}`);
 }
 
-deleteItemFromWislist(id: string):Observable<Profile>{
-  return this.http.get<Profile>(`https://gogiftdb.azurewebsites.net/deleteItemFromWislist/${id}`);
+
+deleteItemFromWislist(id: string,itemId: string):Observable<ProfileWithImg>{
+  return this.http.delete<ProfileWithImg>(`http://localhost:3000/deleteItemFromWislist/${id}/${itemId}`);
+
 }
 
 //Search Gifts Page: used to get a list of items based on tag name
@@ -187,6 +189,7 @@ addItemToUserWishlist(userId: string, itemId: string): Observable<ProfileWithImg
 getWishlistForUserWithImg(userId: string): Observable<ProfileWithImg>{
   return this.http.get<ProfileWithImg>(`https://gogiftdb.azurewebsites.net/profileWithImg/wishlist/${userId}`);
 }
+
 
 
 
