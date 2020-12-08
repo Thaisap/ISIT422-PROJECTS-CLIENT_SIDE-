@@ -15,9 +15,16 @@
             </ng-container>
             <ng-container *ngIf="itemList.wishlist.length > 0" >
                 <div *ngFor="let item of itemList.wishlist" class="col-lg-6 col-md-6 col-xs-12" style="padding: 15px;">
-                        <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [imageUrl] = "item.image" [url]="item.url" [itemId]= "item._id" buttonName="Delete from Wishlist" (buttonClick2)="deleteItemFromWislist()"></app-item-card>
+                        <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [imageUrl] = "item.image" [url]="item.url" [itemId]= "item._id" buttonName="Delete from Wishlist" (ClickFonc2)="deleteItemFromWislist(item._id)"></app-item-card>
                 </div>
             </ng-container>
+            <ngb-toast class="toast style-toast" *ngIf="showToast" [autohide]="true" [delay]="3000" (hide)="showToast = false">
+                <ng-template ngbToastHeader>
+                    <img src="../../assets/GoGiftLogo.png" style="width: 50px" alt="go gift logo">
+                    <h5 class="main-font bold" style="margin-left: 15px; color: white; line-height: 50px;">GoGift</h5>
+                </ng-template>
+                Item is deleted from your wishlist!
+            </ngb-toast>
         </div>
     </div>
 </div>

@@ -64,7 +64,9 @@ export class SearchGiftPageComponent implements OnInit {
   }
   addItemToUserWishlist(id:string){
     this.userService.addItemToUserWishlist(this.userId,id)
+
     .subscribe((info) => this.showToast = true);
+
   };
 
 
