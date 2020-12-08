@@ -29,7 +29,6 @@ export class NavigationComponent implements OnInit {
   ngOnInit(): void {
     this.getProfileWithImg(this.userId);
     this.userService.userData.subscribe((updatedData) => {
-      console.log(updatedData);
       this.profileWithImg = updatedData;
       if(updatedData.profileImg !== null){
         let binary = '';
@@ -43,7 +42,6 @@ export class NavigationComponent implements OnInit {
 
   getProfileWithImg(userId: string): void{
     this.userService.getUserWithImg(userId).subscribe((userInfo) => {
-      console.log(userInfo.profileImg);
       //Usage: https://medium.com/@colinrlly/send-store-and-show-images-with-react-express-and-mongodb-592bc38a9ed
       if(userInfo.profileImg !== null){
         let binary = '';

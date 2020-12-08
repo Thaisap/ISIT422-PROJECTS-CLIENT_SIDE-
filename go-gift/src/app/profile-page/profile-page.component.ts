@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {User} from '../user';
 import { UserService } from '../user.service';
-import {allTags} from '../allTags';
-import { Profile, ProfileWithImg } from '../Profile';
+import { ProfileWithImg } from '../Profile';
 import { AddTagsModalComponent } from '../add-tags-modal/add-tags-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Observable, of } from 'rxjs';
 import { WriteTagDoc } from '../tag';
 
 
@@ -18,14 +15,10 @@ import { WriteTagDoc } from '../tag';
 export class ProfilePageComponent implements OnInit {
   userId: string;
   imageData: any = "../../assets/white-seahorse-profile.png";
-  //_accountIdSubscription$: any
   userProfile?: ProfileWithImg;
   hideDisplay: boolean = false;
   hideProfile: boolean = true;
   hideEditProfile: boolean = true;
-  //updatedProfile: Profile;
-  //user: User;
-  //allTags: allTags;
   addedTagsArray: string[] = [];
   hideEditTags: boolean = true;
   allTagNames: string[];
@@ -47,11 +40,9 @@ export class ProfilePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.getAccountId();
     if(this.userId == null){
       this.userId = localStorage.getItem('accountId');
     }
-    console.log(this.userId);
     this.getProfile(this.userId);
     this.getAllTags();
   }
@@ -64,7 +55,6 @@ export class ProfilePageComponent implements OnInit {
           let bytes = [].slice.call(new Uint8Array(info.profileImg.data.data));
           bytes.forEach((b) => binary += String.fromCharCode(b));
           let bufferData = window.btoa(binary);
-          console.log(bufferData);
           this.imageData = `data:${info.profileImg.contentType};base64,${bufferData}`;        
         }
         this.userProfile = info;      
@@ -74,7 +64,6 @@ export class ProfilePageComponent implements OnInit {
   getAllTags(): void{
     this.userService.getAllTags()
     .subscribe(allTags => {
-      console.log(allTags);
       [this.allTagNames = allTags.tags, this.allTagIds = allTags.tagIds];
     });
   }
@@ -105,7 +94,6 @@ export class ProfilePageComponent implements OnInit {
   }
 
   async onFileSelection(event){
-    console.log(event.target.files[0]);
     //Access the file object
     let imgFile = event.target.files[0];
     this.userProfile.profileImg = imgFile;
@@ -120,7 +108,6 @@ export class ProfilePageComponent implements OnInit {
 
   updateProfile(): void{
     this.hideEditProfile = true;
-    console.log(this.userProfile);
     let reqObj = {
       firstName: this.userProfile.firstName,
       lastName: this.userProfile.lastName,
@@ -147,7 +134,6 @@ export class ProfilePageComponent implements OnInit {
         let bytes = [].slice.call(new Uint8Array(newInfo.profileImg.data.data));
         bytes.forEach((b) => binary += String.fromCharCode(b));
         let bufferData = window.btoa(binary);
-        console.log(bufferData);
         this.imageData = `data:${newInfo.profileImg.contentType};base64,${bufferData}`;        
       }
     });
@@ -155,7 +141,6 @@ export class ProfilePageComponent implements OnInit {
 
   editBio(): void{
     this.hideDisplay = true;
-    console.log("EDIT BIO");
   }
 
   updateBio(): void{
@@ -177,9 +162,7 @@ export class ProfilePageComponent implements OnInit {
   }
 
   deleteTagName(tagName: string): void{
-    console.log('deleting!!')
     this.addedTagsArray = this.addedTagsArray.filter((tag) => tag !== tagName);
-    console.log(this.addedTagsArray);
   }
 
   openAddTagsModal() {
@@ -191,15 +174,12 @@ export class ProfilePageComponent implements OnInit {
     this.hideEditTags = true;
     this.changedTag = true;
     this.getTagIdsArray().then((tagIdArray) => {
-      console.log(`TAG ARRAY: ${tagIdArray}`);
       this.userService.updateTagInUser(this.userId, tagIdArray).subscribe((userInfo) => console.log(userInfo))
     });
     
   }
 
   async getTagIdsArray(){
-    console.log('All Tags');
-    console.log(this.addedTagsArray);
     let promArray = await this.addedTagsArray.map(async(tagName) => {
       tagName = tagName.trim();
         let index = this.allTagNames.indexOf(tagName);
@@ -214,17 +194,12 @@ export class ProfilePageComponent implements OnInit {
           return newTagId;
         }
     });
-    console.log(promArray);
     let newTagArray = Promise.all(promArray).then((v) => v);
-    console.log(newTagArray);
     return newTagArray;
   }
 
   userTagNames(tagName: string): Set<any>{
     this.originalTags.add(tagName);
-    //console.log(Array.from(this.addedTagsArray));
     return this.originalTags;
-    //this.addedTagsArray.add(tag.name);
-    //console.log(this.addedTagsArray);
   }
 }
