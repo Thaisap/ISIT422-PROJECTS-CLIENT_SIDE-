@@ -46,7 +46,9 @@ deleteItemFromWislist(itemId: string){
   this.userService.deleteItemFromWislist(this.userId,itemId)
   .subscribe((info) =>{
     console.log(info);
-    this.showToast = true;});
+    this.showToast = true;
+    this.userService.updateWishListInfo(info);
+  });
 
   
   //this.userService.updateWishListInfo(info);
