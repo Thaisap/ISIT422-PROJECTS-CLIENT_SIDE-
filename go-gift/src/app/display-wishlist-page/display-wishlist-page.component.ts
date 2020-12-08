@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
-import { Profile } from '../Profile';
+import { Profile, ProfileWithImg } from '../Profile';
 
 @Component({
   selector: 'app-display-wishlist-page',
@@ -8,8 +8,9 @@ import { Profile } from '../Profile';
   styleUrls: ['./display-wishlist-page.component.css']
 })
 export class DisplayWishlistPageComponent implements OnInit {
-  itemList : Profile;
+  itemList : ProfileWithImg;
   userId: string;
+  showToast: boolean = false;
   
 
   constructor(private userService : UserService) { 
@@ -23,6 +24,7 @@ export class DisplayWishlistPageComponent implements OnInit {
       this.userId = localStorage.getItem('accountId');
     }
     this.takeWishlist(this.userId);
+    this.userService.wishlistUserData.subscribe((updatedProfile) => this.itemList = updatedProfile);
   }
 
   editWishlist(): void{
@@ -40,8 +42,16 @@ export class DisplayWishlistPageComponent implements OnInit {
     })
   
   }
-deleteItemFromWislist(){
+deleteItemFromWislist(itemId: string){
+  this.userService.deleteItemFromWislist(this.userId,itemId)
+  .subscribe((info) =>{
+    console.log(info);
+    this.showToast = true;
+    this.userService.updateWishListInfo(info);
+  });
+
   
+  //this.userService.updateWishListInfo(info);
 }
  
 }

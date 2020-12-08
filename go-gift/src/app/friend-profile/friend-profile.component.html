@@ -1,0 +1,23 @@
+<div style="padding: 35px;">
+    <div class="d-lg-flex justify-content-around" style="padding: 30px;">
+        <h1 class="main-font bold">{{friendProfile.firstName}} {{friendProfile.lastName}}</h1>
+        <div class="rev-button" style="width: 50%; font-size: 1.6em;" type="button" (click)="back()">Back to Friends</div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row" *ngIf="friendProfile">
+            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+              <img *ngIf="friendImageData" [src]="friendImageData" style="object-fit: cover; width: 500px; height: 600px; border: 10px solid black;"/>
+              <div class="button" style="border: 5px solid #ED5D92; color: #ED5D92; width: 500px; margin-top: 35px; font-size: 1.6em;" (click)="saveFriendId(friendProfile._id)" [routerLink]="['/friend-wishlist']" [state]="{ friendId: friendProfile._id }">See My Wishlist</div>
+            </div>
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+              <div class="sub-font section" style="font-size: 1.6em; margin-bottom: 35px;">
+                <p>{{this.friendProfile.bio}}</p>
+              </div>
+              <div class="d-lg-flex flex-wrap justify-content-start">
+                <div class="tag" *ngFor="let tag of friendProfile.tag" [routerLink]="['/search', tag.name]" [state]="{ page: 'friend' }">{{tag.name}}</div>
+              </div>          
+            </div>
+        </div>
+    </div>
+</div>

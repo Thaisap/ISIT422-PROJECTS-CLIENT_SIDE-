@@ -10,7 +10,6 @@ import { Item } from '../item';
 export class SearchGiftPageComponent implements OnInit {
   userId: string;
   tagName: string;
-  //savedTagName: string;
   itemList: Item[];
   hideSearchResults: boolean = true;
   message: string;
@@ -28,7 +27,6 @@ export class SearchGiftPageComponent implements OnInit {
       this.userId = localStorage.getItem('accountId');
     }
     this.getAllTags();
-    console.log(this.showToast);
   }
 
   getAllTags(): void{
@@ -40,7 +38,6 @@ export class SearchGiftPageComponent implements OnInit {
     this.hideSearchResults = true;
     this.itemList = [];
     this.tagName = $event;
-    //this.savedTagName = $event;
     this.message = '';
     //should check whether tag name is in database
     let tagNameInDB = this.allTagNames.includes(this.tagName);
@@ -51,28 +48,25 @@ export class SearchGiftPageComponent implements OnInit {
       this.message = "No Results Found.";
 
       this.hideSearchResults = false;
-    }
-    console.log(this.hideSearchResults);  
+    }  
   }
 
   searchItems(): void{
     this.userService.getItemListByTagName(this.tagName)
       .subscribe((items) => {
-        console.log(items);
         if(items.length === 0){
           this.message = "No Results Found.";
         }
         this.hideSearchResults = false;
-        console.log(this.hideSearchResults); 
         return this.itemList = items;
         
       });
   }
   addItemToUserWishlist(id:string){
     this.userService.addItemToUserWishlist(this.userId,id)
-    .subscribe((info) => console.log(info));
 
-    this.showToast = true;
+    .subscribe((info) => this.showToast = true);
+
   };
 
 
