@@ -39,16 +39,16 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    console.log(this.loginForm.value);
+//    console.log(this.loginForm.value);
 
     if (this.loginForm.valid) {
       this._userservice.login(this.loginForm.value)
         .subscribe(
           data => {
-            console.log(data);
+    //        console.log(data);
             localStorage.setItem('token', data.token.toString());
           
-          console.log(data.gogift == null);
+     //     console.log(data.gogift == null);
           // need to check whether the user is a first time user or already has a gogift account
           // gogift will be null if they are first-time user  
           // else gogift will have ObjectId value from user collection
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
     this.authGService.authState.subscribe((user)=> {
     this._userservice.postSocialLogin({username: user.name, email: user.email, image:user.photoUrl, gogift: null, googleId: user.id})
       .subscribe((res)=> {
-        console.log(res)
+  //      console.log(res)
     
    
         if (res['sucesss'] ){
@@ -90,7 +90,7 @@ export class LoginComponent implements OnInit {
        //   console.log()
           this._router.navigateByUrl('/main/welcome', {state: { userId: res.usergData.gogift} })
         }
-console.log(user)
+//console.log(user)
       })
       
     })

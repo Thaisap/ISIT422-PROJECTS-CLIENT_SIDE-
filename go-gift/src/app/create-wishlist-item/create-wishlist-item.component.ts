@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Item, WriteItemDoc } from '../item';
+import { WriteItemDoc } from '../item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddTagsModalComponent } from '../add-tags-modal/add-tags-modal.component';
-import { allTags } from '../allTags';
 import { WriteTagDoc } from '../tag';
 import { UserService } from '../user.service';
 
@@ -25,13 +24,12 @@ export class CreateWishlistItemComponent implements OnInit {
   tagInput: string = '';
   priceAsNum: number = 0.00;
   startingPrice: string = "false";
-  //allTagsInfo: allTags;
   allTagNames: string[];
   allTagIds: string[];
   tagDoc: WriteTagDoc;
   recordedItem: WriteItemDoc;
   showToast: boolean = false;
-
+  addedTagsArray: string[] = [];
 
   constructor(private userService: UserService, private modalService: NgbModal) {
     this.userService.loggedInUserAccount.subscribe((accountId) => {
@@ -44,13 +42,11 @@ export class CreateWishlistItemComponent implements OnInit {
       this.userId = localStorage.getItem('accountId');
     }
     this.getAllTags();
-    console.log(this.showToast);
   }
 
   getAllTags(): void{
     this.userService.getAllTags()
     .subscribe(allTags => {
-      console.log(allTags);
       [this.allTagNames = allTags.tags, this.allTagIds = allTags.tagIds];
     });
   }
@@ -67,38 +63,14 @@ export class CreateWishlistItemComponent implements OnInit {
     this.recordedItem = this.createdItem;
     this.tags = ['puzzle', 'black', 'red'];
 
-    /* this.createdItem = {
-      itemName: 'Octobuddies',
-      vendor: 'TheCapedCrocheters',
-      price: '15.00+',
-      image: 'https://i.etsystatic.com/22470977/r/il/095af6/2397363138/il_1588xN.2397363138_54qu.jpg',
-      url: 'https://www.etsy.com/listing/767877758/octobuddies',
-      tag: []
-    }
-    this.recordedItem = this.createdItem;
-    this.tags = ['amigurumi', 'octopus']; */
-
-    /* this.createdItem = {
-      itemName: 'Amethyst the Unicorn - Crochet Amigurumi Pattern',
-      vendor: 'SmileyCrochetThings',
-      price: '6.21',
-      image: 'https://i.etsystatic.com/15416813/r/il/6eaf37/2239661361/il_794xN.2239661361_2bud.jpg',
-      url: 'https://www.etsy.com/listing/770208591/amethyst-the-unicorn-crochet-amigurumi',
-      tag: []
-    }
-    this.recordedItem = this.createdItem;
-    this.tags = ['amigurumi', 'unicorn']; */
-
     this.getTagIdsArray().then((tagArray) => {
       this.recordedItem.tag = tagArray;
       //need to add the item to the tag collection
       this.userService.createItem(this.recordedItem).subscribe(itemId => {
-        console.log(itemId);
         this.recordedItem.tag.map((tagId) => {
           this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
         });
         this.userService.addItemToUserWishlist(this.userId, itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
-        //
         this.showToast = true;
       });
     });
@@ -114,12 +86,7 @@ export class CreateWishlistItemComponent implements OnInit {
       url: '',
       tag: []
     };
-    console.log(this.recordedItem);
-    console.log(this.allTagNames);
-    console.log(this.allTagIds);
     //get the price value
-    console.log(Number(this.priceAsNum).toFixed(2));
-    console.log(this.startingPrice);
     if(this.startingPrice === "true"){
       this.recordedItem.price = Number(this.priceAsNum).toFixed(2).toString() + "+";
       this.priceAsNum = 0.00;
@@ -132,20 +99,22 @@ export class CreateWishlistItemComponent implements OnInit {
       this.startingPrice = "false";
     }
     //check the tags and find the ids
-    this.tags = this.tagInput.split(",");
-    this.tagInput = "";
+   /*  this.tags = this.tagInput.split(",");
+    this.tagInput = ""; */
+    this.tags = this.addedTagsArray;
 
     this.getTagIdsArray().then((tagArray) => {
       this.recordedItem.tag = tagArray;
       //need to add the item to the tag collection
       this.userService.createItem(this.recordedItem).subscribe(itemId => {
-        console.log(itemId);
         this.recordedItem.tag.map((tagId) => {
           this.userService.addItemToTag(tagId, itemId).subscribe((updatedTagInfo) => console.log(updatedTagInfo));
         });
         this.userService.addItemToUserWishlist(this.userId, itemId).subscribe((updatedUserInfo) => console.log(updatedUserInfo));
+        this.showToast = true;
       });
     });
+    this.addedTagsArray = [];
   }
 
   async getTagIdsArray(){
@@ -154,16 +123,13 @@ export class CreateWishlistItemComponent implements OnInit {
       let index = this.allTagNames.indexOf(tag);
       //in db, get tag object id to write as a reference to item collection
       if(index !== -1){
-        console.log(this.allTagIds[index]);
         return this.allTagIds[index];
       }else{
         //create new tag in tag collection and get object id
-        console.log("No tag found");
         this.tagDoc = {
           name: tag,
           item: []
         };
-        console.log(this.tagDoc);
         let newTagId = await this.userService.CreateTag(this.tagDoc).toPromise();
         return newTagId
       }
@@ -173,7 +139,13 @@ export class CreateWishlistItemComponent implements OnInit {
   }
 
   openAddTagsModal() {
-    const modalRef = this.modalService.open(AddTagsModalComponent);
-    modalRef.result.then((result) => console.log(result), (reason) => console.log(reason));
+    const modalRef = this.modalService.open(AddTagsModalComponent,  { windowClass : "addTagsModal"});
+    modalRef.result.then((result) => result.map((tag) => {
+      console.log(tag);
+      this.addedTagsArray.push(tag);
+      console.log(this.addedTagsArray);
+    }), (reason) => {
+      this.addedTagsArray = [];
+    });
   }
 }

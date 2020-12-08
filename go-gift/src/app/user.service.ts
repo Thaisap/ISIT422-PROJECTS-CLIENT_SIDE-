@@ -33,6 +33,18 @@ updateUserInfo(newProfile: ProfileWithImg){
   this.currentUserInfo.next(newProfile);
 }
 
+refreshedFriendListInfo: ReplaySubject<ProfileWithImg[]> = new ReplaySubject<ProfileWithImg[]>();
+friendUserData = this.refreshedFriendListInfo.asObservable();
+updateFriendListInfo(newFriendListProfile: ProfileWithImg[]){
+  this.refreshedFriendListInfo.next(newFriendListProfile);
+}
+
+refreshedWishListInfo: ReplaySubject<ProfileWithImg> = new ReplaySubject<ProfileWithImg>();
+wishlistUserData = this.refreshedWishListInfo.asObservable();
+updateWishListInfo(newWishList: ProfileWithImg){
+  this.refreshedWishListInfo.next(newWishList);
+}
+
 
 //item = [] ;
 
@@ -105,25 +117,44 @@ getCurrentUser(id: string): Observable<Profile>{
   return this.http.patch<Profile>(`http://localhost:3000/profile/${id}`, body, this.httpOptions);
 } */
 
-//Find Friends Page: used to get friend info based on email address
-getFriendByEmail(email: string): Observable<User>{
+
+// [OLD]Find Friends Page: used to get friend info based on email address
+/* getFriendByEmail(email: string): Observable<User>{
   return this.http.get<User>(`http://localhost:3000/friend/${email}`);
+} */
+
+getFriendByEmail(email: string): Observable<ProfileWithImg>{
+  return this.http.get<ProfileWithImg>(`http://localhost:3000/friendWithImg/${email}`);
+
+//Find Friends Page: used to get friend info based on email address
+
 }
 
 sendFriendEmail(body: EmailDoc): Observable<string>{
   return this.http.post<string>(`http://localhost:3000/friend/email`, body, this.httpOptions);
 }
 
-//Find Friends Page: used to get a list of user's friends (id is user's id)
-getFriendListById(id: string):Observable<User[]>{
+
+// [OLD]Find Friends Page: used to get a list of user's friends (id is user's id)
+/* getFriendListById(id: string):Observable<User[]>{
   return this.http.get<User[]>(`http://localhost:3000/friends/${id}`);
+} */
+
+getFriendListById(userId: string): Observable<ProfileWithImg[]>{
+  return this.http.get<ProfileWithImg[]>(`http://localhost:3000/profileWithImg/friendlist/${userId}`);
+
+
 }
+
+
 takeWishlist(id: string):Observable<Profile>{
   return this.http.get<Profile>(`http://localhost:3000/takeWishlist/${id}`);
 }
 
-deleteItemFromWislist(id: string):Observable<Profile>{
-  return this.http.get<Profile>(`http://localhost:3000/deleteItemFromWislist/${id}`);
+
+deleteItemFromWislist(id: string,itemId: string):Observable<ProfileWithImg>{
+  return this.http.delete<ProfileWithImg>(`http://localhost:3000/deleteItemFromWislist/${id}/${itemId}`);
+
 }
 
 //Search Gifts Page: used to get a list of items based on tag name
@@ -181,11 +212,21 @@ updateTagInUser(userId: string, tagIds: string[]): Observable<ProfileWithImg>{
 
 // [NEW] add item to wishlist function (for profile with image)
 addItemToUserWishlist(userId: string, itemId: string): Observable<ProfileWithImg>{
-  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/item/${userId}`, [itemId], this.httpOptions)
+
+  return this.http.patch<ProfileWithImg>(`http://localhost:3000/profileWithImg/item/${userId}`, [itemId], this.httpOptions);
+
 }
 
 getWishlistForUserWithImg(userId: string): Observable<ProfileWithImg>{
   return this.http.get<ProfileWithImg>(`http://localhost:3000/profileWithImg/wishlist/${userId}`);
+}
+
+addFriendToUserWithImg(userId: string, friendId: string): Observable<ProfileWithImg[]>{
+  return this.http.patch<ProfileWithImg[]>(`http://localhost:3000/profileWithImg/friend/${userId}`, [friendId], this.httpOptions);
+}
+
+removeFriendFromUserWithImg(userId: string, friendId: string): Observable<ProfileWithImg[]>{
+  return this.http.delete<ProfileWithImg[]>(`http://localhost:3000/profileWithImg/friend/${userId}/${friendId}`, this.httpOptions);
 }
 
 

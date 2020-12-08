@@ -12,9 +12,9 @@
         </div>
     </div>
     <div class="container-fluid" *ngIf="friendProfile.wishlist">
-        <div class="row justify-content-around">
+        <div class="row jusitify-content-start">
             <ng-container *ngIf="friendProfile.wishlist" >
-                <div *ngFor="let item of friendProfile.wishlist" class="col-lg-6 col-md-6 col-xs-12" style="padding: 15px;">
+                <div *ngFor="let item of friendProfile.wishlist" class="col-xl-4 col-lg-4 col-md-6 col-xs-12" style="padding: 15px;">
                         <app-item-card [itemName]="item.itemName" [vendorName]="item.vendor" [itemPrice]="item.price" [imageUrl] = "item.image" [url]="item.url" [itemId]= "item._id" buttonName="none"></app-item-card>
                 </div>
             </ng-container>

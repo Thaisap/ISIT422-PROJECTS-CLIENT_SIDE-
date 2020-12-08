@@ -1,55 +1,64 @@
 
   <div id="container">
-    <div [ngClass]="{'leftMain':showMain, 'panelLeft':!showMain}">
-      <h1> Find Friends</h1>
-      <div id="inputBox">
-        <input #email (keyup.enter)="this.onSearch(email.value)"/>
-        <div><button style="margin-bottom: 1.5rem;" (click)="this.onSearch(email.value)">search</button></div>
-        <div class="searchResult users m-0 text-left" *ngIf=searchResult>
-          Result:<br>
-          <li class="col-1-4" >
-          FirstName:{{searchResult.firstName}}<br>
-          LastName: {{searchResult.lastName}} 
-          </li>
-        </div>
-        <hr style="margin-bottom: 2rem;">
-        <button style="padding: 1.25rem 2rem 1rem 2rem" (click)="this.openModal(addFriend)">Invite Friend</button>
-        <hr>
-      </div>
-      <h1>My Friends<img src="../../assets/EditIcon.png"></h1>
-      <ul class="users">
-        <span>
-          <li *ngFor="let user of friend" class="col-1-4" (click)="getCurrentUser(user._id)">
-            FirstName:{{user.firstName}} <br>
-            LastName: {{user.lastName}}  
-          </li>     
-        </span>  
-      </ul>
-    </div>
+    <h1> Find Friends</h1>
+    <div id="inputBox">
+      <input #email (keyup.enter)="this.onSearch(email.value); email.value=''"/>
+      <div><button style="margin-bottom: 1.5rem;" (click)="this.onSearch(email.value); email.value=''">search</button></div>
+      <div *ngIf="searched" style="padding-top: 25px; padding-bottom: 25px;">
 
-    <div [ngClass]="{'rightMain':!showMain, 'panelRight':showMain}">
-      <div class="modal-header ngbModal mt-5">
-        <button type="button" class="close" aria-label="Close" (click)="this.showMain = !this.showMain">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body ngbModal row" *ngIf="this.selectedUser">
-        <div class="col-5">
-          <img class="profileImg" src="../assets/white-seahorse-profile.png"/>
-          <!-- <button class="profileBtn mt-5" (click)="saveFriendId(this.selectedUser._id)" [routerLink]="['/friend-wishlist']" [state]="{ friendId: '5fbd5f785814945baedc06bc' }">See My Wishlist</button> -->
-          <button class="profileBtn mt-5" (click)="saveFriendId(this.selectedUser._id)" [routerLink]="['/friend-wishlist']" [state]="{ friendId: '5fbd71a6620f1164e5a3142d' }">See My Wishlist</button>
+      
+        <div class="container-fluid" *ngIf="!searchResult">
+          <h2 class="sub-font" style="display: block; text-align: left;">No User Found</h2>
         </div>
-        <div class="col-7">
-          <div class="profileBody">
-            {{this.selectedUser.firstName}} {{this.selectedUser.lastName}} <br>
-            {{this.selectedUser.bio}}
-          </div>
-          <div class="tag" *ngFor="let tag of selectedUser.tag" [routerLink]="['/search', tag.name]" [state]="{ page: 'friend' }">{{tag.name}}</div>
+        <div *ngIf="searchedFriendImageData">
+          <h2 class="sub-font" style="display: block; text-align: left;">Click on Friend to Add:</h2>
+          <div class="d-lg-flex justify-content-center" style="margin: 15px;">
+            <mat-card style="border: 10px solid black; width:270px;" type="button" (click)="addFriend(searchResult._id)">
+              <img mat-card-image [src]="searchedFriendImageData" style="object-fit: cover; width: 250px; height: 280px; border-bottom: 3px solid black;" alt="photo of user">
+              <mat-card-content class="sub-font bold">
+                  <h2 style="text-align: center;">{{searchResult.firstName}} {{searchResult.lastName}}</h2>
+              </mat-card-content>
+            </mat-card>
+          </div>          
         </div>
+      
       </div>
+      
+      <hr style="margin-bottom: 2rem;">
+      <button style="padding: 1.25rem 2rem 1rem 2rem" (click)="this.openModal(inviteFriend)">Invite Friend</button>
+      <hr>
     </div>
+      
+      <app-header-edit title="My Friends" (clickFunc)="updateFriend()"></app-header-edit>
+      <div class="container-fluid p-0">
+        <div class="d-lg-flex justify-content-start">
+          <div *ngIf="friendList.length == 0">
+            <p class="sub-font" style="display: block; padding-left: 45px; font-size: 1.6em;">No Friends Added</p>
+          </div>
+          <ng-container *ngIf="friendImageData">
+            <div [hidden]="editFriend" *ngFor="let friend of friendList; let i = index" style="margin: 15px;">
+              <mat-card style="border: 10px solid black; width:270px;" (click)="saveFriendId(friend._id)" routerLink="/friend/{{friend.firstName}}{{friend.lastName}}" [state]="{ friendId: friend._id }">
+                <img mat-card-image [src]="friendImageData[i]" style="object-fit: cover; width: 250px; height: 280px; border-bottom: 3px solid black;" alt="photo of user">
+                <mat-card-content class="sub-font bold">
+                    <h2 style="text-align: center;">{{friend.firstName}} {{friend.lastName}}</h2>
+                </mat-card-content>
+              </mat-card>
+            </div>
+            <div [hidden]="!editFriend" *ngFor="let friend of friendList; let i = index" style="margin: 15px;">
+              <mat-card [hidden]="removeFriend" class="friendCard" style="border: 10px solid black; width:270px;">
+                <img mat-card-image [src]="friendImageData[i]" style="object-fit: cover; width: 250px; height: 280px; border-bottom: 3px solid black;" alt="photo of user">
+                <mat-card-content class="sub-font bold">
+                    <h2 style="text-align: center;">{{friend.firstName}} {{friend.lastName}}</h2>
+                </mat-card-content>
+                <div class="friendCard-remove" type="button" (click)="deleteFriend(friend._id)"></div>
+              </mat-card>
+            </div>
+          </ng-container>        
+        </div>
+      </div>
   </div>
-<ng-template #addFriend let-modal>
+  
+<ng-template #inviteFriend let-modal>
   <div class="modal-header ngbModal">
     <h2>Invite Friend</h2>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
@@ -63,3 +72,11 @@
     <div class="text-center"><button (click)="sendInvite(invite.value)">Send</button></div>  
   </div>
 </ng-template>
+
+<ngb-toast class="toast style-toast" *ngIf="showToast" [autohide]="true" [delay]="3000" (hide)="showToast = false">
+  <ng-template ngbToastHeader>
+      <img src="../../assets/GoGiftLogo.png" style="width: 50px" alt="go gift logo">
+      <h5 class="main-font bold" style="margin-left: 15px; color: white; line-height: 50px;">GoGift</h5>
+  </ng-template>
+  Friend is added to your friend list!
+</ngb-toast>
