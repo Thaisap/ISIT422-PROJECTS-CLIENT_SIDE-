@@ -53,4 +53,13 @@ export class NavigationComponent implements OnInit {
       this.profileWithImg = userInfo;
     });
   }
+
+
+  logout(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('accountId');
+    localStorage.removeItem('friendId');
+    this.router.navigate(['login']);
+  }
+  
 }

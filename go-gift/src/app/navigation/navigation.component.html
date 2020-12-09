@@ -4,6 +4,7 @@
             <div class="col-lg-4 d-lg-flex p-0 justify-content-center align-items-end main-left">
                 <div style="width: 100%;">
                     <img src="../assets/gogift-navbar.png" style="width: 200px; position: absolute; left: 20px; top: 0;" alt="go-gift logo">
+                    <button class="tag" style="width: 160px; position: absolute; right: 20px; top: 3px;" (click)="logout()"> Logout   </button>
                     <ng-container *ngIf="imageData">
                         <img [src]="imageData" style="margin-left: 35%; width: 252px;" alt="profile image">
                     </ng-container>

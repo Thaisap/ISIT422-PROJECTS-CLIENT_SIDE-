@@ -27,9 +27,9 @@ username= '';
   ngOnInit() {
   }
 
-  logout(){
+/*   logout(){
     localStorage.removeItem('token');
     this._router.navigate(['login']);
-  }
+  } */
 
 }
